@@ -40,8 +40,8 @@ const Profile = () => {
       if (profileError) throw profileError;
 
       toast({
-        title: "Perfil actualizado",
-        description: "Los cambios han sido guardados correctamente",
+        title: "Profile updated",
+        description: "Your changes have been saved successfully",
       });
     } catch (error: any) {
       toast({
@@ -89,8 +89,8 @@ const Profile = () => {
       if (profileError) throw profileError;
 
       toast({
-        title: "Avatar actualizado",
-        description: "Tu imagen de perfil ha sido actualizada",
+        title: "Avatar updated",
+        description: "Your profile picture has been updated",
       });
     } catch (error: any) {
       toast({
@@ -126,7 +126,7 @@ const Profile = () => {
               </label>
             </div>
             <div>
-              <h2 className="text-2xl font-bold">{username || "Usuario"}</h2>
+              <h2 className="text-2xl font-bold">{username || "User"}</h2>
               <p className="text-sm text-muted-foreground flex items-center gap-1">
                 <Mail className="h-4 w-4" />
                 {user?.email}
@@ -137,16 +137,16 @@ const Profile = () => {
         <CardContent>
           <form onSubmit={handleUpdateProfile} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="username">Nombre de usuario</Label>
+              <Label htmlFor="username">Username</Label>
               <Input
                 id="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="Tu nombre de usuario"
+                placeholder="Your username"
               />
             </div>
             <Button type="submit" disabled={isLoading}>
-              {isLoading ? "Guardando..." : "Guardar cambios"}
+              {isLoading ? "Saving..." : "Save changes"}
             </Button>
           </form>
         </CardContent>
