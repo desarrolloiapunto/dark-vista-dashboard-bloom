@@ -37,7 +37,7 @@ const App = () => (
                         <Breadcrumb />
                         <main>
                           <Routes>
-                            <Route path="/" element={<Index />} />
+                            <Route index element={<Index />} />
                             <Route path="/analytics" element={<Analytics />} />
                             <Route path="*" element={<NotFound />} />
                           </Routes>
@@ -46,7 +46,11 @@ const App = () => (
                     </>
                   </ProtectedRoute>
                 }
-              />
+              >
+                <Route index element={<Index />} />
+                <Route path="analytics" element={<Analytics />} />
+                <Route path="*" element={<NotFound />} />
+              </Route>
             </Routes>
           </div>
         </BrowserRouter>
