@@ -1,5 +1,5 @@
 
-import { Bell, Settings, LogOut } from "lucide-react";
+import { Bell, Settings, LogOut, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { supabase } from "@/integrations/supabase/client";
@@ -44,12 +44,17 @@ export function Header() {
           >
             <LogOut size={20} />
           </button>
-          <Avatar className="h-8 w-8">
-            <AvatarImage src={user?.user_metadata?.avatar_url} alt={user?.email} />
-            <AvatarFallback>
-              {user?.email?.[0]?.toUpperCase() || "U"}
-            </AvatarFallback>
-          </Avatar>
+          <button
+            onClick={() => navigate("/profile")}
+            className="flex items-center gap-2"
+          >
+            <Avatar className="h-8 w-8">
+              <AvatarImage src={user?.user_metadata?.avatar_url} alt={user?.email} />
+              <AvatarFallback>
+                {user?.email?.[0]?.toUpperCase() || "U"}
+              </AvatarFallback>
+            </Avatar>
+          </button>
         </div>
       </div>
     </header>
