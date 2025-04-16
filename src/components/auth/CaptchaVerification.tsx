@@ -7,6 +7,8 @@ interface CaptchaVerificationProps {
   onExpire: () => void;
 }
 
+const siteKey = import.meta.env.VITE_HCAPTCHA_SITEKEY;
+
 export function CaptchaVerification({
   captchaRef,
   onVerify,
@@ -15,7 +17,7 @@ export function CaptchaVerification({
   return (
     <div className="flex justify-center my-4">
       <HCaptcha
-        sitekey="dc30e98c-779a-4070-ae06-4c18aa2eca20"
+        sitekey={siteKey}
         onVerify={onVerify}
         onExpire={onExpire}
         ref={captchaRef}
