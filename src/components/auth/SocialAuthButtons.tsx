@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+// Importar íconos desde Lucide React
+import { FaGoogle, FaFacebookF } from "react-icons/fa";
 
 export function SocialAuthButtons() {
   const { toast } = useToast();
@@ -55,6 +57,7 @@ export function SocialAuthButtons() {
           className="w-full"
           onClick={signInWithGoogle}
         >
+          <FaGoogle size={16} />
           Google
         </Button>
         <Button
@@ -63,6 +66,7 @@ export function SocialAuthButtons() {
           className="w-full"
           onClick={signInWithFacebook}
         >
+          <FaFacebookF size={16} />
           Facebook
         </Button>
       </div>
