@@ -9,15 +9,19 @@ export default function Auth() {
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex justify-center gap-2 md:justify-start">
           <a href="#" className="flex items-center gap-2 font-medium">
-            <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
-              <GalleryVerticalEnd className="size-4" />
-            </div>
-            Acme Inc.
+            <img
+              src="/img/logo.png"
+              alt="Logo IA Punto"
+              width={180}
+              height="auto"
+            />
           </a>
         </div>
         <div className="flex flex-1 items-center justify-center">
           <Card className="w-full max-w-md p-6 space-y-6">
-            <h2 className="text-2xl font-bold text-center">Acceso</h2>
+            <h2 className="text-2xl font-bold text-center">
+              Acceso | qBit CRM
+            </h2>
             <AuthForm />
             <SocialAuthButtons />
           </Card>
