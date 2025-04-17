@@ -1,5 +1,14 @@
 
-import { LayoutDashboard, BarChart3 } from "lucide-react";
+import { 
+  LayoutDashboard, 
+  MessageSquare, 
+  Mail, 
+  Users, 
+  TrendingUp, 
+  Zap, 
+  Image,
+  UserRound
+} from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -13,9 +22,39 @@ export function PrimarySidebar() {
       title: "Dashboard"
     },
     {
-      icon: BarChart3,
-      path: "/analytics",
-      title: "Análisis"
+      icon: MessageSquare,
+      path: "/conversations",
+      title: "Conversaciones"
+    },
+    {
+      icon: Mail,
+      path: "/emails",
+      title: "Correos"
+    },
+    {
+      icon: Users,
+      path: "/crm",
+      title: "CRM"
+    },
+    {
+      icon: TrendingUp,
+      path: "/marketing",
+      title: "Marketing"
+    },
+    {
+      icon: Zap,
+      path: "/ads",
+      title: "Ads"
+    },
+    {
+      icon: Image,
+      path: "/content",
+      title: "Manejo de Contenido"
+    },
+    {
+      icon: UserRound,
+      path: "/leads",
+      title: "Leads"
     }
   ];
 
@@ -31,7 +70,10 @@ export function PrimarySidebar() {
             to={path}
             className={cn(
               "flex h-10 w-10 items-center justify-center rounded-md text-muted-foreground transition-colors hover:text-foreground",
-              location.pathname === path && "bg-primary text-primary-foreground"
+              location.pathname.startsWith(path === "/" ? "/analytics" : path) ||
+                (path === "/" && location.pathname === "/") 
+                ? "bg-primary text-primary-foreground" 
+                : ""
             )}
             title={title}
           >
