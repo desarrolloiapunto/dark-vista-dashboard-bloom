@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -37,7 +36,7 @@ const App = () => (
                   </ProtectedRoute>
                 }
               >
-                {/* Dashboard routes */}
+                {/* Existing routes */}
                 <Route index element={<Index />} />
                 <Route path="analytics" element={<Analytics />} />
 
@@ -115,7 +114,7 @@ const AppLayout = () => (
     <Header />
     <PrimarySidebar />
     <SecondarySidebar />
-    <div className="pl-72">
+    <div className="pl-72 pt-14">
       <Breadcrumb />
       <main className="p-4">
         <Routes>

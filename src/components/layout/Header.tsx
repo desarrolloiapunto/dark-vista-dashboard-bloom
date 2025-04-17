@@ -1,6 +1,6 @@
 
 import { Bell, Settings, LogOut, User } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -8,8 +8,34 @@ import { useAuth } from "../auth/AuthProvider";
 
 export function Header() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
   const { user } = useAuth();
+
+  // Function to get the page title based on the current path
+  const getPageTitle = () => {
+    const pathSegments = location.pathname.split('/').filter(Boolean);
+    
+    // Special case for root path
+    if (pathSegments.length === 0) return 'Dashboard';
+
+    // Map of known routes to their titles
+    const routeTitles: {[key: string]: string} = {
+      'conversations': 'Conversaciones',
+      'emails': 'Correos',
+      'crm': 'CRM',
+      'marketing': 'Marketing',
+      'ads': 'Ads',
+      'content': 'Manejo de Contenido',
+      'leads': 'Leads',
+      'profile': 'Perfil de Usuario',
+      'analytics': 'Análisis'
+    };
+
+    // First segment is the main route
+    const mainRoute = pathSegments[0];
+    return routeTitles[mainRoute] || mainRoute.charAt(0).toUpperCase() + mainRoute.slice(1);
+  };
 
   const handleLogout = async () => {
     try {
@@ -26,10 +52,10 @@ export function Header() {
   };
 
   return (
-    <header className="border-b border-white/10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="fixed top-0 left-0 right-0 z-30 border-b border-white/10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex h-14 items-center px-4 gap-4">
         <div className="flex flex-1">
-          <span className="text-xl font-bold">ModernDash</span>
+          <span className="text-xl font-bold">{getPageTitle()}</span>
         </div>
         <div className="flex items-center gap-4">
           <button className="text-muted-foreground hover:text-foreground transition-colors">
