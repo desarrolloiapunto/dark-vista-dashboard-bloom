@@ -29,24 +29,28 @@ import {
   LineChart as LineChartIcon,
   Facebook,
   Instagram,
-  Send
+  Send,
 } from "lucide-react";
 
 export function SecondarySidebar() {
   const location = useLocation();
-  
+
   // Dashboard actions
   const dashboardActions = [
     { icon: Home, label: "Resumen General", path: "/" },
-    { icon: BarChart3, label: "Análisis por Módulos", path: "/analytics" }
+    { icon: BarChart3, label: "Análisis por Módulos", path: "/analytics" },
   ];
 
   // Conversations actions - simplified
   const conversationsActions = [
-    { icon: Inbox, label: "Bandeja de Entrada Unificada", path: "/conversations" },
     { icon: BarChart3, label: "Dashboard", path: "/conversations/dashboard" },
-    { icon: ZapIcon, label: "Flujos de Trabajo", path: "/conversations/workflows" },
-    { icon: Settings, label: "Configuración", path: "/conversations/settings" }
+    { icon: Inbox, label: "Bandeja de Entrada", path: "/conversations" },
+    {
+      icon: ZapIcon,
+      label: "Flujos de Trabajo",
+      path: "/conversations/workflows",
+    },
+    { icon: Settings, label: "Configuración", path: "/conversations/settings" },
   ];
 
   // Email actions
@@ -54,7 +58,11 @@ export function SecondarySidebar() {
     { icon: Inbox, label: "Bandeja de Entrada", path: "/emails/inbox" },
     { icon: Trash2, label: "Papelera", path: "/emails/trash" },
     { icon: FileText, label: "Plantillas", path: "/emails/templates" },
-    { icon: MailPlus, label: "Campañas de Mail Marketing", path: "/emails/campaigns" }
+    {
+      icon: MailPlus,
+      label: "Campañas de Mail Marketing",
+      path: "/emails/campaigns",
+    },
   ];
 
   // CRM actions
@@ -63,42 +71,70 @@ export function SecondarySidebar() {
     { icon: Building2, label: "Empresas", path: "/crm/companies" },
     { icon: CheckSquare, label: "Tareas", path: "/crm/tasks" },
     { icon: LineChart, label: "Oportunidades", path: "/crm/opportunities" },
-    { icon: PieChart, label: "Reportes", path: "/crm/reports" }
+    { icon: PieChart, label: "Reportes", path: "/crm/reports" },
   ];
 
   // Marketing actions
   const marketingActions = [
-    { icon: TrendingUpIcon, label: "Campañas Publicitarias", path: "/marketing/campaigns" },
+    {
+      icon: TrendingUpIcon,
+      label: "Campañas Publicitarias",
+      path: "/marketing/campaigns",
+    },
     { icon: ZapIcon, label: "Automatización", path: "/marketing/automation" },
     { icon: FileBarChart, label: "Anuncios", path: "/marketing/ads" },
-    { icon: BarChart, label: "Reportes", path: "/marketing/reports" }
+    { icon: BarChart, label: "Reportes", path: "/marketing/reports" },
   ];
 
   // Ads actions
   const adsActions = [
-    { icon: TrendingUpIcon, label: "Campañas de Anuncios", path: "/ads/campaigns" },
+    {
+      icon: TrendingUpIcon,
+      label: "Campañas de Anuncios",
+      path: "/ads/campaigns",
+    },
     { icon: Share2, label: "Publicación Unificada", path: "/ads/publish" },
     { icon: LineChartIcon, label: "Optimización", path: "/ads/optimization" },
-    { icon: BarChart, label: "Reportes y Métricas", path: "/ads/reports" }
+    { icon: BarChart, label: "Reportes y Métricas", path: "/ads/reports" },
   ];
 
   // Content management actions
   const contentActions = [
-    { icon: Calendar, label: "Calendario de Publicaciones", path: "/content/calendar" },
+    {
+      icon: Calendar,
+      label: "Calendario de Publicaciones",
+      path: "/content/calendar",
+    },
     { icon: Share2, label: "Publicación Unificada", path: "/content/publish" },
-    { icon: Settings, label: "Personalización por Red", path: "/content/customize" },
-    { icon: BookOpen, label: "Biblioteca de Contenido", path: "/content/library" },
-    { icon: BarChart, label: "Reportes de Engagement", path: "/content/reports" }
+    {
+      icon: Settings,
+      label: "Personalización por Red",
+      path: "/content/customize",
+    },
+    {
+      icon: BookOpen,
+      label: "Biblioteca de Contenido",
+      path: "/content/library",
+    },
+    {
+      icon: BarChart,
+      label: "Reportes de Engagement",
+      path: "/content/reports",
+    },
   ];
 
   // Leads actions
   const leadsActions = [
     { icon: UsersIcon, label: "Gestión de Leads", path: "/leads/management" },
     { icon: MapPin, label: "Origen de Leads", path: "/leads/sources" },
-    { icon: UserCheck, label: "Asignación de Leads", path: "/leads/assignment" },
+    {
+      icon: UserCheck,
+      label: "Asignación de Leads",
+      path: "/leads/assignment",
+    },
     { icon: History, label: "Seguimiento de Leads", path: "/leads/tracking" },
     { icon: ZapIcon, label: "Automatización", path: "/leads/automation" },
-    { icon: BarChart, label: "Reportes", path: "/leads/reports" }
+    { icon: BarChart, label: "Reportes", path: "/leads/reports" },
   ];
 
   // Determine which actions to show based on the current path
@@ -134,9 +170,7 @@ export function SecondarySidebar() {
   return (
     <div className="fixed left-16 top-0 z-30 h-screen w-56 border-r border-white/10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex h-14 items-center px-4 border-b border-white/10">
-        <h2 className="text-lg font-semibold">
-          {title}
-        </h2>
+        <h2 className="text-lg font-semibold">{title}</h2>
       </div>
       <div className="p-4 flex flex-col gap-2">
         {actions.map(({ icon: Icon, label, path }) => (
