@@ -30,7 +30,7 @@ import {
   LineChart as LineChartIcon,
   Facebook,
   Instagram,
-  Telegram
+  Send
 } from "lucide-react";
 
 export function SecondarySidebar() {
@@ -48,7 +48,7 @@ export function SecondarySidebar() {
     { icon: MessageCircle, label: "WhatsApp", path: "/conversations/channels/whatsapp" },
     { icon: Facebook, label: "Facebook", path: "/conversations/channels/facebook" },
     { icon: Instagram, label: "Instagram", path: "/conversations/channels/instagram" },
-    { icon: Telegram, label: "Telegram", path: "/conversations/channels/telegram" },
+    { icon: Send, label: "Telegram", path: "/conversations/channels/telegram" },
     { icon: BarChart3, label: "Dashboard", path: "/conversations/dashboard" },
     { icon: Settings, label: "Configuración", path: "/conversations/settings" }
   ];

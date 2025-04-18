@@ -1,5 +1,5 @@
 
-import { Facebook, Instagram, MessageCircle, Telegram, MessageSquare } from "lucide-react";
+import { Facebook, Instagram, MessageCircle, Send, MessageSquare } from "lucide-react";
 import { Channel } from "@/types/conversations";
 
 export const getChannelIcon = (channel: Channel, props = {}) => {
@@ -11,7 +11,7 @@ export const getChannelIcon = (channel: Channel, props = {}) => {
     case "instagram":
       return <Instagram {...props} />;
     case "telegram":
-      return <Telegram {...props} />;
+      return <Send {...props} />;
     default:
       return <MessageSquare {...props} />;
   }
