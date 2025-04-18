@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,6 +14,7 @@ import Analytics from "./pages/Analytics";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
+import EmailsPage from "./pages/emails/EmailsPage";
 
 // Import conversations pages
 import ConversationsPage from "./pages/conversations/ConversationsPage";
@@ -45,19 +45,15 @@ const App = () => (
                 <Route index element={<Index />} />
                 <Route path="analytics" element={<Analytics />} />
 
-                {/* Conversations routes - simplified */}
+                {/* Conversations routes */}
                 <Route path="conversations" element={<ConversationsPage />} />
                 <Route path="conversations/:conversationId" element={<ConversationsPage />} />
                 <Route path="conversations/dashboard" element={<ConversationsPage />} />
                 <Route path="conversations/workflows" element={<WorkflowsPage />} />
                 <Route path="conversations/settings" element={<Placeholder title="Configuración de Conversaciones" />} />
 
-                {/* Email routes */}
-                <Route path="emails/inbox" element={<Placeholder title="Bandeja de Entrada de Correos" />} />
-                <Route path="emails/trash" element={<Placeholder title="Papelera de Correos" />} />
-                <Route path="emails/templates" element={<Placeholder title="Plantillas de Correo" />} />
-                <Route path="emails/campaigns" element={<Placeholder title="Campañas de Mail Marketing" />} />
-                <Route path="emails" element={<Navigate to="/emails/inbox" replace />} />
+                {/* Email routes - Updated */}
+                <Route path="emails/*" element={<EmailsPage />} />
 
                 {/* CRM routes */}
                 <Route path="crm/contacts" element={<Placeholder title="Contactos" />} />
@@ -98,10 +94,8 @@ const App = () => (
                 <Route path="leads/reports" element={<Placeholder title="Reportes de Leads" />} />
                 <Route path="leads" element={<Navigate to="/leads/management" replace />} />
 
-                {/* Profile */}
+                {/* Profile and Not found */}
                 <Route path="profile" element={<Profile />} />
-
-                {/* Not found */}
                 <Route path="*" element={<NotFound />} />
               </Route>
             </Routes>
@@ -114,7 +108,7 @@ const App = () => (
   </QueryClientProvider>
 );
 
-// App Layout component to avoid repetition
+// Update AppLayout to correctly render EmailsPage
 const AppLayout = () => (
   <>
     <Header />
@@ -128,7 +122,7 @@ const AppLayout = () => (
           <Route path="analytics" element={<Analytics />} />
           <Route path="conversations/*" element={<ConversationsPage />} />
           <Route path="conversations/workflows" element={<WorkflowsPage />} />
-          <Route path="emails/*" element={<Placeholder />} />
+          <Route path="emails/*" element={<EmailsPage />} />
           <Route path="crm/*" element={<Placeholder />} />
           <Route path="marketing/*" element={<Placeholder />} />
           <Route path="ads/*" element={<Placeholder />} />
