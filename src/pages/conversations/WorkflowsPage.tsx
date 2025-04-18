@@ -54,6 +54,8 @@ interface NodeData {
   prompt?: string;
   condition?: string;
   action?: string;
+  // Add index signature to satisfy Record<string, unknown>
+  [key: string]: unknown;
 }
 
 const WorkflowsPage = () => {
