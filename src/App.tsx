@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,7 +16,10 @@ import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
 
-// Import placeholder pages for the new modules
+// Import conversations pages
+import ConversationsPage from "./pages/conversations/ConversationsPage";
+
+// Import placeholder for other modules
 import Placeholder from "./pages/Placeholder";
 
 const queryClient = new QueryClient();
@@ -40,10 +44,11 @@ const App = () => (
                 <Route index element={<Index />} />
                 <Route path="analytics" element={<Analytics />} />
 
-                {/* Conversations routes */}
-                <Route path="conversations" element={<Placeholder title="Dashboard de Conversaciones" />} />
-                <Route path="conversations/inbox" element={<Placeholder title="Bandeja de Entrada Unificada" />} />
-                <Route path="conversations/channels" element={<Placeholder title="Bandejas por Canal" />} />
+                {/* Conversations routes - updated to use actual components */}
+                <Route path="conversations" element={<ConversationsPage />} />
+                <Route path="conversations/:conversationId" element={<ConversationsPage />} />
+                <Route path="conversations/inbox" element={<ConversationsPage />} />
+                <Route path="conversations/channels" element={<ConversationsPage />} />
                 <Route path="conversations/settings" element={<Placeholder title="Configuración de Conversaciones" />} />
 
                 {/* Email routes */}
@@ -120,7 +125,7 @@ const AppLayout = () => (
         <Routes>
           <Route index element={<Index />} />
           <Route path="analytics" element={<Analytics />} />
-          <Route path="conversations/*" element={<Placeholder />} />
+          <Route path="conversations/*" element={<ConversationsPage />} />
           <Route path="emails/*" element={<Placeholder />} />
           <Route path="crm/*" element={<Placeholder />} />
           <Route path="marketing/*" element={<Placeholder />} />

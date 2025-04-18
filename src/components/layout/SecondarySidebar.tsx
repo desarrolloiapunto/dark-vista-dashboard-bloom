@@ -27,7 +27,10 @@ import {
   MapPin,
   History,
   Zap as ZapIcon,
-  LineChart as LineChartIcon
+  LineChart as LineChartIcon,
+  Facebook,
+  Instagram,
+  Telegram
 } from "lucide-react";
 
 export function SecondarySidebar() {
@@ -39,11 +42,14 @@ export function SecondarySidebar() {
     { icon: BarChart3, label: "Análisis por Módulos", path: "/analytics" }
   ];
 
-  // Conversations actions
+  // Conversations actions - updated with channel specific options
   const conversationsActions = [
-    { icon: BarChart3, label: "Dashboard de Conversaciones", path: "/conversations" },
-    { icon: Inbox, label: "Bandeja de Entrada Unificada", path: "/conversations/inbox" },
-    { icon: MessageCircle, label: "Bandejas por Canal", path: "/conversations/channels" },
+    { icon: Inbox, label: "Bandeja de Entrada Unificada", path: "/conversations" },
+    { icon: MessageCircle, label: "WhatsApp", path: "/conversations/channels/whatsapp" },
+    { icon: Facebook, label: "Facebook", path: "/conversations/channels/facebook" },
+    { icon: Instagram, label: "Instagram", path: "/conversations/channels/instagram" },
+    { icon: Telegram, label: "Telegram", path: "/conversations/channels/telegram" },
+    { icon: BarChart3, label: "Dashboard", path: "/conversations/dashboard" },
     { icon: Settings, label: "Configuración", path: "/conversations/settings" }
   ];
 
