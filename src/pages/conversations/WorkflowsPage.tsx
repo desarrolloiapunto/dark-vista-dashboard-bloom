@@ -47,17 +47,26 @@ const nodeTypes = {
   action: ActionNode,
 };
 
+// Define the type for our node data
+interface NodeData {
+  label?: string;
+  content?: string;
+  prompt?: string;
+  condition?: string;
+  action?: string;
+}
+
 const WorkflowsPage = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const [selectedNode, setSelectedNode] = useState<Node | null>(null);
+  const [selectedNode, setSelectedNode] = useState<Node<NodeData> | null>(null);
   
   const onConnect = useCallback(
     (params: Edge | Connection) => setEdges((eds) => addEdge(params, eds)),
     [setEdges]
   );
 
-  const onNodeClick = useCallback((event: React.MouseEvent, node: Node) => {
+  const onNodeClick = useCallback((event: React.MouseEvent, node: Node<NodeData>) => {
     setSelectedNode(node);
   }, []);
 
