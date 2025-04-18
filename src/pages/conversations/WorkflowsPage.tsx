@@ -166,7 +166,7 @@ const WorkflowsPage = () => {
             <CardHeader className="pb-2">
               <CardTitle className="text-md">Editar Nodo</CardTitle>
               <CardDescription>
-                {selectedNode.data.label || selectedNode.type}
+                {selectedNode.data?.label || selectedNode.type}
               </CardDescription>
             </CardHeader>
             <CardContent>
