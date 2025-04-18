@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { EmailSidebar } from "./components/EmailSidebar";
 import { EmailList } from "./components/EmailList";
+import { MarketingDashboard } from "./components/MarketingDashboard";
 import { useState } from "react";
 
 export type EmailView = "inbox" | "sent" | "drafts" | "spam" | "trash" | "marketing";

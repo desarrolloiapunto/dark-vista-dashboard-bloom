@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 export function MarketingDashboard() {
   return (
     <div className="space-y-4">
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium">Campañas Activas</CardTitle>
@@ -74,6 +74,28 @@ export function MarketingDashboard() {
                   <div key={segment} className="py-3 flex justify-between items-center">
                     <span>{segment}</span>
                     <span className="text-muted-foreground">2,145 contactos</span>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value="templates">
+          <Card>
+            <CardHeader>
+              <CardTitle>Plantillas Disponibles</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="divide-y">
+                {[
+                  "Bienvenida",
+                  "Promoción",
+                  "Newsletter",
+                  "Recordatorio"
+                ].map((template) => (
+                  <div key={template} className="py-3 flex justify-between items-center">
+                    <span>{template}</span>
+                    <span className="text-muted-foreground">Editar</span>
                   </div>
                 ))}
               </div>
