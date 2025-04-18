@@ -1,4 +1,3 @@
-
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -42,14 +41,11 @@ export function SecondarySidebar() {
     { icon: BarChart3, label: "Análisis por Módulos", path: "/analytics" }
   ];
 
-  // Conversations actions - updated with channel specific options
+  // Conversations actions - simplified
   const conversationsActions = [
     { icon: Inbox, label: "Bandeja de Entrada Unificada", path: "/conversations" },
-    { icon: MessageCircle, label: "WhatsApp", path: "/conversations/channels/whatsapp" },
-    { icon: Facebook, label: "Facebook", path: "/conversations/channels/facebook" },
-    { icon: Instagram, label: "Instagram", path: "/conversations/channels/instagram" },
-    { icon: Send, label: "Telegram", path: "/conversations/channels/telegram" },
     { icon: BarChart3, label: "Dashboard", path: "/conversations/dashboard" },
+    { icon: ZapIcon, label: "Flujos de Trabajo", path: "/conversations/workflows" },
     { icon: Settings, label: "Configuración", path: "/conversations/settings" }
   ];
 

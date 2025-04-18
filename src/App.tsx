@@ -18,6 +18,7 @@ import Profile from "./pages/Profile";
 
 // Import conversations pages
 import ConversationsPage from "./pages/conversations/ConversationsPage";
+import WorkflowsPage from "./pages/conversations/WorkflowsPage";
 
 // Import placeholder for other modules
 import Placeholder from "./pages/Placeholder";
@@ -44,11 +45,11 @@ const App = () => (
                 <Route index element={<Index />} />
                 <Route path="analytics" element={<Analytics />} />
 
-                {/* Conversations routes - updated to use actual components */}
+                {/* Conversations routes - simplified */}
                 <Route path="conversations" element={<ConversationsPage />} />
                 <Route path="conversations/:conversationId" element={<ConversationsPage />} />
-                <Route path="conversations/inbox" element={<ConversationsPage />} />
-                <Route path="conversations/channels" element={<ConversationsPage />} />
+                <Route path="conversations/dashboard" element={<ConversationsPage />} />
+                <Route path="conversations/workflows" element={<WorkflowsPage />} />
                 <Route path="conversations/settings" element={<Placeholder title="Configuración de Conversaciones" />} />
 
                 {/* Email routes */}
@@ -126,6 +127,7 @@ const AppLayout = () => (
           <Route index element={<Index />} />
           <Route path="analytics" element={<Analytics />} />
           <Route path="conversations/*" element={<ConversationsPage />} />
+          <Route path="conversations/workflows" element={<WorkflowsPage />} />
           <Route path="emails/*" element={<Placeholder />} />
           <Route path="crm/*" element={<Placeholder />} />
           <Route path="marketing/*" element={<Placeholder />} />
