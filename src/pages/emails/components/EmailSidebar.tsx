@@ -1,8 +1,21 @@
 
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Inbox, Send, FileText, Trash2, AlertOctagon, Tag, Users, BarChart2, Mail } from "lucide-react";
+import { 
+  Inbox, 
+  Send, 
+  FileText, 
+  Trash2, 
+  AlertOctagon, 
+  Tag, 
+  Users, 
+  BarChart2, 
+  Mail, 
+  PlusCircle 
+} from "lucide-react";
 import type { EmailView } from "../EmailLayout";
+import { mockLabels } from "../data/mockEmails";
+import { cn } from "@/lib/utils";
 
 interface EmailSidebarProps {
   currentView: EmailView;
@@ -11,10 +24,10 @@ interface EmailSidebarProps {
 
 export function EmailSidebar({ currentView, onViewChange }: EmailSidebarProps) {
   const menuItems = [
-    { icon: Inbox, label: "Bandeja de entrada", view: "inbox" as const },
+    { icon: Inbox, label: "Bandeja de entrada", view: "inbox" as const, count: 3 },
     { icon: Send, label: "Enviados", view: "sent" as const },
-    { icon: FileText, label: "Borradores", view: "drafts" as const },
-    { icon: AlertOctagon, label: "Spam", view: "spam" as const },
+    { icon: FileText, label: "Borradores", view: "drafts" as const, count: 1 },
+    { icon: AlertOctagon, label: "Spam", view: "spam" as const, count: 5 },
     { icon: Trash2, label: "Papelera", view: "trash" as const },
   ];
 
@@ -26,7 +39,7 @@ export function EmailSidebar({ currentView, onViewChange }: EmailSidebarProps) {
       </Button>
       <ScrollArea className="h-[calc(100vh-12rem)]">
         <div className="space-y-2">
-          {menuItems.map(({ icon: Icon, label, view }) => (
+          {menuItems.map(({ icon: Icon, label, view, count }) => (
             <Button
               key={view}
               variant={currentView === view ? "secondary" : "ghost"}
@@ -34,28 +47,32 @@ export function EmailSidebar({ currentView, onViewChange }: EmailSidebarProps) {
               onClick={() => onViewChange(view)}
             >
               <Icon className="h-4 w-4" />
-              {label}
+              <span className="flex-1">{label}</span>
+              {count && (
+                <span className="bg-primary/10 text-primary rounded-full px-2 py-0.5 text-xs">
+                  {count}
+                </span>
+              )}
             </Button>
           ))}
+
           <div className="py-2">
-            <div className="text-sm font-semibold py-2">Etiquetas</div>
-            {["Personal", "Trabajo", "Facturas", "Importante"].map((label) => (
-              <Button key={label} variant="ghost" className="w-full justify-start gap-2">
-                <Tag className="h-4 w-4" />
-                {label}
+            <div className="flex items-center justify-between text-sm font-semibold py-2">
+              <span>Etiquetas</span>
+              <Button variant="ghost" size="icon" className="h-5 w-5">
+                <PlusCircle className="h-4 w-4" />
+              </Button>
+            </div>
+            {mockLabels.map((label) => (
+              <Button 
+                key={label.id} 
+                variant="ghost" 
+                className="w-full justify-start gap-2"
+              >
+                <Tag className={`h-4 w-4 text-${label.color}-500`} />
+                {label.name}
               </Button>
             ))}
-          </div>
-          <div className="py-2">
-            <div className="text-sm font-semibold py-2">Marketing</div>
-            <Button variant="ghost" className="w-full justify-start gap-2">
-              <BarChart2 className="h-4 w-4" />
-              Campañas
-            </Button>
-            <Button variant="ghost" className="w-full justify-start gap-2">
-              <Users className="h-4 w-4" />
-              Segmentación
-            </Button>
           </div>
         </div>
       </ScrollArea>
