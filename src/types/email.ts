@@ -1,5 +1,5 @@
 
-export type EmailView = "inbox" | "sent" | "drafts" | "spam" | "trash" | "marketing" | "starred";
+export type EmailView = "inbox" | "sent" | "drafts" | "spam" | "trash" | "marketing" | "starred" | "labels";
 
 export interface Email {
   id: string;
