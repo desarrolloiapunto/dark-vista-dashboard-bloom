@@ -30,6 +30,9 @@ import {
   Facebook,
   Instagram,
   Send,
+  AlertOctagon,
+  Star,
+  Tag,
 } from "lucide-react";
 
 export function SecondarySidebar() {
@@ -56,13 +59,13 @@ export function SecondarySidebar() {
   // Email actions
   const emailActions = [
     { icon: Inbox, label: "Bandeja de Entrada", path: "/emails/inbox" },
+    { icon: Send, label: "Enviados", path: "/emails/sent" },
+    { icon: FileText, label: "Borradores", path: "/emails/drafts" },
+    { icon: AlertOctagon, label: "Spam", path: "/emails/spam" },
     { icon: Trash2, label: "Papelera", path: "/emails/trash" },
-    { icon: FileText, label: "Plantillas", path: "/emails/templates" },
-    {
-      icon: MailPlus,
-      label: "Campañas de Mail Marketing",
-      path: "/emails/campaigns",
-    },
+    { icon: Star, label: "Destacados", path: "/emails/starred" },
+    { icon: Tag, label: "Etiquetas", path: "/emails/labels" },
+    { icon: Settings, label: "Configuración", path: "/emails/settings" },
   ];
 
   // CRM actions

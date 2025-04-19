@@ -1,17 +1,4 @@
-
-export interface Email {
-  id: string;
-  from: string;
-  to: string;
-  subject: string;
-  preview: string;
-  body: string;
-  date: string;
-  isRead: boolean;
-  isStarred: boolean;
-  labels: string[];
-  attachments?: { name: string; size: string }[];
-}
+import type { Email, EmailLabel } from "@/types/email";
 
 export const mockEmails: Email[] = [
   {
@@ -56,11 +43,10 @@ export const mockEmails: Email[] = [
   }
 ];
 
-export const mockLabels = [
+export const mockLabels: EmailLabel[] = [
   { id: "trabajo", name: "Trabajo", color: "blue" },
   { id: "importante", name: "Importante", color: "red" },
   { id: "personal", name: "Personal", color: "green" },
   { id: "reuniones", name: "Reuniones", color: "purple" },
   { id: "promociones", name: "Promociones", color: "yellow" }
 ];
-
