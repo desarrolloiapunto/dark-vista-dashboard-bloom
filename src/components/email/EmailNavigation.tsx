@@ -29,22 +29,26 @@ export function EmailNavigation() {
 
   return (
     <>
-      {emailNavItems.map(({ icon: Icon, label, path }) => (
-        <Button
-          key={path}
-          variant="ghost"
-          className={cn(
-            "w-full justify-start gap-2",
-            location.pathname === path && "bg-accent text-accent-foreground"
-          )}
-          asChild
-        >
-          <Link to={path}>
-            <Icon size={18} />
-            {label}
-          </Link>
-        </Button>
-      ))}
+      {emailNavItems.map(({ icon: Icon, label, path }) => {
+        const isActive = location.pathname === path;
+        return (
+          <Button
+            key={path}
+            variant="ghost"
+            className={cn(
+              "w-full justify-start gap-2",
+              isActive && "bg-accent text-accent-foreground"
+            )}
+            asChild
+          >
+            <Link to={path}>
+              <Icon size={18} />
+              {label}
+            </Link>
+          </Button>
+        );
+      })}
     </>
   );
 }
+

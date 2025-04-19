@@ -8,75 +8,77 @@ export const mockEmails: Email[] = [
     to: "usuario@empresa.com",
     subject: "Propuesta de proyecto web",
     preview: "Te envío la propuesta actualizada del proyecto...",
-    body: "Te envío la propuesta actualizada del proyecto con los cambios que discutimos en la última reunión. Por favor, revísala y me comentas si necesitas algún ajuste.",
+    body: "Te envío la propuesta actualizada del proyecto con los cambios que discutimos en la última reunión.",
     date: "2024-04-18T10:30:00",
     isRead: false,
     isStarred: true,
     labels: ["trabajo", "importante"],
+    folder: "inbox",
     attachments: [
-      { name: "propuesta_v2.pdf", size: "2.4 MB" },
-      { name: "presupuesto.xlsx", size: "1.1 MB" }
+      { name: "propuesta_v2.pdf", size: "2.4 MB" }
     ]
   },
   {
     id: "2",
-    from: "María García",
-    to: "usuario@empresa.com",
-    subject: "Recordatorio: Reunión de equipo mañana",
-    preview: "No olvides que mañana tenemos la reunión mensual...",
-    body: "No olvides que mañana tenemos la reunión mensual de equipo a las 9:00 AM. Por favor, prepara tu reporte de avances.",
+    from: "usuario@empresa.com",
+    to: "cliente@externo.com",
+    subject: "Re: Cotización servicios",
+    preview: "Adjunto encontrarás la cotización solicitada...",
+    body: "Adjunto encontrarás la cotización solicitada para los servicios de marketing digital.",
     date: "2024-04-17T15:45:00",
     isRead: true,
     isStarred: false,
-    labels: ["trabajo", "reuniones"]
+    labels: ["trabajo"],
+    folder: "sent",
+    attachments: [
+      { name: "cotizacion.pdf", size: "1.8 MB" }
+    ]
   },
   {
     id: "3",
-    from: "Servicio al Cliente",
+    from: "spam@suspicious.com",
     to: "usuario@empresa.com",
-    subject: "¡Oferta especial solo por hoy!",
-    preview: "Aprovecha nuestros descuentos exclusivos...",
-    body: "¡Grandes descuentos en todos nuestros productos! Solo por hoy, aprovecha hasta 50% de descuento en productos seleccionados.",
+    subject: "¡¡¡GANASTE UN PREMIO!!!",
+    preview: "Felicitaciones! Has sido seleccionado...",
+    body: "Felicitaciones! Has sido seleccionado como ganador de un premio especial...",
     date: "2024-04-16T09:20:00",
-    isRead: true,
+    isRead: false,
     isStarred: false,
-    labels: ["promociones"]
+    labels: [],
+    folder: "spam"
   },
   {
     id: "4",
-    from: "Sistema",
+    from: "marketing@empresa.com",
     to: "usuario@empresa.com",
-    subject: "Spam detectado",
-    preview: "Se han detectado y bloqueado correos spam...",
-    body: "El sistema ha detectado y bloqueado 5 correos spam en las últimas 24 horas.",
+    subject: "Borrador: Campaña Q2",
+    preview: "Borrador de la campaña del segundo trimestre...",
+    body: "Aquí está el borrador de la campaña para el segundo trimestre...",
     date: "2024-04-15T14:20:00",
-    isRead: false,
+    isRead: true,
     isStarred: false,
-    labels: ["sistema"]
+    labels: ["marketing"],
+    folder: "drafts"
   },
   {
     id: "5",
     from: "Laura Rodríguez",
     to: "usuario@empresa.com",
-    subject: "Borrador: Presentación cliente",
-    preview: "He guardado el borrador de la presentación...",
-    body: "He guardado el borrador de la presentación para el cliente. Por favor revísalo cuando puedas.",
+    subject: "Reunión importante",
+    preview: "La reunión de mañana se cancela...",
+    body: "La reunión de mañana se cancela debido a problemas técnicos.",
     date: "2024-04-14T11:15:00",
     isRead: true,
     isStarred: true,
-    labels: ["trabajo", "borradores"],
-    attachments: [
-      { name: "presentacion_draft.pptx", size: "5.8 MB" }
-    ]
+    labels: ["importante"],
+    folder: "trash"
   }
 ];
 
 export const mockLabels: EmailLabel[] = [
   { id: "trabajo", name: "Trabajo", color: "blue" },
   { id: "importante", name: "Importante", color: "red" },
-  { id: "personal", name: "Personal", color: "green" },
-  { id: "reuniones", name: "Reuniones", color: "purple" },
-  { id: "promociones", name: "Promociones", color: "yellow" },
-  { id: "sistema", name: "Sistema", color: "gray" },
-  { id: "borradores", name: "Borradores", color: "orange" }
+  { id: "marketing", name: "Marketing", color: "green" },
+  { id: "personal", name: "Personal", color: "purple" }
 ];
+

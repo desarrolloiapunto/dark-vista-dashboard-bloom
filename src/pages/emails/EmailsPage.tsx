@@ -4,10 +4,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { EmailList } from "@/components/email/EmailList";
 import { MarketingDashboard } from "@/components/email/MarketingDashboard";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import type { EmailView } from "@/types/email";
 
 export default function EmailsPage() {
-  const [currentView, setCurrentView] = useState<EmailView>("inbox");
+  const location = useLocation();
+  const currentPath = location.pathname.split("/").pop() as EmailView || "inbox";
+  const [currentView, setCurrentView] = useState<EmailView>(currentPath);
 
   return (
     <div className="h-[calc(100vh-8rem)]">
@@ -28,3 +31,4 @@ export default function EmailsPage() {
     </div>
   );
 }
+
