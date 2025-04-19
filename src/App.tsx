@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -19,6 +20,14 @@ import EmailsPage from "./pages/emails/EmailsPage";
 // Import conversations pages
 import ConversationsPage from "./pages/conversations/ConversationsPage";
 import WorkflowsPage from "./pages/conversations/WorkflowsPage";
+
+// Import CRM pages
+import CrmIndex from "./pages/crm";
+import ContactsPage from "./pages/crm/ContactsPage";
+import CompaniesPage from "./pages/crm/CompaniesPage";
+import TasksPage from "./pages/crm/TasksPage";
+import OpportunitiesPage from "./pages/crm/OpportunitiesPage";
+import ReportsPage from "./pages/crm/ReportsPage";
 
 // Import placeholder for other modules
 import Placeholder from "./pages/Placeholder";
@@ -55,13 +64,13 @@ const App = () => (
                 {/* Email routes - Updated */}
                 <Route path="emails/*" element={<EmailsPage />} />
 
-                {/* CRM routes */}
-                <Route path="crm/contacts" element={<Placeholder title="Contactos" />} />
-                <Route path="crm/companies" element={<Placeholder title="Empresas" />} />
-                <Route path="crm/tasks" element={<Placeholder title="Tareas" />} />
-                <Route path="crm/opportunities" element={<Placeholder title="Oportunidades" />} />
-                <Route path="crm/reports" element={<Placeholder title="Reportes CRM" />} />
-                <Route path="crm" element={<Navigate to="/crm/contacts" replace />} />
+                {/* CRM routes - Updated */}
+                <Route path="crm" element={<CrmIndex />} />
+                <Route path="crm/contacts" element={<ContactsPage />} />
+                <Route path="crm/companies" element={<CompaniesPage />} />
+                <Route path="crm/tasks" element={<TasksPage />} />
+                <Route path="crm/opportunities" element={<OpportunitiesPage />} />
+                <Route path="crm/reports" element={<ReportsPage />} />
 
                 {/* Marketing routes */}
                 <Route path="marketing/campaigns" element={<Placeholder title="Campañas Publicitarias" />} />
@@ -108,7 +117,7 @@ const App = () => (
   </QueryClientProvider>
 );
 
-// Update AppLayout to correctly render EmailsPage
+// Update AppLayout to correctly render all routes
 const AppLayout = () => (
   <>
     <Header />
@@ -123,7 +132,15 @@ const AppLayout = () => (
           <Route path="conversations/*" element={<ConversationsPage />} />
           <Route path="conversations/workflows" element={<WorkflowsPage />} />
           <Route path="emails/*" element={<EmailsPage />} />
-          <Route path="crm/*" element={<Placeholder />} />
+          
+          {/* CRM routes in AppLayout */}
+          <Route path="crm" element={<CrmIndex />} />
+          <Route path="crm/contacts" element={<ContactsPage />} />
+          <Route path="crm/companies" element={<CompaniesPage />} />
+          <Route path="crm/tasks" element={<TasksPage />} />
+          <Route path="crm/opportunities" element={<OpportunitiesPage />} />
+          <Route path="crm/reports" element={<ReportsPage />} />
+          
           <Route path="marketing/*" element={<Placeholder />} />
           <Route path="ads/*" element={<Placeholder />} />
           <Route path="content/*" element={<Placeholder />} />
