@@ -1,4 +1,3 @@
-
 import { useLocation, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,16 +6,13 @@ import {
   MessageCircle,
   Inbox,
   Settings,
-  MailPlus,
-  Trash2,
-  FileText,
-  Users as UsersIcon,
+  ZapIcon,
+  UsersIcon,
   Building2,
   CheckSquare,
   LineChart,
   PieChart,
-  TrendingUp as TrendingUpIcon,
-  BellRing,
+  TrendingUpIcon,
   FileBarChart,
   Calendar,
   Share2,
@@ -25,15 +21,9 @@ import {
   UserCheck,
   MapPin,
   History,
-  Zap as ZapIcon,
-  LineChart as LineChartIcon,
-  Facebook,
-  Instagram,
-  Send,
-  AlertOctagon,
-  Star,
-  Tag,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { EmailNavigation } from "@/components/email/EmailNavigation";
 
 export function SecondarySidebar() {
   const location = useLocation();
@@ -44,15 +34,11 @@ export function SecondarySidebar() {
     { icon: BarChart3, label: "Análisis por Módulos", path: "/analytics" },
   ];
 
-  // Conversations actions - simplified
+  // Conversations actions
   const conversationsActions = [
     { icon: BarChart3, label: "Dashboard", path: "/conversations/dashboard" },
     { icon: Inbox, label: "Bandeja de Entrada", path: "/conversations" },
-    {
-      icon: ZapIcon,
-      label: "Flujos de Trabajo",
-      path: "/conversations/workflows",
-    },
+    { icon: ZapIcon, label: "Flujos de Trabajo", path: "/conversations/workflows" },
     { icon: Settings, label: "Configuración", path: "/conversations/settings" },
   ];
 
@@ -140,7 +126,7 @@ export function SecondarySidebar() {
     { icon: BarChart, label: "Reportes", path: "/leads/reports" },
   ];
 
-  // Determine which actions to show based on the current path
+  // Determine which actions to show
   let actions = dashboardActions;
   let title = "Dashboard";
 
@@ -148,8 +134,16 @@ export function SecondarySidebar() {
     actions = conversationsActions;
     title = "Conversaciones";
   } else if (location.pathname.startsWith("/emails")) {
-    actions = emailActions;
-    title = "Correos";
+    return (
+      <div className="fixed left-16 top-0 z-30 h-screen w-56 border-r border-white/10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="flex h-14 items-center px-4 border-b border-white/10">
+          <h2 className="text-lg font-semibold">Correos</h2>
+        </div>
+        <div className="p-4 flex flex-col gap-2">
+          <EmailNavigation />
+        </div>
+      </div>
+    );
   } else if (location.pathname.startsWith("/crm")) {
     actions = crmActions;
     title = "CRM";
@@ -195,9 +189,4 @@ export function SecondarySidebar() {
       </div>
     </div>
   );
-}
-
-// Helper function to conditionally join class names
-function cn(...classes: (string | boolean | undefined)[]) {
-  return classes.filter(Boolean).join(" ");
 }

@@ -1,5 +1,5 @@
 
-export type EmailView = "inbox" | "sent" | "drafts" | "spam" | "trash" | "marketing";
+export type EmailView = "inbox" | "sent" | "drafts" | "spam" | "trash" | "marketing" | "starred";
 
 export interface Email {
   id: string;
@@ -13,10 +13,18 @@ export interface Email {
   isStarred: boolean;
   labels: string[];
   attachments?: { name: string; size: string }[];
+  folder?: EmailView;
 }
 
 export interface EmailLabel {
   id: string;
   name: string;
   color: string;
+}
+
+export interface EmailFolder {
+  id: EmailView;
+  name: string;
+  icon: React.ComponentType;
+  count?: number;
 }
