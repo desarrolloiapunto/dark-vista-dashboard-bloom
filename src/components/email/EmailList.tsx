@@ -1,3 +1,4 @@
+
 import { format, isToday, isYesterday } from "date-fns";
 import { es } from "date-fns/locale";
 import {
@@ -28,6 +29,26 @@ export function EmailList({ view }: EmailListProps) {
     return format(date, "d MMM", { locale: es });
   };
 
+  // Filter emails based on the current view
+  const filteredEmails = mockEmails.filter(email => {
+    switch (view) {
+      case "inbox":
+        return true; // Show all in inbox for this example
+      case "sent":
+        return email.from === "usuario@empresa.com";
+      case "drafts":
+        return email.labels.includes("borradores");
+      case "spam":
+        return email.labels.includes("spam");
+      case "trash":
+        return false; // No deleted emails in our mock data
+      case "marketing":
+        return email.labels.includes("promociones");
+      default:
+        return true;
+    }
+  });
+
   return (
     <Table>
       <TableHeader>
@@ -40,7 +61,7 @@ export function EmailList({ view }: EmailListProps) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {mockEmails.map((email) => (
+        {filteredEmails.map((email) => (
           <TableRow 
             key={email.id} 
             className={`cursor-pointer hover:bg-muted/50 ${!email.isRead ? 'font-medium' : ''}`}

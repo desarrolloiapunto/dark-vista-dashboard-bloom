@@ -1,3 +1,4 @@
+
 import type { Email, EmailLabel } from "@/types/email";
 
 export const mockEmails: Email[] = [
@@ -40,6 +41,33 @@ export const mockEmails: Email[] = [
     isRead: true,
     isStarred: false,
     labels: ["promociones"]
+  },
+  {
+    id: "4",
+    from: "Sistema",
+    to: "usuario@empresa.com",
+    subject: "Spam detectado",
+    preview: "Se han detectado y bloqueado correos spam...",
+    body: "El sistema ha detectado y bloqueado 5 correos spam en las últimas 24 horas.",
+    date: "2024-04-15T14:20:00",
+    isRead: false,
+    isStarred: false,
+    labels: ["sistema"]
+  },
+  {
+    id: "5",
+    from: "Laura Rodríguez",
+    to: "usuario@empresa.com",
+    subject: "Borrador: Presentación cliente",
+    preview: "He guardado el borrador de la presentación...",
+    body: "He guardado el borrador de la presentación para el cliente. Por favor revísalo cuando puedas.",
+    date: "2024-04-14T11:15:00",
+    isRead: true,
+    isStarred: true,
+    labels: ["trabajo", "borradores"],
+    attachments: [
+      { name: "presentacion_draft.pptx", size: "5.8 MB" }
+    ]
   }
 ];
 
@@ -48,5 +76,7 @@ export const mockLabels: EmailLabel[] = [
   { id: "importante", name: "Importante", color: "red" },
   { id: "personal", name: "Personal", color: "green" },
   { id: "reuniones", name: "Reuniones", color: "purple" },
-  { id: "promociones", name: "Promociones", color: "yellow" }
+  { id: "promociones", name: "Promociones", color: "yellow" },
+  { id: "sistema", name: "Sistema", color: "gray" },
+  { id: "borradores", name: "Borradores", color: "orange" }
 ];
