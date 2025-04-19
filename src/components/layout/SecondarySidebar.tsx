@@ -1,3 +1,4 @@
+
 import { useLocation, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,6 +22,12 @@ import {
   UserCheck,
   MapPin,
   History,
+  Send,
+  FileText,
+  AlertOctagon,
+  Trash2,
+  Star,
+  Tag,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { EmailNavigation } from "@/components/email/EmailNavigation";
@@ -83,7 +90,7 @@ export function SecondarySidebar() {
       path: "/ads/campaigns",
     },
     { icon: Share2, label: "Publicación Unificada", path: "/ads/publish" },
-    { icon: LineChartIcon, label: "Optimización", path: "/ads/optimization" },
+    { icon: LineChart, label: "Optimización", path: "/ads/optimization" },
     { icon: BarChart, label: "Reportes y Métricas", path: "/ads/reports" },
   ];
 
