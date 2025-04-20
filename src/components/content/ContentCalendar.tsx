@@ -5,16 +5,21 @@ import { Calendar } from "@/components/ui/calendar";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Image, FileText, Video, Calendar as CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
+import { CreateContentForm } from "./CreateContentForm";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 // Mock data for social media posts
 const mockPosts = [
   {
     id: "1",
-    content: "🎉 Exciting news coming soon! Stay tuned for our latest product launch.",
+    content: "🎉 ¡Grandes novedades! Estén atentos a nuestro próximo lanzamiento.",
     type: "text",
     networks: ["facebook", "twitter", "instagram"],
     scheduledDate: new Date("2024-04-21T10:00:00"),
@@ -22,7 +27,7 @@ const mockPosts = [
   },
   {
     id: "2",
-    content: "Check out our new product line! 🌟",
+    content: "¡Mira nuestra nueva línea de productos! 🌟 #Innovación #Calidad",
     type: "image",
     networks: ["instagram", "facebook"],
     scheduledDate: new Date("2024-04-22T15:30:00"),
@@ -30,17 +35,34 @@ const mockPosts = [
   },
   {
     id: "3",
-    content: "Breaking: Industry insights for 2024! 📊",
+    content: "Últimas tendencias de la industria para 2024! 📊 #Tendencias",
     type: "text",
     networks: ["linkedin", "twitter"],
     scheduledDate: new Date("2024-04-20T09:00:00"),
     status: "published",
   },
+  {
+    id: "4",
+    content: "Tutorial: Cómo maximizar tu productividad 🎥 #Productividad",
+    type: "video",
+    networks: ["youtube", "facebook"],
+    scheduledDate: new Date("2024-04-23T14:00:00"),
+    status: "scheduled",
+  },
+  {
+    id: "5",
+    content: "¡No te pierdas nuestro webinar gratuito! 📅 Regístrate ahora.",
+    type: "link",
+    networks: ["linkedin", "twitter", "facebook"],
+    scheduledDate: new Date("2024-04-24T11:00:00"),
+    status: "draft",
+  }
 ];
 
 export function ContentCalendar() {
   const [posts, setPosts] = useState(mockPosts);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
   const handleDragEnd = (result: any) => {
     if (!result.destination) return;
@@ -79,8 +101,23 @@ export function ContentCalendar() {
         return "bg-pink-500";
       case "linkedin":
         return "bg-blue-700";
+      case "youtube":
+        return "bg-red-600";
       default:
         return "bg-gray-500";
+    }
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "published":
+        return "text-green-600";
+      case "scheduled":
+        return "text-blue-600";
+      case "draft":
+        return "text-gray-600";
+      default:
+        return "text-gray-600";
     }
   };
 
@@ -101,6 +138,18 @@ export function ContentCalendar() {
             onSelect={setSelectedDate}
             className="rounded-md border"
           />
+          <div className="mt-4">
+            <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
+              <DialogTrigger asChild>
+                <Button className="w-full">
+                  Crear Nueva Publicación
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-2xl">
+                <CreateContentForm />
+              </DialogContent>
+            </Dialog>
+          </div>
         </Card>
       </div>
 
@@ -140,8 +189,13 @@ export function ContentCalendar() {
                                   ))}
                                 </div>
                               </div>
-                              <div className="mt-2 text-xs text-muted-foreground">
-                                {format(post.scheduledDate, "HH:mm")} - {post.status}
+                              <div className="mt-2 text-xs flex justify-between items-center">
+                                <span className={getStatusColor(post.status)}>
+                                  {post.status}
+                                </span>
+                                <span className="text-muted-foreground">
+                                  {format(post.scheduledDate, "HH:mm")}
+                                </span>
                               </div>
                             </Card>
                           </div>

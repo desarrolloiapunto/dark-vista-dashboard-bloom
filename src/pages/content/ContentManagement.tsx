@@ -2,7 +2,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ContentCalendar } from "@/components/content/ContentCalendar";
-import { Calendar, Share2, Settings } from "lucide-react";
+import { Calendar, Grid, List, Share2, Settings } from "lucide-react";
 
 export default function ContentManagement() {
   return (
@@ -10,6 +10,14 @@ export default function ContentManagement() {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Manejo de Contenido</h1>
         <div className="flex gap-2">
+          <Button variant="outline">
+            <List className="h-4 w-4 mr-2" />
+            Vista Lista
+          </Button>
+          <Button variant="outline">
+            <Grid className="h-4 w-4 mr-2" />
+            Vista Grid
+          </Button>
           <Button variant="outline">
             <Calendar className="h-4 w-4 mr-2" />
             Vista Calendario
