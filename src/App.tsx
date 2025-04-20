@@ -15,12 +15,8 @@ import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
 import EmailsPage from "./pages/emails/EmailsPage";
-
-// Import conversations pages
 import ConversationsPage from "./pages/conversations/ConversationsPage";
 import WorkflowsPage from "./pages/conversations/WorkflowsPage";
-
-// Import CRM pages
 import CrmIndex from "./pages/crm";
 import ContactsPage from "./pages/crm/ContactsPage";
 import CompaniesPage from "./pages/crm/CompaniesPage";
@@ -31,9 +27,8 @@ import LeadsManagementPage from "./pages/crm/leads/LeadsManagementPage";
 import LeadsSourcesPage from "./pages/crm/leads/LeadsSourcesPage";
 import LeadsTrackingPage from "./pages/crm/leads/LeadsTrackingPage";
 import LeadsAutomationPage from "./pages/crm/leads/LeadsAutomationPage";
-
-// Import placeholder for other modules
 import Placeholder from "./pages/Placeholder";
+import ContentManagement from "./pages/content/ContentManagement";
 
 const queryClient = new QueryClient();
 
@@ -53,21 +48,14 @@ const App = () => (
                   </ProtectedRoute>
                 }
               >
-                {/* Existing routes */}
                 <Route index element={<Index />} />
                 <Route path="analytics" element={<Analytics />} />
-
-                {/* Conversations routes */}
                 <Route path="conversations" element={<ConversationsPage />} />
                 <Route path="conversations/:conversationId" element={<ConversationsPage />} />
                 <Route path="conversations/dashboard" element={<ConversationsPage />} />
                 <Route path="conversations/workflows" element={<WorkflowsPage />} />
                 <Route path="conversations/settings" element={<Placeholder title="Configuración de Conversaciones" />} />
-
-                {/* Email routes */}
                 <Route path="emails/*" element={<EmailsPage />} />
-
-                {/* Unified CRM and Leads routes */}
                 <Route path="crm" element={<CrmIndex />} />
                 <Route path="crm/contacts" element={<ContactsPage />} />
                 <Route path="crm/companies" element={<CompaniesPage />} />
@@ -78,30 +66,22 @@ const App = () => (
                 <Route path="crm/leads/tracking" element={<LeadsTrackingPage />} />
                 <Route path="crm/leads/automation" element={<LeadsAutomationPage />} />
                 <Route path="crm/reports" element={<ReportsPage />} />
-
-                {/* Marketing routes */}
                 <Route path="marketing/campaigns" element={<Placeholder title="Campañas Publicitarias" />} />
                 <Route path="marketing/automation" element={<Placeholder title="Automatización de Marketing" />} />
                 <Route path="marketing/ads" element={<Placeholder title="Anuncios de Marketing" />} />
                 <Route path="marketing/reports" element={<Placeholder title="Reportes de Marketing" />} />
                 <Route path="marketing" element={<Navigate to="/marketing/campaigns" replace />} />
-
-                {/* Ads routes */}
                 <Route path="ads/campaigns" element={<Placeholder title="Campañas de Anuncios" />} />
                 <Route path="ads/publish" element={<Placeholder title="Publicación Unificada de Anuncios" />} />
                 <Route path="ads/optimization" element={<Placeholder title="Optimización de Campañas" />} />
                 <Route path="ads/reports" element={<Placeholder title="Reportes y Métricas de Anuncios" />} />
                 <Route path="ads" element={<Navigate to="/ads/campaigns" replace />} />
-
-                {/* Content management routes */}
-                <Route path="content/calendar" element={<Placeholder title="Calendario de Publicaciones" />} />
+                <Route path="content" element={<ContentManagement />} />
+                <Route path="content/calendar" element={<ContentManagement />} />
                 <Route path="content/publish" element={<Placeholder title="Publicación Unificada" />} />
                 <Route path="content/customize" element={<Placeholder title="Personalización por Red Social" />} />
                 <Route path="content/library" element={<Placeholder title="Biblioteca de Contenido" />} />
                 <Route path="content/reports" element={<Placeholder title="Reportes de Engagement" />} />
-                <Route path="content" element={<Navigate to="/content/calendar" replace />} />
-
-                {/* Profile and Not found */}
                 <Route path="profile" element={<Profile />} />
                 <Route path="*" element={<NotFound />} />
               </Route>
@@ -115,7 +95,6 @@ const App = () => (
   </QueryClientProvider>
 );
 
-// Update AppLayout to correctly render all routes
 const AppLayout = () => (
   <>
     <Header />
@@ -130,8 +109,6 @@ const AppLayout = () => (
           <Route path="conversations/*" element={<ConversationsPage />} />
           <Route path="conversations/workflows" element={<WorkflowsPage />} />
           <Route path="emails/*" element={<EmailsPage />} />
-          
-          {/* Unified CRM routes in AppLayout */}
           <Route path="crm" element={<CrmIndex />} />
           <Route path="crm/contacts" element={<ContactsPage />} />
           <Route path="crm/companies" element={<CompaniesPage />} />
@@ -142,7 +119,6 @@ const AppLayout = () => (
           <Route path="crm/leads/tracking" element={<LeadsTrackingPage />} />
           <Route path="crm/leads/automation" element={<LeadsAutomationPage />} />
           <Route path="crm/reports" element={<ReportsPage />} />
-          
           <Route path="marketing/*" element={<Placeholder />} />
           <Route path="ads/*" element={<Placeholder />} />
           <Route path="content/*" element={<Placeholder />} />
