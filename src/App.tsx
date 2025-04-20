@@ -64,10 +64,10 @@ const App = () => (
                 <Route path="conversations/workflows" element={<WorkflowsPage />} />
                 <Route path="conversations/settings" element={<Placeholder title="Configuración de Conversaciones" />} />
 
-                {/* Email routes - Updated */}
+                {/* Email routes */}
                 <Route path="emails/*" element={<EmailsPage />} />
 
-                {/* CRM routes - Updated */}
+                {/* Unified CRM and Leads routes */}
                 <Route path="crm" element={<CrmIndex />} />
                 <Route path="crm/contacts" element={<ContactsPage />} />
                 <Route path="crm/companies" element={<CompaniesPage />} />
@@ -101,15 +101,6 @@ const App = () => (
                 <Route path="content/reports" element={<Placeholder title="Reportes de Engagement" />} />
                 <Route path="content" element={<Navigate to="/content/calendar" replace />} />
 
-                {/* Leads routes */}
-                <Route path="leads/management" element={<Placeholder title="Gestión de Leads" />} />
-                <Route path="leads/sources" element={<Placeholder title="Origen de Leads" />} />
-                <Route path="leads/assignment" element={<Placeholder title="Asignación de Leads" />} />
-                <Route path="leads/tracking" element={<Placeholder title="Seguimiento de Leads" />} />
-                <Route path="leads/automation" element={<Placeholder title="Automatización de Leads" />} />
-                <Route path="leads/reports" element={<Placeholder title="Reportes de Leads" />} />
-                <Route path="leads" element={<Navigate to="/leads/management" replace />} />
-
                 {/* Profile and Not found */}
                 <Route path="profile" element={<Profile />} />
                 <Route path="*" element={<NotFound />} />
@@ -140,7 +131,7 @@ const AppLayout = () => (
           <Route path="conversations/workflows" element={<WorkflowsPage />} />
           <Route path="emails/*" element={<EmailsPage />} />
           
-          {/* CRM routes in AppLayout */}
+          {/* Unified CRM routes in AppLayout */}
           <Route path="crm" element={<CrmIndex />} />
           <Route path="crm/contacts" element={<ContactsPage />} />
           <Route path="crm/companies" element={<CompaniesPage />} />
@@ -155,7 +146,6 @@ const AppLayout = () => (
           <Route path="marketing/*" element={<Placeholder />} />
           <Route path="ads/*" element={<Placeholder />} />
           <Route path="content/*" element={<Placeholder />} />
-          <Route path="leads/*" element={<Placeholder />} />
           <Route path="profile" element={<Profile />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
