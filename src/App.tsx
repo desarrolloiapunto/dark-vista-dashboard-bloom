@@ -27,10 +27,10 @@ import CompaniesPage from "./pages/crm/CompaniesPage";
 import TasksPage from "./pages/crm/TasksPage";
 import OpportunitiesPage from "./pages/crm/OpportunitiesPage";
 import ReportsPage from "./pages/crm/ReportsPage";
-import LeadsManagementPage from "./pages/crm/LeadsManagementPage";
-import LeadsSourcesPage from "./pages/crm/LeadsSourcesPage";
-import LeadsTrackingPage from "./pages/crm/LeadsTrackingPage";
-import LeadsAutomationPage from "./pages/crm/LeadsAutomationPage";
+import LeadsManagementPage from "./pages/crm/leads/LeadsManagementPage";
+import LeadsSourcesPage from "./pages/crm/leads/LeadsSourcesPage";
+import LeadsTrackingPage from "./pages/crm/leads/LeadsTrackingPage";
+import LeadsAutomationPage from "./pages/crm/leads/LeadsAutomationPage";
 
 // Import placeholder for other modules
 import Placeholder from "./pages/Placeholder";
