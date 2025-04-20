@@ -1,4 +1,3 @@
-
 import { 
   LayoutDashboard, 
   MessageSquare, 
@@ -7,7 +6,6 @@ import {
   TrendingUp, 
   Zap, 
   Image,
-  UserRound
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -50,11 +48,6 @@ export function PrimarySidebar() {
       icon: Image,
       path: "/content",
       title: "Manejo de Contenido"
-    },
-    {
-      icon: UserRound,
-      path: "/leads",
-      title: "Leads"
     }
   ];
 

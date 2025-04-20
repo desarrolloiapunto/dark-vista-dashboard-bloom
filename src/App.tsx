@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -28,6 +27,10 @@ import CompaniesPage from "./pages/crm/CompaniesPage";
 import TasksPage from "./pages/crm/TasksPage";
 import OpportunitiesPage from "./pages/crm/OpportunitiesPage";
 import ReportsPage from "./pages/crm/ReportsPage";
+import LeadsManagementPage from "./pages/crm/LeadsManagementPage";
+import LeadsSourcesPage from "./pages/crm/LeadsSourcesPage";
+import LeadsTrackingPage from "./pages/crm/LeadsTrackingPage";
+import LeadsAutomationPage from "./pages/crm/LeadsAutomationPage";
 
 // Import placeholder for other modules
 import Placeholder from "./pages/Placeholder";
@@ -70,6 +73,10 @@ const App = () => (
                 <Route path="crm/companies" element={<CompaniesPage />} />
                 <Route path="crm/tasks" element={<TasksPage />} />
                 <Route path="crm/opportunities" element={<OpportunitiesPage />} />
+                <Route path="crm/leads" element={<LeadsManagementPage />} />
+                <Route path="crm/leads/sources" element={<LeadsSourcesPage />} />
+                <Route path="crm/leads/tracking" element={<LeadsTrackingPage />} />
+                <Route path="crm/leads/automation" element={<LeadsAutomationPage />} />
                 <Route path="crm/reports" element={<ReportsPage />} />
 
                 {/* Marketing routes */}
@@ -139,6 +146,10 @@ const AppLayout = () => (
           <Route path="crm/companies" element={<CompaniesPage />} />
           <Route path="crm/tasks" element={<TasksPage />} />
           <Route path="crm/opportunities" element={<OpportunitiesPage />} />
+          <Route path="crm/leads" element={<LeadsManagementPage />} />
+          <Route path="crm/leads/sources" element={<LeadsSourcesPage />} />
+          <Route path="crm/leads/tracking" element={<LeadsTrackingPage />} />
+          <Route path="crm/leads/automation" element={<LeadsAutomationPage />} />
           <Route path="crm/reports" element={<ReportsPage />} />
           
           <Route path="marketing/*" element={<Placeholder />} />

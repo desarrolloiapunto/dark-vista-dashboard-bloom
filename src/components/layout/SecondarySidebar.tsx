@@ -1,4 +1,3 @@
-
 import { useLocation, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -61,12 +60,16 @@ export function SecondarySidebar() {
     { icon: Settings, label: "Configuración", path: "/emails/settings" },
   ];
 
-  // CRM actions
+  // Updated CRM actions
   const crmActions = [
     { icon: UsersIcon, label: "Contactos", path: "/crm/contacts" },
     { icon: Building2, label: "Empresas", path: "/crm/companies" },
     { icon: CheckSquare, label: "Tareas", path: "/crm/tasks" },
     { icon: LineChart, label: "Oportunidades", path: "/crm/opportunities" },
+    { icon: UserCheck, label: "Gestión de Leads", path: "/crm/leads" },
+    { icon: MapPin, label: "Origen de Leads", path: "/crm/leads/sources" },
+    { icon: History, label: "Seguimiento", path: "/crm/leads/tracking" },
+    { icon: ZapIcon, label: "Automatización", path: "/crm/leads/automation" },
     { icon: PieChart, label: "Reportes", path: "/crm/reports" },
   ];
 
