@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import { Calendar } from "@/components/ui/calendar";
@@ -9,20 +8,17 @@ import { Image, FileText, Video, Calendar as CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CreateContentForm } from "./CreateContentForm";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 // Mock data for social media posts
 const mockPosts = [
   {
     id: "1",
-    content: "🎉 ¡Grandes novedades! Estén atentos a nuestro próximo lanzamiento.",
+    content:
+      "🎉 ¡Grandes novedades! Estén atentos a nuestro próximo lanzamiento.",
     type: "text",
     networks: ["facebook", "twitter", "instagram"],
-    scheduledDate: new Date("2024-04-21T10:00:00"),
+    scheduledDate: new Date("2025-04-21T10:00:00"),
     status: "scheduled",
   },
   {
@@ -30,7 +26,7 @@ const mockPosts = [
     content: "¡Mira nuestra nueva línea de productos! 🌟 #Innovación #Calidad",
     type: "image",
     networks: ["instagram", "facebook"],
-    scheduledDate: new Date("2024-04-22T15:30:00"),
+    scheduledDate: new Date("2025-04-22T15:30:00"),
     status: "scheduled",
   },
   {
@@ -38,7 +34,7 @@ const mockPosts = [
     content: "Últimas tendencias de la industria para 2024! 📊 #Tendencias",
     type: "text",
     networks: ["linkedin", "twitter"],
-    scheduledDate: new Date("2024-04-20T09:00:00"),
+    scheduledDate: new Date("2025-04-20T09:00:00"),
     status: "published",
   },
   {
@@ -46,7 +42,7 @@ const mockPosts = [
     content: "Tutorial: Cómo maximizar tu productividad 🎥 #Productividad",
     type: "video",
     networks: ["youtube", "facebook"],
-    scheduledDate: new Date("2024-04-23T14:00:00"),
+    scheduledDate: new Date("2025-04-23T14:00:00"),
     status: "scheduled",
   },
   {
@@ -54,14 +50,16 @@ const mockPosts = [
     content: "¡No te pierdas nuestro webinar gratuito! 📅 Regístrate ahora.",
     type: "link",
     networks: ["linkedin", "twitter", "facebook"],
-    scheduledDate: new Date("2024-04-24T11:00:00"),
+    scheduledDate: new Date("2025-04-24T11:00:00"),
     status: "draft",
-  }
+  },
 ];
 
 export function ContentCalendar() {
   const [posts, setPosts] = useState(mockPosts);
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(
+    new Date()
+  );
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
   const handleDragEnd = (result: any) => {
@@ -76,7 +74,8 @@ export function ContentCalendar() {
 
   const getPostsForDate = (date: Date) => {
     return posts.filter(
-      (post) => format(post.scheduledDate, "yyyy-MM-dd") === format(date, "yyyy-MM-dd")
+      (post) =>
+        format(post.scheduledDate, "yyyy-MM-dd") === format(date, "yyyy-MM-dd")
     );
   };
 
@@ -139,11 +138,12 @@ export function ContentCalendar() {
             className="rounded-md border"
           />
           <div className="mt-4">
-            <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
+            <Dialog
+              open={isCreateDialogOpen}
+              onOpenChange={setIsCreateDialogOpen}
+            >
               <DialogTrigger asChild>
-                <Button className="w-full">
-                  Crear Nueva Publicación
-                </Button>
+                <Button className="w-full">Crear Nueva Publicación</Button>
               </DialogTrigger>
               <DialogContent className="max-w-2xl">
                 <CreateContentForm />
@@ -161,7 +161,11 @@ export function ContentCalendar() {
                 <div {...provided.droppableProps} ref={provided.innerRef}>
                   {selectedDate &&
                     getPostsForDate(selectedDate).map((post, index) => (
-                      <Draggable key={post.id} draggableId={post.id} index={index}>
+                      <Draggable
+                        key={post.id}
+                        draggableId={post.id}
+                        index={index}
+                      >
                         {(provided) => (
                           <div
                             ref={provided.innerRef}
@@ -169,20 +173,29 @@ export function ContentCalendar() {
                             {...provided.dragHandleProps}
                             className="mb-3"
                           >
-                            <Card className={cn(
-                              "p-4 hover:shadow-md transition-shadow",
-                              post.status === "published" ? "bg-muted" : "bg-card"
-                            )}>
+                            <Card
+                              className={cn(
+                                "p-4 hover:shadow-md transition-shadow",
+                                post.status === "published"
+                                  ? "bg-muted"
+                                  : "bg-card"
+                              )}
+                            >
                               <div className="flex items-start justify-between">
                                 <div className="flex items-center gap-2">
                                   {getIconForType(post.type)}
-                                  <span className="text-sm">{post.content}</span>
+                                  <span className="text-sm">
+                                    {post.content}
+                                  </span>
                                 </div>
                                 <div className="flex gap-1">
                                   {post.networks.map((network) => (
                                     <Badge
                                       key={network}
-                                      className={cn("capitalize", getNetworkColor(network))}
+                                      className={cn(
+                                        "capitalize",
+                                        getNetworkColor(network)
+                                      )}
                                     >
                                       {network}
                                     </Badge>
