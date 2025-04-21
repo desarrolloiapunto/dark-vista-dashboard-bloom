@@ -9,6 +9,13 @@ import {
   TrendingUp,
   Zap,
   Image,
+  Menu
+} from "lucide-react";
+import * as React from "react";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+
+// CONTEXT ICONS (secundario) traídos igual que antes
+import {
   Calendar,
   Share2,
   Settings,
@@ -16,9 +23,7 @@ import {
   BarChart,
   Inbox,
   Zap as ZapIcon,
-  FileText,
-  Grid,
-  List
+  FileText
 } from "lucide-react";
 
 const PRIMARY_ICONS = [
@@ -82,7 +87,7 @@ const SECONDARY_CONTEXT = [
   {
     start: "/emails",
     items: [
-      { icon: Mail, path: "/emails", label: "Bandeja" },
+      { icon: Mail, path: "/emails", label: "Bandeja" }
     ]
   }
 ];
@@ -97,47 +102,111 @@ export function MobileBottomBar() {
   const navigate = useNavigate();
   const pathname = location.pathname;
 
-  // Solo muestra barra en móviles (md:hidden)
-  // Se muestran los iconos principales y el contexto actual a la derecha (hasta 4 de cada uno).
+  // Items contextuales (secundario)
   const secondary = getSecondaryItems(pathname);
 
-  // Prioridad: Módulos principales, luego atajos contexto
-  const mainToShow = PRIMARY_ICONS.slice(0, 4);
-  const contextToShow = secondary.slice(0, 4);
+  // Iconos principales (siempre los primeros 5 en móvil)
+  const mainToShow = PRIMARY_ICONS.slice(0, 5);
 
-  // Muestra hasta 4 iconos principales y hasta 4 contexto
-  const items = [
-    ...mainToShow.map((i) => ({ ...i, context: false })),
-    ...contextToShow.map((i) => ({ ...i, context: true })),
-  ];
+  // Mostrar sólo los ICONOS, no etiquetas, en barra inferior
+  // Si hay contexto, mostrar botón "menú" (abrir Drawer)
+  const showMenuBtn = secondary.length > 0;
 
-  // Oculta duplicados (por si el icono de contexto también se muestra como principal)
-  const uniqueItems = items.filter(
-    (item, idx, arr) =>
-      arr.findIndex((it) => it.path === item.path) === idx
-  );
+  // Si hay menos de 4 iconos primarios, compensar con botón menú para centrar mejor
+  let iconsToShow = mainToShow;
+  if (mainToShow.length === 4 && showMenuBtn) {
+    // Si exactos 4 y contexto, ponemos el menú como central (icono 2)
+    iconsToShow = [
+      mainToShow[0],
+      mainToShow[1],
+      { icon: Menu, label: "Contexto", path: "__drawer__" },
+      mainToShow[2],
+      mainToShow[3]
+    ];
+  } else if (mainToShow.length >= 5 && showMenuBtn) {
+    // Si hay 5, reemplazamos el del medio por el botón menú
+    iconsToShow = [
+      mainToShow[0],
+      mainToShow[1],
+      { icon: Menu, label: "Contexto", path: "__drawer__" },
+      mainToShow[3],
+      mainToShow[4],
+    ];
+  }
+
+  // Estado para el Drawer
+  const [open, setOpen] = React.useState(false);
 
   return (
-    <nav className="fixed z-50 bottom-0 left-0 w-full bg-background/90 border-t border-muted shadow-lg flex md:hidden">
-      {uniqueItems.map(({ icon: Icon, path, label, context }) => (
-        <button
-          key={path}
-          aria-label={label}
-          className={cn(
-            "flex-1 flex flex-col items-center justify-center py-1 px-2 group",
-            pathname === path
-              ? "text-primary"
-              : "text-muted-foreground"
-          )}
-          onClick={() => navigate(path)}
-        >
-          <Icon size={22} className="mx-auto mb-0.5" />
-          <span className={cn("text-[10px] leading-tight", context && "opacity-70")}>
-            {label}
-          </span>
-        </button>
-      ))}
-    </nav>
+    <>
+      {/* Drawer de contexto secundario, móvil */}
+      {showMenuBtn && (
+        <Drawer open={open} onOpenChange={setOpen}>
+          <DrawerTrigger asChild>
+            {/* Hidden button, se maneja por ítem en barra abajo */}
+            <button className="hidden" tabIndex={-1}></button>
+          </DrawerTrigger>
+          <DrawerContent>
+            <div className="flex justify-center py-3">
+              <div className="flex gap-4">
+                {secondary.slice(0, 5).map(({ icon: Icon, path, label }) => (
+                  <button
+                    key={path}
+                    className="flex flex-col items-center text-muted-foreground hover:text-primary"
+                    onClick={() => {
+                      setOpen(false);
+                      navigate(path);
+                    }}
+                  >
+                    <Icon size={26} />
+                    <span className="text-xs mt-1">{label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </DrawerContent>
+        </Drawer>
+      )}
+
+      <nav className="fixed z-50 bottom-0 left-0 w-full bg-background/95 border-t border-muted shadow-lg flex md:hidden items-center justify-between px-1">
+        {iconsToShow.map((item, idx) => {
+          // Item Drawer (menú contextual)
+          if (item.path === "__drawer__") {
+            return showMenuBtn ? (
+              <button
+                key="drawer"
+                aria-label="Menú de contexto"
+                className={cn(
+                  "flex flex-1 flex-col items-center justify-center py-1 px-2 group",
+                  open ? "text-primary" : "text-muted-foreground"
+                )}
+                onClick={() => setOpen(true)}
+              >
+                <Menu size={24} />
+                <span className="text-[10px] leading-tight opacity-80">Menú</span>
+              </button>
+            ) : null;
+          }
+          // Botón normal principal
+          const Icon = item.icon;
+          const isActive = pathname === item.path || (item.path === "/" && pathname === "/");
+          return (
+            <button
+              key={item.path}
+              aria-label={item.label}
+              className={cn(
+                "flex flex-1 flex-col items-center justify-center py-1 px-2 group",
+                isActive ? "text-primary" : "text-muted-foreground"
+              )}
+              onClick={() => navigate(item.path)}
+            >
+              <Icon size={24} className="mx-auto mb-0.5" />
+              <span className="text-[10px] leading-tight opacity-80">{item.label}</span>
+            </button>
+          );
+        })}
+      </nav>
+    </>
   );
 }
 
