@@ -1,9 +1,28 @@
+
 import { Card } from "@/components/ui/card";
 import { AuthForm } from "@/components/auth/AuthForm";
 import { GalleryVerticalEnd } from "lucide-react";
 import { SocialAuthButtons } from "@/components/auth/SocialAuthButtons";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "@/components/auth/AuthProvider";
 
 export default function Auth() {
+  const { user, isLoading } = useAuth();
+
+  // Si ya hay un usuario autenticado, redirigir a la página principal
+  if (user && !isLoading) {
+    return <Navigate to="/" replace />;
+  }
+
+  // Mostrar un estado de carga mientras verificamos la sesión
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10">
