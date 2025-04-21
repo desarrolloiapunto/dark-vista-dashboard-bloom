@@ -9,6 +9,7 @@ import { Header } from "./components/layout/Header";
 import { Breadcrumb } from "./components/layout/Breadcrumb";
 import { PrimarySidebar } from "./components/layout/PrimarySidebar";
 import { SecondarySidebar } from "./components/layout/SecondarySidebar";
+import MobileBottomBar from "./components/layout/MobileBottomBar";
 import Index from "./pages/Index";
 import Analytics from "./pages/Analytics";
 import Auth from "./pages/Auth";
@@ -177,7 +178,7 @@ const AppLayout = () => (
     <Header />
     <PrimarySidebar />
     <SecondarySidebar />
-    <div className="pl-72 pt-14">
+    <div className="pl-72 pt-14 pb-14 md:pb-0">
       <Breadcrumb />
       <main className="p-4">
         <Routes>
@@ -208,6 +209,7 @@ const AppLayout = () => (
         </Routes>
       </main>
     </div>
+    <MobileBottomBar />
   </>
 );
 
