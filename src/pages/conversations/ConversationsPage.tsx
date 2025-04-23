@@ -1,10 +1,8 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ContactList from "@/components/conversations/ContactList";
 import ConversationView from "@/components/conversations/ConversationView";
-import ConversationDashboard from "@/components/conversations/ConversationDashboard";
 import NoConversationSelected from "@/components/conversations/NoConversationSelected";
 import { Conversation, Contact, Message, Channel } from "@/types/conversations";
 import { mockContacts, mockConversations, mockMessages } from "@/data/mockConversations";
@@ -16,7 +14,6 @@ const ConversationsPage = () => {
   const [conversations, setConversations] = useState<Conversation[]>(mockConversations);
   const [currentMessages, setCurrentMessages] = useState<Message[]>([]);
   const [activeChannel, setActiveChannel] = useState<Channel | "all">("all");
-  const [view, setView] = useState<"chat" | "dashboard">("chat");
 
   // Filter contacts based on active channel
   const filteredContacts = contacts.filter(contact => 
@@ -30,7 +27,6 @@ const ConversationsPage = () => {
         message => message.conversationId === conversationId
       );
       setCurrentMessages(selectedMessages);
-      setView("chat");
     }
   }, [conversationId]);
 
@@ -61,26 +57,6 @@ const ConversationsPage = () => {
       <div className="flex-1 flex overflow-hidden">
         {/* Left sidebar with contacts */}
         <div className="w-72 border-r border-border bg-card overflow-y-auto">
-          <div className="p-4 border-b border-border">
-            <Tabs defaultValue="chat" className="w-full">
-              <TabsList className="w-full">
-                <TabsTrigger 
-                  value="chat" 
-                  className="flex-1"
-                  onClick={() => setView("chat")}
-                >
-                  Chat
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="dashboard" 
-                  className="flex-1"
-                  onClick={() => setView("dashboard")}
-                >
-                  Dashboard
-                </TabsTrigger>
-              </TabsList>
-            </Tabs>
-          </div>
           <ContactList 
             contacts={filteredContacts} 
             activeConversationId={conversationId}
@@ -91,18 +67,14 @@ const ConversationsPage = () => {
 
         {/* Main content area */}
         <div className="flex-1 overflow-hidden">
-          {view === "chat" ? (
-            conversationId ? (
-              <ConversationView 
-                messages={currentMessages} 
-                contact={contacts.find(c => c.conversations.includes(conversationId))}
-                onSendMessage={handleSendMessage} 
-              />
-            ) : (
-              <NoConversationSelected />
-            )
+          {conversationId ? (
+            <ConversationView 
+              messages={currentMessages} 
+              contact={contacts.find(c => c.conversations.includes(conversationId))}
+              onSendMessage={handleSendMessage} 
+            />
           ) : (
-            <ConversationDashboard conversations={conversations} />
+            <NoConversationSelected />
           )}
         </div>
       </div>

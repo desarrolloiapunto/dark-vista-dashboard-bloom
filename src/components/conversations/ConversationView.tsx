@@ -1,11 +1,13 @@
 
 import { useRef, useEffect, useState } from "react";
-import { PaperclipIcon, SmileIcon, Send, Mic, Image, File, Paperclip } from "lucide-react";
+import { PaperclipIcon, SmileIcon, Send, Mic, Image, File, Paperclip, StopCircle } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Contact, Message } from "@/types/conversations";
 import { getChannelIcon } from "@/lib/conversationUtils";
+import { useToast } from "@/components/ui/use-toast";
+import { useTranslation } from "react-i18next";
 import { 
   Popover, 
   PopoverContent, 
@@ -26,12 +28,37 @@ interface ConversationViewProps {
 }
 
 const ConversationView = ({ contact, messages, onSendMessage }: ConversationViewProps) => {
+  const { t } = useTranslation();
+  const { toast } = useToast();
   const [messageText, setMessageText] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [isRecording, setIsRecording] = useState(false);
+  const [recordingTime, setRecordingTime] = useState(0);
+  const [audioURL, setAudioURL] = useState<string | null>(null);
+  
+  // References for audio recording
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
+  const recordingTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  useEffect(() => {
+    // Cleanup when component unmounts
+    return () => {
+      if (recordingTimerRef.current) {
+        window.clearInterval(recordingTimerRef.current);
+      }
+      if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
+        mediaRecorderRef.current.stop();
+      }
+      if (audioURL) {
+        URL.revokeObjectURL(audioURL);
+      }
+    };
+  }, [audioURL]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -51,7 +78,6 @@ const ConversationView = ({ contact, messages, onSendMessage }: ConversationView
     }
   };
 
-  // Format timestamps for display
   const formatTime = (timestamp: string) => {
     return new Date(timestamp).toLocaleTimeString([], { 
       hour: '2-digit', 
@@ -59,12 +85,100 @@ const ConversationView = ({ contact, messages, onSendMessage }: ConversationView
     });
   };
 
-  // Apply quick reply template
+  const formatRecordingTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+  };
+
   const handleQuickReply = (replyText: string) => {
     setMessageText(replyText);
   };
 
-  if (!contact) return <div className="h-full flex items-center justify-center">Conversación no encontrada</div>;
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      audioChunksRef.current = [];
+      
+      const mediaRecorder = new MediaRecorder(stream);
+      mediaRecorderRef.current = mediaRecorder;
+      
+      mediaRecorder.ondataavailable = (e) => {
+        audioChunksRef.current.push(e.data);
+      };
+      
+      mediaRecorder.onstop = () => {
+        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
+        const audioUrl = URL.createObjectURL(audioBlob);
+        setAudioURL(audioUrl);
+        
+        // Close all tracks to release microphone
+        stream.getTracks().forEach(track => track.stop());
+        
+        toast({
+          title: t('conversation.audioRecorded'),
+          description: t('conversation.audioReadyToSend')
+        });
+      };
+      
+      // Start recording
+      mediaRecorder.start();
+      setIsRecording(true);
+      
+      // Start recording timer
+      let seconds = 0;
+      recordingTimerRef.current = window.setInterval(() => {
+        seconds += 1;
+        setRecordingTime(seconds);
+      }, 1000);
+      
+    } catch (error) {
+      console.error("Error accessing microphone:", error);
+      toast({
+        title: t('conversation.microphoneError'),
+        description: t('conversation.microphonePermissionDenied'),
+        variant: "destructive"
+      });
+    }
+  };
+  
+  const stopRecording = () => {
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
+      
+      if (recordingTimerRef.current) {
+        clearInterval(recordingTimerRef.current);
+        recordingTimerRef.current = null;
+      }
+    }
+  };
+  
+  const cancelRecording = () => {
+    stopRecording();
+    setAudioURL(null);
+    setRecordingTime(0);
+    toast({
+      title: t('conversation.recordingCancelled'),
+      description: t('conversation.audioDiscarded')
+    });
+  };
+  
+  const sendAudioMessage = () => {
+    if (audioURL) {
+      // Here you would normally upload the audio file and then send a message with the audio URL
+      // For this example, we'll just send a placeholder message
+      onSendMessage(t('conversation.audioMessage'));
+      setAudioURL(null);
+      setRecordingTime(0);
+      toast({
+        title: t('conversation.audioSent'),
+        description: t('conversation.audioMessageSent')
+      });
+    }
+  };
+
+  if (!contact) return <div className="h-full flex items-center justify-center">{t('conversation.noConversationFound')}</div>;
 
   return (
     <div className="flex flex-col h-full">
@@ -82,7 +196,7 @@ const ConversationView = ({ contact, messages, onSendMessage }: ConversationView
             </div>
           </div>
           <p className="text-xs text-muted-foreground">
-            {contact.phone || contact.email || "En línea"}
+            {contact.phone || contact.email || t('conversation.online')}
           </p>
         </div>
       </div>
@@ -121,6 +235,41 @@ const ConversationView = ({ contact, messages, onSendMessage }: ConversationView
 
       {/* Message input */}
       <div className="border-t border-border p-3 bg-card">
+        {audioURL ? (
+          <div className="flex items-center gap-2 mb-3">
+            <audio src={audioURL} controls className="h-10 flex-1" />
+            <Button size="sm" variant="outline" onClick={() => setAudioURL(null)}>
+              {t('conversation.cancel')}
+            </Button>
+            <Button size="sm" onClick={sendAudioMessage}>
+              {t('conversation.send')}
+            </Button>
+          </div>
+        ) : null}
+        
+        {isRecording ? (
+          <div className="flex items-center gap-2 mb-2">
+            <div className="flex-1 flex items-center gap-2">
+              <div className="h-3 w-3 bg-red-500 rounded-full animate-pulse"></div>
+              <span>{t('conversation.recording')}: {formatRecordingTime(recordingTime)}</span>
+            </div>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={cancelRecording}
+            >
+              {t('conversation.cancel')}
+            </Button>
+            <Button 
+              size="icon" 
+              variant="destructive" 
+              onClick={stopRecording}
+            >
+              <StopCircle className="h-5 w-5" />
+            </Button>
+          </div>
+        ) : null}
+        
         <div className="flex items-end gap-2">
           {/* Attachment dropdown */}
           <DropdownMenu>
@@ -132,11 +281,11 @@ const ConversationView = ({ contact, messages, onSendMessage }: ConversationView
             <DropdownMenuContent side="top" align="start">
               <DropdownMenuItem>
                 <Image className="h-4 w-4 mr-2" />
-                <span>Imagen</span>
+                <span>{t('conversation.image')}</span>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <File className="h-4 w-4 mr-2" />
-                <span>Documento</span>
+                <span>{t('conversation.document')}</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -150,7 +299,7 @@ const ConversationView = ({ contact, messages, onSendMessage }: ConversationView
             </PopoverTrigger>
             <PopoverContent side="top" align="start" className="w-72">
               <div className="space-y-2">
-                <h4 className="font-medium">Respuestas rápidas</h4>
+                <h4 className="font-medium">{t('conversation.quickReplies')}</h4>
                 <div className="grid grid-cols-2 gap-2">
                   {QuickReplies.map((reply, index) => (
                     <Button
@@ -172,18 +321,19 @@ const ConversationView = ({ contact, messages, onSendMessage }: ConversationView
             value={messageText}
             onChange={(e) => setMessageText(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Escribe un mensaje..."
+            placeholder={t('conversation.typeMessage')}
             className="min-h-[40px] resize-none flex-1"
             rows={1}
+            disabled={isRecording}
           />
           
           <Button 
-            onClick={handleSendMessage} 
-            disabled={!messageText.trim()} 
+            onClick={isRecording ? stopRecording : messageText.trim() ? handleSendMessage : startRecording} 
+            disabled={isRecording && messageText.trim().length > 0}
             size="icon" 
             className="rounded-full"
           >
-            {messageText.trim() ? <Send className="h-5 w-5" /> : <Mic className="h-5 w-5" />}
+            {messageText.trim() ? <Send className="h-5 w-5" /> : isRecording ? <StopCircle className="h-5 w-5" /> : <Mic className="h-5 w-5" />}
           </Button>
         </div>
       </div>

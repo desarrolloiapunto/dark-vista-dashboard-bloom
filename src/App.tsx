@@ -14,6 +14,10 @@ import "./i18n/config";
 // Pages
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
+import ConversationsPage from "./pages/conversations/ConversationsPage";
+import WorkflowsPage from "./pages/conversations/WorkflowsPage";
+import DashboardPage from "./pages/conversations/DashboardPage";
+import SettingsPage from "./pages/conversations/SettingsPage";
 
 const queryClient = new QueryClient();
 
@@ -32,7 +36,14 @@ const App = () => (
                     <AppLayout />
                   </ProtectedRoute>
                 }
-              />
+              >
+                <Route index element={<Navigate to="/conversations" replace />} />
+                <Route path="conversations" element={<ConversationsPage />} />
+                <Route path="conversations/:conversationId" element={<ConversationsPage />} />
+                <Route path="conversations/workflows" element={<WorkflowsPage />} />
+                <Route path="conversations/dashboard" element={<DashboardPage />} />
+                <Route path="conversations/settings" element={<SettingsPage />} />
+              </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>

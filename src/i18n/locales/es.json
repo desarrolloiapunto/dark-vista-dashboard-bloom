@@ -1,5 +1,17 @@
 
 {
+  "sidebar": {
+    "dashboard": {
+      "summary": "Resumen",
+      "analytics": "Análisis"
+    },
+    "conversations": {
+      "dashboard": "Dashboard",
+      "inbox": "Bandeja de Entrada",
+      "workflows": "Flujos de Trabajo",
+      "settings": "Configuración"
+    }
+  },
   "navigation": {
     "dashboard": "Dashboard",
     "conversations": "Conversaciones",
@@ -7,51 +19,131 @@
     "crm": "CRM",
     "marketing": "Marketing",
     "ads": "Anuncios",
-    "content": "Manejo de Contenido"
+    "content": "Contenido"
   },
-  "sidebar": {
-    "dashboard": {
-      "summary": "Resumen General",
-      "analytics": "Análisis por Módulos"
-    },
-    "conversations": {
-      "dashboard": "Dashboard",
-      "inbox": "Bandeja de Entrada",
-      "workflows": "Flujos de Trabajo",
-      "settings": "Configuración"
-    },
-    "crm": {
-      "dashboard": "Dashboard CRM",
-      "contacts": "Contactos",
-      "companies": "Empresas",
-      "tasks": "Tareas",
-      "opportunities": "Oportunidades",
-      "leads": "Gestión de Leads",
-      "leadsSources": "Origen de Leads",
-      "leadsTracking": "Seguimiento",
-      "leadsAutomation": "Automatización",
-      "reports": "Reportes"
-    },
-    "marketing": {
-      "campaigns": "Campañas Publicitarias",
-      "automation": "Automatización",
-      "ads": "Anuncios",
-      "reports": "Reportes"
-    },
-    "content": {
-      "calendar": "Calendario",
-      "publish": "Publicar",
-      "customize": "Personalización por Red Social",
-      "library": "Biblioteca de Contenido",
-      "reports": "Reportes de Engagement"
-    }
+  "conversation": {
+    "typeMessage": "Escribe un mensaje...",
+    "quickReplies": "Respuestas rápidas",
+    "image": "Imagen",
+    "document": "Documento",
+    "online": "En línea",
+    "offline": "Desconectado",
+    "noConversationFound": "Conversación no encontrada",
+    "cancel": "Cancelar",
+    "send": "Enviar",
+    "recording": "Grabando",
+    "audioRecorded": "Audio grabado",
+    "audioReadyToSend": "Audio listo para enviar",
+    "microphoneError": "Error de micrófono",
+    "microphonePermissionDenied": "Permiso de micrófono denegado",
+    "recordingCancelled": "Grabación cancelada",
+    "audioDiscarded": "Audio descartado",
+    "audioSent": "Audio enviado",
+    "audioMessageSent": "Mensaje de audio enviado",
+    "audioMessage": "Mensaje de audio"
   },
-  "header": {
-    "profile": "Perfil de Usuario",
-    "logout": "Cerrar Sesión"
+  "dashboard": {
+    "conversationsAnalytics": "Analíticas de Conversaciones",
+    "analyticsDescription": "Visualiza métricas y tendencias de tus conversaciones",
+    "last7Days": "Últimos 7 días",
+    "last30Days": "Últimos 30 días",
+    "last90Days": "Últimos 90 días",
+    "totalConversations": "Conversaciones Totales",
+    "responseRate": "Tasa de Respuesta",
+    "avgResponseTime": "Tiempo Medio de Respuesta"
   },
-  "language": {
-    "en": "Inglés",
-    "es": "Español"
+  "settings": {
+    "channelConfiguration": "Configuración de Canales",
+    "configureIntegrations": "Configura tus integraciones con diferentes plataformas de mensajería",
+    "whatsappBusinessAPI": "WhatsApp Business API",
+    "configureWhatsApp": "Configura la integración con la API de WhatsApp Business",
+    "accessToken": "Token de Acceso",
+    "phoneNumberID": "ID de Número de Teléfono",
+    "webhookURL": "URL del Webhook",
+    "copied": "Copiado",
+    "webhookCopied": "URL del webhook copiada al portapapeles",
+    "copy": "Copiar",
+    "active": "Activo",
+    "saveSettings": "Guardar Configuración",
+    "saved": "Guardado",
+    "channelSettingsSaved": "Configuración de {channel} guardada correctamente",
+    "facebookMessenger": "Facebook Messenger",
+    "configureFacebook": "Configura la integración con Facebook Messenger",
+    "appID": "ID de la Aplicación",
+    "appSecret": "Secreto de la Aplicación",
+    "pageID": "ID de la Página",
+    "pageToken": "Token de la Página",
+    "instagramMessaging": "Instagram Direct",
+    "configureInstagram": "Configura la integración con Instagram Messaging",
+    "instagramAccountID": "ID de Cuenta de Instagram",
+    "telegramBot": "Bot de Telegram",
+    "configureTelegram": "Configura la integración con Bot de Telegram",
+    "botToken": "Token del Bot",
+    "botUsername": "Nombre de usuario del Bot",
+    "generalSettings": "Configuración General",
+    "enableNotifications": "Activar Notificaciones",
+    "notificationsDescription": "Recibe notificaciones cuando lleguen nuevos mensajes",
+    "enableAutoReplies": "Activar Respuestas Automáticas",
+    "autoRepliesDescription": "Respuestas automáticas cuando estés ausente",
+    "enableChatbot": "Activar Chatbot IA",
+    "chatbotDescription": "Usa inteligencia artificial para responder preguntas frecuentes"
+  },
+  "workflows": {
+    "workflowEditor": "Editor de Flujos de Trabajo",
+    "workflowEditorDescription": "Diseña flujos de conversación para chatbots con drag & drop",
+    "toolsPanel": "Panel de Herramientas",
+    "addElements": "Añadir Elementos",
+    "message": "Mensaje",
+    "aiPrompt": "Prompt IA",
+    "condition": "Condición",
+    "action": "Acción",
+    "messageNode": "Mensaje",
+    "promptNode": "Prompt IA",
+    "conditionNode": "Condición",
+    "actionNode": "Acción",
+    "clickToEdit": "Se mostrarán controles específicos según el tipo de nodo seleccionado.",
+    "editNode": "Editar Nodo",
+    "editNodeDescription": "Modifica las propiedades del nodo seleccionado",
+    "nodeTitle": "Título del Nodo",
+    "messageContent": "Contenido del Mensaje",
+    "settings": "Configuración",
+    "messageSettings": "Ajustes del Mensaje",
+    "messageSettingsDescription": "Configura opciones adicionales para este nodo de mensaje",
+    "prompt": "Prompt",
+    "content": "Contenido",
+    "aiPromptTemplate": "Plantilla del Prompt",
+    "aiPromptDescription": "Usa {{variables}} para personalizar el prompt con datos de contexto",
+    "aiModelSettings": "Ajustes del Modelo IA",
+    "aiModelSettingsDescription": "Configura el modelo de IA y parámetros como temperatura",
+    "conditionExpression": "Expresión de Condición",
+    "conditionExpressionDescription": "Escribe una expresión lógica que evalúe a verdadero o falso",
+    "conditionBranches": "Ramas de Condición",
+    "conditionBranchesDescription": "Configura el flujo para los casos 'verdadero' y 'falso'",
+    "actionDefinition": "Definición de la Acción",
+    "actionDefinitionDescription": "Define qué acción debe realizarse (API, actualizar variables, etc.)",
+    "actionSettings": "Ajustes de la Acción",
+    "actionSettingsDescription": "Configura opciones adicionales para este nodo de acción",
+    "saveChanges": "Guardar Cambios",
+    "cancel": "Cancelar",
+    "saveWorkflow": "Guardar Flujo",
+    "duplicateNode": "Duplicar Nodo",
+    "deleteNode": "Eliminar Nodo",
+    "nodeUpdated": "Nodo Actualizado",
+    "nodeSettingsSaved": "Configuración del nodo guardada correctamente",
+    "nodeDuplicated": "Nodo Duplicado",
+    "nodeCopyCreated": "Se ha creado una copia del nodo",
+    "nodeDeleted": "Nodo Eliminado",
+    "nodeRemoved": "El nodo ha sido eliminado del flujo",
+    "workflowSaved": "Flujo Guardado",
+    "workflowSavedSuccess": "El flujo de trabajo ha sido guardado correctamente",
+    "copy": "copia",
+    "defaultMessageContent": "Escribe aquí el contenido del mensaje",
+    "defaultPrompt": "Escribe aquí el prompt para el modelo de IA",
+    "defaultCondition": "contacto.ultimoMensaje.includes('ayuda')",
+    "defaultAction": "{ \"tipo\": \"enviarEmail\", \"destinatario\": \"soporte@empresa.com\" }",
+    "messageDescription": "Envía un mensaje al usuario",
+    "aiPromptDescription": "Genera una respuesta usando IA",
+    "conditionDescription": "Ramifica el flujo basado en condiciones",
+    "actionDescription": "Ejecuta una acción específica"
   }
 }

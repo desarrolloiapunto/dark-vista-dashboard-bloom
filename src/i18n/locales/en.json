@@ -1,5 +1,17 @@
 
 {
+  "sidebar": {
+    "dashboard": {
+      "summary": "Summary",
+      "analytics": "Analytics"
+    },
+    "conversations": {
+      "dashboard": "Dashboard",
+      "inbox": "Inbox",
+      "workflows": "Workflows",
+      "settings": "Settings"
+    }
+  },
   "navigation": {
     "dashboard": "Dashboard",
     "conversations": "Conversations",
@@ -7,51 +19,131 @@
     "crm": "CRM",
     "marketing": "Marketing",
     "ads": "Ads",
-    "content": "Content Management"
+    "content": "Content"
   },
-  "sidebar": {
-    "dashboard": {
-      "summary": "General Summary",
-      "analytics": "Module Analytics"
-    },
-    "conversations": {
-      "dashboard": "Dashboard",
-      "inbox": "Inbox",
-      "workflows": "Workflows",
-      "settings": "Settings"
-    },
-    "crm": {
-      "dashboard": "CRM Dashboard",
-      "contacts": "Contacts",
-      "companies": "Companies",
-      "tasks": "Tasks",
-      "opportunities": "Opportunities",
-      "leads": "Leads Management",
-      "leadsSources": "Leads Sources",
-      "leadsTracking": "Tracking",
-      "leadsAutomation": "Automation",
-      "reports": "Reports"
-    },
-    "marketing": {
-      "campaigns": "Ad Campaigns",
-      "automation": "Automation",
-      "ads": "Ads",
-      "reports": "Reports"
-    },
-    "content": {
-      "calendar": "Calendar",
-      "publish": "Publish",
-      "customize": "Customize by Social Network",
-      "library": "Content Library",
-      "reports": "Engagement Reports"
-    }
+  "conversation": {
+    "typeMessage": "Type a message...",
+    "quickReplies": "Quick replies",
+    "image": "Image",
+    "document": "Document",
+    "online": "Online",
+    "offline": "Offline",
+    "noConversationFound": "Conversation not found",
+    "cancel": "Cancel",
+    "send": "Send",
+    "recording": "Recording",
+    "audioRecorded": "Audio recorded",
+    "audioReadyToSend": "Audio ready to send",
+    "microphoneError": "Microphone error",
+    "microphonePermissionDenied": "Microphone permission denied",
+    "recordingCancelled": "Recording cancelled",
+    "audioDiscarded": "Audio discarded",
+    "audioSent": "Audio sent",
+    "audioMessageSent": "Audio message sent",
+    "audioMessage": "Audio message"
   },
-  "header": {
-    "profile": "User Profile",
-    "logout": "Logout"
+  "dashboard": {
+    "conversationsAnalytics": "Conversations Analytics",
+    "analyticsDescription": "View metrics and trends from your conversations",
+    "last7Days": "Last 7 days",
+    "last30Days": "Last 30 days",
+    "last90Days": "Last 90 days",
+    "totalConversations": "Total Conversations",
+    "responseRate": "Response Rate",
+    "avgResponseTime": "Avg. Response Time"
   },
-  "language": {
-    "en": "English",
-    "es": "Spanish"
+  "settings": {
+    "channelConfiguration": "Channel Configuration",
+    "configureIntegrations": "Configure your integrations with different messaging platforms",
+    "whatsappBusinessAPI": "WhatsApp Business API",
+    "configureWhatsApp": "Configure the WhatsApp Business API integration",
+    "accessToken": "Access Token",
+    "phoneNumberID": "Phone Number ID",
+    "webhookURL": "Webhook URL",
+    "copied": "Copied",
+    "webhookCopied": "Webhook URL copied to clipboard",
+    "copy": "Copy",
+    "active": "Active",
+    "saveSettings": "Save Settings",
+    "saved": "Saved",
+    "channelSettingsSaved": "{channel} settings saved successfully",
+    "facebookMessenger": "Facebook Messenger",
+    "configureFacebook": "Configure the Facebook Messenger integration",
+    "appID": "App ID",
+    "appSecret": "App Secret",
+    "pageID": "Page ID",
+    "pageToken": "Page Token",
+    "instagramMessaging": "Instagram Direct",
+    "configureInstagram": "Configure the Instagram Messaging integration",
+    "instagramAccountID": "Instagram Account ID",
+    "telegramBot": "Telegram Bot",
+    "configureTelegram": "Configure the Telegram Bot integration",
+    "botToken": "Bot Token",
+    "botUsername": "Bot Username",
+    "generalSettings": "General Settings",
+    "enableNotifications": "Enable Notifications",
+    "notificationsDescription": "Receive notifications when new messages arrive",
+    "enableAutoReplies": "Enable Auto-Replies",
+    "autoRepliesDescription": "Automatic responses when you're away",
+    "enableChatbot": "Enable AI Chatbot",
+    "chatbotDescription": "Use artificial intelligence to answer common questions"
+  },
+  "workflows": {
+    "workflowEditor": "Workflow Editor",
+    "workflowEditorDescription": "Design conversation flows for chatbots with drag & drop",
+    "toolsPanel": "Tools Panel",
+    "addElements": "Add Elements",
+    "message": "Message",
+    "aiPrompt": "AI Prompt",
+    "condition": "Condition",
+    "action": "Action",
+    "messageNode": "Message",
+    "promptNode": "AI Prompt",
+    "conditionNode": "Condition",
+    "actionNode": "Action",
+    "clickToEdit": "Specific controls will be shown based on the selected node type.",
+    "editNode": "Edit Node",
+    "editNodeDescription": "Modify the properties of the selected node",
+    "nodeTitle": "Node Title",
+    "messageContent": "Message Content",
+    "settings": "Settings",
+    "messageSettings": "Message Settings",
+    "messageSettingsDescription": "Configure additional options for this message node",
+    "prompt": "Prompt",
+    "content": "Content",
+    "aiPromptTemplate": "Prompt Template",
+    "aiPromptDescription": "Use {{variables}} to customize the prompt with context data",
+    "aiModelSettings": "AI Model Settings",
+    "aiModelSettingsDescription": "Configure the AI model and parameters like temperature",
+    "conditionExpression": "Condition Expression",
+    "conditionExpressionDescription": "Write a logical expression that evaluates to true or false",
+    "conditionBranches": "Condition Branches",
+    "conditionBranchesDescription": "Configure the flow for the 'true' and 'false' cases",
+    "actionDefinition": "Action Definition",
+    "actionDefinitionDescription": "Define what action should be performed (API, update variables, etc.)",
+    "actionSettings": "Action Settings",
+    "actionSettingsDescription": "Configure additional options for this action node",
+    "saveChanges": "Save Changes",
+    "cancel": "Cancel",
+    "saveWorkflow": "Save Workflow",
+    "duplicateNode": "Duplicate Node",
+    "deleteNode": "Delete Node",
+    "nodeUpdated": "Node Updated",
+    "nodeSettingsSaved": "Node settings saved successfully",
+    "nodeDuplicated": "Node Duplicated",
+    "nodeCopyCreated": "A copy of the node has been created",
+    "nodeDeleted": "Node Deleted",
+    "nodeRemoved": "The node has been removed from the flow",
+    "workflowSaved": "Workflow Saved",
+    "workflowSavedSuccess": "The workflow has been saved successfully",
+    "copy": "copy",
+    "defaultMessageContent": "Type your message content here",
+    "defaultPrompt": "Write your AI prompt here",
+    "defaultCondition": "contact.lastMessage.includes('help')",
+    "defaultAction": "{ \"type\": \"sendEmail\", \"recipient\": \"support@company.com\" }",
+    "messageDescription": "Send a message to the user",
+    "aiPromptDescription": "Generate a response using AI",
+    "conditionDescription": "Branch the flow based on conditions",
+    "actionDescription": "Execute a specific action"
   }
 }
