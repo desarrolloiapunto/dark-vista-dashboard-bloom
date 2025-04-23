@@ -57,7 +57,7 @@ export const SettingsNavigation = () => {
           className={cn(
             "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-all hover:text-foreground",
             location.pathname === link.href
-              ? "bg-accent text-accent-foreground"
+              ? "gradient-bg text-white"
               : "text-muted-foreground"
           )}
         >

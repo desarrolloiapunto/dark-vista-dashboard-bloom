@@ -1,13 +1,13 @@
 
 import { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { MessageCircle, Send, Settings as SettingsIcon } from "lucide-react";
+import { MessageCircle, Mail, Settings as SettingsIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
 
-import { WhatsAppSettings } from "@/components/settings/WhatsAppSettings";
-import { MetaSettings } from "@/components/settings/MetaSettings";
-import { TelegramSettings } from "@/components/settings/TelegramSettings";
+import { WhatsAppSettings } from "@/components/settings/channels/WhatsAppSettings";
+import { MetaSettings } from "@/components/settings/channels/MetaSettings";
+import { TelegramSettings } from "@/components/settings/channels/TelegramSettings";
 
 const ChannelsPage = () => {
   const { t } = useTranslation();
@@ -22,7 +22,6 @@ const ChannelsPage = () => {
     if (tab && ['whatsapp', 'meta', 'telegram'].includes(tab)) {
       setActiveTab(tab);
     } else {
-      // Set default tab if none specified
       setActiveTab('whatsapp');
     }
   }, [location]);
@@ -32,8 +31,6 @@ const ChannelsPage = () => {
     setActiveTab(value);
     navigate(`/settings/channels?tab=${value}`, { replace: true });
   };
-
-  console.log('ChannelsPage rendering, active tab:', activeTab);
 
   return (
     <div className="container mx-auto py-6 px-4 md:px-6">
@@ -53,7 +50,7 @@ const ChannelsPage = () => {
             Meta
           </TabsTrigger>
           <TabsTrigger value="telegram" className="flex items-center gap-2">
-            <Send size={16} />
+            <Mail size={16} />
             Telegram
           </TabsTrigger>
         </TabsList>
