@@ -6,11 +6,11 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/components/ui/use-toast";
 import { useTranslation } from "react-i18next";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, FormProvider } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSettings } from "@/hooks/useSettings";
-import { FormItem, FormLabel, FormControl, FormDescription, FormMessage } from "@/components/ui/form";
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 
 const whatsAppSettingsSchema = z.object({
   isActive: z.boolean(),
@@ -18,21 +18,23 @@ const whatsAppSettingsSchema = z.object({
   phoneNumberId: z.string().min(1, "Phone Number ID is required")
 });
 
+type WhatsAppSettingsFormValues = z.infer<typeof whatsAppSettingsSchema>;
+
 export const WhatsAppSettings = () => {
   const { t } = useTranslation();
-  const { settings, saveSettings } = useSettings('whatsapp');
+  const { settings, saveSettings, loading } = useSettings('whatsapp');
   const { toast } = useToast();
 
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const form = useForm<WhatsAppSettingsFormValues>({
     resolver: zodResolver(whatsAppSettingsSchema),
     defaultValues: {
-      isActive: settings.isActive || false,
-      accessToken: settings.accessToken || '',
-      phoneNumberId: settings.phoneNumberId || ''
+      isActive: settings?.isActive || false,
+      accessToken: settings?.accessToken || '',
+      phoneNumberId: settings?.phoneNumberId || ''
     }
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: WhatsAppSettingsFormValues) => {
     await saveSettings(data);
   };
 
@@ -44,66 +46,70 @@ export const WhatsAppSettings = () => {
           {t('settings.configureWhatsApp')}
         </CardDescription>
       </CardHeader>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <CardContent className="space-y-6">
-          <FormItem>
-            <FormLabel>{t('settings.accessToken')}</FormLabel>
-            <Controller
+      
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <CardContent className="space-y-6">
+            <FormField
+              control={form.control}
               name="accessToken"
-              control={control}
               render={({ field }) => (
-                <FormControl>
-                  <Input 
-                    {...field} 
-                    type="password" 
-                    placeholder="••••••••••••••••••••••" 
-                  />
-                </FormControl>
+                <FormItem>
+                  <FormLabel>{t('settings.accessToken')}</FormLabel>
+                  <FormControl>
+                    <Input 
+                      {...field}
+                      type="password" 
+                      placeholder="••••••••••••••••••••••" 
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
               )}
             />
-            {errors.accessToken && (
-              <FormMessage>{errors.accessToken.message}</FormMessage>
-            )}
-          </FormItem>
-          
-          <FormItem>
-            <FormLabel>{t('settings.phoneNumberID')}</FormLabel>
-            <Controller
+            
+            <FormField
+              control={form.control}
               name="phoneNumberId"
-              control={control}
               render={({ field }) => (
-                <FormControl>
-                  <Input 
-                    {...field} 
-                    placeholder="1234567890" 
-                  />
-                </FormControl>
+                <FormItem>
+                  <FormLabel>{t('settings.phoneNumberID')}</FormLabel>
+                  <FormControl>
+                    <Input 
+                      {...field}
+                      placeholder="1234567890" 
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
               )}
             />
-            {errors.phoneNumberId && (
-              <FormMessage>{errors.phoneNumberId.message}</FormMessage>
-            )}
-          </FormItem>
 
-          <div className="flex items-center space-x-2">
-            <Controller
+            <FormField
+              control={form.control}
               name="isActive"
-              control={control}
-              render={({ field: { value, onChange } }) => (
-                <Switch 
-                  id="whatsapp-active" 
-                  checked={value}
-                  onCheckedChange={onChange}
-                />
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3">
+                  <div className="space-y-0.5">
+                    <FormLabel>{t('settings.active')}</FormLabel>
+                  </div>
+                  <FormControl>
+                    <Switch 
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
               )}
             />
-            <Label htmlFor="whatsapp-active">{t('settings.active')}</Label>
-          </div>
-        </CardContent>
-        <CardFooter>
-          <Button type="submit">{t('settings.saveSettings')}</Button>
-        </CardFooter>
-      </form>
+          </CardContent>
+          <CardFooter>
+            <Button type="submit" disabled={loading}>
+              {loading ? t('common.saving') : t('settings.saveSettings')}
+            </Button>
+          </CardFooter>
+        </form>
+      </Form>
     </Card>
   );
 };

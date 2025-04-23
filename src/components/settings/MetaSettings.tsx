@@ -2,15 +2,14 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/components/ui/use-toast";
 import { useTranslation } from "react-i18next";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSettings } from "@/hooks/useSettings";
-import { FormItem, FormLabel, FormControl, FormDescription, FormMessage } from "@/components/ui/form";
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 
 const metaSettingsSchema = z.object({
   isActive: z.boolean(),
@@ -21,24 +20,26 @@ const metaSettingsSchema = z.object({
   instagramAccountId: z.string().min(1, "Instagram Account ID is required")
 });
 
+type MetaSettingsFormValues = z.infer<typeof metaSettingsSchema>;
+
 export const MetaSettings = () => {
   const { t } = useTranslation();
-  const { settings, saveSettings } = useSettings('meta');
+  const { settings, saveSettings, loading } = useSettings('meta');
   const { toast } = useToast();
 
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const form = useForm<MetaSettingsFormValues>({
     resolver: zodResolver(metaSettingsSchema),
     defaultValues: {
-      isActive: settings.isActive || false,
-      appId: settings.appId || '',
-      appSecret: settings.appSecret || '',
-      pageId: settings.pageId || '',
-      pageToken: settings.pageToken || '',
-      instagramAccountId: settings.instagramAccountId || ''
+      isActive: settings?.isActive || false,
+      appId: settings?.appId || '',
+      appSecret: settings?.appSecret || '',
+      pageId: settings?.pageId || '',
+      pageToken: settings?.pageToken || '',
+      instagramAccountId: settings?.instagramAccountId || ''
     }
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: MetaSettingsFormValues) => {
     await saveSettings(data);
   };
 
@@ -50,109 +51,107 @@ export const MetaSettings = () => {
           Configure your Meta Business Platform integration for Facebook Messenger and Instagram Direct Messages
         </CardDescription>
       </CardHeader>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <CardContent className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <FormItem>
-              <FormLabel>{t('settings.appID')}</FormLabel>
-              <Controller
+      
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <CardContent className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <FormField
+                control={form.control}
                 name="appId"
-                control={control}
                 render={({ field }) => (
-                  <FormControl>
-                    <Input {...field} placeholder="123456789012345" />
-                  </FormControl>
+                  <FormItem>
+                    <FormLabel>{t('settings.appID')}</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="123456789012345" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
               />
-              {errors.appId && (
-                <FormMessage>{errors.appId.message}</FormMessage>
-              )}
-            </FormItem>
-            
-            <FormItem>
-              <FormLabel>{t('settings.appSecret')}</FormLabel>
-              <Controller
+              
+              <FormField
+                control={form.control}
                 name="appSecret"
-                control={control}
                 render={({ field }) => (
-                  <FormControl>
-                    <Input {...field} type="password" placeholder="••••••••••••••••••••••" />
-                  </FormControl>
+                  <FormItem>
+                    <FormLabel>{t('settings.appSecret')}</FormLabel>
+                    <FormControl>
+                      <Input {...field} type="password" placeholder="••••••••••••••••••••••" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
               />
-              {errors.appSecret && (
-                <FormMessage>{errors.appSecret.message}</FormMessage>
-              )}
-            </FormItem>
 
-            <FormItem>
-              <FormLabel>{t('settings.pageID')}</FormLabel>
-              <Controller
+              <FormField
+                control={form.control}
                 name="pageId"
-                control={control}
                 render={({ field }) => (
-                  <FormControl>
-                    <Input {...field} placeholder="123456789012345" />
-                  </FormControl>
+                  <FormItem>
+                    <FormLabel>{t('settings.pageID')}</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="123456789012345" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
               />
-              {errors.pageId && (
-                <FormMessage>{errors.pageId.message}</FormMessage>
-              )}
-            </FormItem>
 
-            <FormItem>
-              <FormLabel>{t('settings.pageToken')}</FormLabel>
-              <Controller
+              <FormField
+                control={form.control}
                 name="pageToken"
-                control={control}
                 render={({ field }) => (
-                  <FormControl>
-                    <Input {...field} type="password" placeholder="••••••••••••••••••••••" />
-                  </FormControl>
+                  <FormItem>
+                    <FormLabel>{t('settings.pageToken')}</FormLabel>
+                    <FormControl>
+                      <Input {...field} type="password" placeholder="••••••••••••••••••••••" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
               />
-              {errors.pageToken && (
-                <FormMessage>{errors.pageToken.message}</FormMessage>
-              )}
-            </FormItem>
 
-            <FormItem>
-              <FormLabel>{t('settings.instagramAccountID')}</FormLabel>
-              <Controller
+              <FormField
+                control={form.control}
                 name="instagramAccountId"
-                control={control}
                 render={({ field }) => (
-                  <FormControl>
-                    <Input {...field} placeholder="123456789012345" />
-                  </FormControl>
+                  <FormItem>
+                    <FormLabel>{t('settings.instagramAccountID')}</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="123456789012345" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
               />
-              {errors.instagramAccountId && (
-                <FormMessage>{errors.instagramAccountId.message}</FormMessage>
-              )}
-            </FormItem>
-          </div>
+            </div>
 
-          <div className="flex items-center space-x-2">
-            <Controller
+            <FormField
+              control={form.control}
               name="isActive"
-              control={control}
-              render={({ field: { value, onChange } }) => (
-                <Switch 
-                  id="meta-active" 
-                  checked={value}
-                  onCheckedChange={onChange}
-                />
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3">
+                  <div className="space-y-0.5">
+                    <FormLabel>{t('settings.active')}</FormLabel>
+                  </div>
+                  <FormControl>
+                    <Switch 
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
               )}
             />
-            <Label htmlFor="meta-active">{t('settings.active')}</Label>
-          </div>
-        </CardContent>
-        <CardFooter>
-          <Button type="submit">{t('settings.saveSettings')}</Button>
-        </CardFooter>
-      </form>
+          </CardContent>
+          <CardFooter>
+            <Button type="submit" disabled={loading}>
+              {loading ? t('common.saving') : t('settings.saveSettings')}
+            </Button>
+          </CardFooter>
+        </form>
+      </Form>
     </Card>
   );
 };

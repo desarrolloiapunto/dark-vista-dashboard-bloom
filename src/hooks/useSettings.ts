@@ -1,19 +1,16 @@
 
 import { useState, useEffect } from 'react';
-import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 
 export interface ChannelSettings {
-  isActive: boolean;
+  isActive?: boolean;
   accessToken?: string;
   [key: string]: any;
 }
 
 export const useSettings = (channel: string) => {
   const { toast } = useToast();
-  const [settings, setSettings] = useState<ChannelSettings>({
-    isActive: false
-  });
+  const [settings, setSettings] = useState<ChannelSettings | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -31,6 +28,11 @@ export const useSettings = (channel: string) => {
         
         if (storedSettings) {
           setSettings(JSON.parse(storedSettings));
+        } else {
+          // Initialize with empty settings
+          setSettings({
+            isActive: false
+          });
         }
       } catch (err) {
         console.error(`Error in useSettings:`, err);
@@ -45,6 +47,7 @@ export const useSettings = (channel: string) => {
 
   const saveSettings = async (newSettings: ChannelSettings) => {
     try {
+      setLoading(true);
       setError(null);
       
       // Save settings to localStorage
@@ -64,6 +67,8 @@ export const useSettings = (channel: string) => {
         description: errorMessage,
         variant: 'destructive'
       });
+    } finally {
+      setLoading(false);
     }
   };
 
