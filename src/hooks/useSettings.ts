@@ -1,13 +1,7 @@
 
 import { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
-
-// Update to use the correct environment variable name
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL!, 
-  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY!
-);
 
 export interface ChannelSettings {
   isActive: boolean;
@@ -20,26 +14,42 @@ export const useSettings = (channel: string) => {
   const [settings, setSettings] = useState<ChannelSettings>({
     isActive: false
   });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchSettings = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const { data: { user } } = await supabase.auth.getUser();
+        
+        if (!user) {
+          setLoading(false);
+          return;
+        }
 
-      const { data, error } = await supabase
-        .from('user_settings')
-        .select('settings')
-        .eq('user_id', user.id)
-        .eq('channel', channel)
-        .single();
+        const { data, error } = await supabase
+          .from('user_settings')
+          .select('settings')
+          .eq('user_id', user.id)
+          .eq('channel', channel)
+          .single();
 
-      if (error) {
-        console.error(`Error fetching ${channel} settings:`, error);
-        return;
-      }
+        if (error && error.code !== 'PGRST116') { // PGRST116 is "no rows returned" error
+          console.error(`Error fetching ${channel} settings:`, error);
+          setError(error.message);
+        }
 
-      if (data) {
-        setSettings(data.settings);
+        if (data) {
+          setSettings(data.settings);
+        }
+      } catch (err) {
+        console.error(`Error in useSettings:`, err);
+        setError(err instanceof Error ? err.message : 'Unknown error occurred');
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -47,40 +57,55 @@ export const useSettings = (channel: string) => {
   }, [channel]);
 
   const saveSettings = async (newSettings: ChannelSettings) => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
+    try {
+      setError(null);
+      
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        toast({
+          title: 'Error',
+          description: 'You must be logged in to save settings',
+          variant: 'destructive'
+        });
+        return;
+      }
+
+      const { error } = await supabase
+        .from('user_settings')
+        .upsert({
+          user_id: user.id,
+          channel,
+          settings: newSettings
+        })
+        .select();
+
+      if (error) {
+        toast({
+          title: 'Error saving settings',
+          description: error.message,
+          variant: 'destructive'
+        });
+        setError(error.message);
+        return;
+      }
+
+      setSettings(newSettings);
+      toast({
+        title: 'Settings Saved',
+        description: `${channel} settings updated successfully`
+      });
+    } catch (err) {
+      console.error(`Error saving ${channel} settings:`, err);
+      const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred';
+      setError(errorMessage);
       toast({
         title: 'Error',
-        description: 'You must be logged in to save settings',
+        description: errorMessage,
         variant: 'destructive'
       });
-      return;
     }
-
-    const { error } = await supabase
-      .from('user_settings')
-      .upsert({
-        user_id: user.id,
-        channel,
-        settings: newSettings
-      })
-      .select();
-
-    if (error) {
-      toast({
-        title: 'Error saving settings',
-        description: error.message,
-        variant: 'destructive'
-      });
-      return;
-    }
-
-    setSettings(newSettings);
-    toast({
-      title: 'Settings Saved',
-      description: `${channel} settings updated successfully`
-    });
   };
 
-  return { settings, saveSettings };
+  return { settings, loading, error, saveSettings };
 };
