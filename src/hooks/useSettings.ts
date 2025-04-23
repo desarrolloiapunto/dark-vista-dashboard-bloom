@@ -3,9 +3,10 @@ import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { useToast } from "@/components/ui/use-toast";
 
+// Update to use the correct environment variable name
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL!, 
-  import.meta.env.VITE_SUPABASE_ANON_KEY!
+  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY!
 );
 
 export interface ChannelSettings {
