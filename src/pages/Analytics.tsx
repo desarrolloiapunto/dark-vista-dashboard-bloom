@@ -1,21 +1,9 @@
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  LineChart,
-  Line,
-  PieChart,
-  Pie,
-  Cell
-} from "recharts";
+import { BarChartCard } from "@/components/analytics/BarChartCard";
+import { PieChartCard } from "@/components/analytics/PieChartCard";
+import { LineChartCard } from "@/components/analytics/LineChartCard";
+import { MetricsGrid } from "@/components/analytics/MetricsGrid";
 
 const barData = [
   { name: "Ene", ventas: 4000, visitas: 2400 },
@@ -43,6 +31,13 @@ const pieData = [
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28"];
 
+const userMetrics = [
+  { value: "2,853", label: "Usuarios Activos" },
+  { value: "15.2m", label: "Tiempo Promedio" },
+  { value: "89%", label: "Tasa de Retención" },
+  { value: "4.6", label: "Satisfacción" },
+];
+
 const Analytics = () => {
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
@@ -59,117 +54,36 @@ const Analytics = () => {
 
         <TabsContent value="overview" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
-            <Card>
-              <CardHeader>
-                <CardTitle>Ventas vs Visitas</CardTitle>
-                <CardDescription>Comparativa mensual</CardDescription>
-              </CardHeader>
-              <CardContent className="h-[300px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={barData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Bar dataKey="ventas" fill="#8884d8" />
-                    <Bar dataKey="visitas" fill="#82ca9d" />
-                  </BarChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Distribución de Dispositivos</CardTitle>
-                <CardDescription>Accesos por tipo de dispositivo</CardDescription>
-              </CardHeader>
-              <CardContent className="h-[300px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={pieData}
-                      cx="50%"
-                      cy="50%"
-                      labelLine={false}
-                      outerRadius={100}
-                      fill="#8884d8"
-                      dataKey="value"
-                    >
-                      {pieData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                    <Legend />
-                  </PieChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
+            <BarChartCard 
+              title="Ventas vs Visitas" 
+              description="Comparativa mensual" 
+              data={barData} 
+              dataKeys={["ventas", "visitas"]} 
+              colors={["#8884d8", "#82ca9d"]} 
+            />
+            <PieChartCard 
+              title="Distribución de Dispositivos" 
+              description="Accesos por tipo de dispositivo" 
+              data={pieData} 
+              colors={COLORS} 
+            />
           </div>
         </TabsContent>
 
         <TabsContent value="sales">
-          <Card>
-            <CardHeader>
-              <CardTitle>Análisis de Ventas</CardTitle>
-              <CardDescription>Tendencia de ventas por período</CardDescription>
-            </CardHeader>
-            <CardContent className="h-[400px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={lineData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Line
-                    type="monotone"
-                    dataKey="usuarios"
-                    stroke="#8884d8"
-                    activeDot={{ r: 8 }}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
+          <LineChartCard 
+            title="Análisis de Ventas" 
+            description="Tendencia de ventas por período" 
+            data={lineData} 
+            dataKey="usuarios" 
+            color="#8884d8" 
+          />
         </TabsContent>
 
         <TabsContent value="users">
-          <Card>
-            <CardHeader>
-              <CardTitle>Actividad de Usuarios</CardTitle>
-              <CardDescription>Métricas de engagement</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="text-2xl font-bold">2,853</div>
-                    <p className="text-xs text-muted-foreground">Usuarios Activos</p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="text-2xl font-bold">15.2m</div>
-                    <p className="text-xs text-muted-foreground">Tiempo Promedio</p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="text-2xl font-bold">89%</div>
-                    <p className="text-xs text-muted-foreground">Tasa de Retención</p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="text-2xl font-bold">4.6</div>
-                    <p className="text-xs text-muted-foreground">Satisfacción</p>
-                  </CardContent>
-                </Card>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="space-y-4">
+            <MetricsGrid metrics={userMetrics} />
+          </div>
         </TabsContent>
       </Tabs>
     </div>
