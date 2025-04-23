@@ -3,12 +3,15 @@ import { Home, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 export const DashboardNavigation = () => {
   const location = useLocation();
+  const { t } = useTranslation();
+  
   const dashboardActions = [
-    { icon: Home, label: "Resumen General", path: "/" },
-    { icon: BarChart3, label: "Análisis por Módulos", path: "/analytics" },
+    { icon: Home, label: t('sidebar.dashboard.summary'), path: "/" },
+    { icon: BarChart3, label: t('sidebar.dashboard.analytics'), path: "/analytics" },
   ];
 
   return (

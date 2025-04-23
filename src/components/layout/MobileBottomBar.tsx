@@ -1,6 +1,7 @@
 
 import { useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 import {
   LayoutDashboard,
   MessageSquare,
@@ -26,81 +27,77 @@ import {
   FileText
 } from "lucide-react";
 
-const PRIMARY_ICONS = [
-  { icon: LayoutDashboard, path: "/", label: "Dashboard" },
-  { icon: MessageSquare, path: "/conversations", label: "Conversaciones" },
-  { icon: Mail, path: "/emails", label: "Correos" },
-  { icon: Users, path: "/crm", label: "CRM" },
-  { icon: TrendingUp, path: "/marketing", label: "Marketing" },
-  { icon: Zap, path: "/ads", label: "Ads" },
-  { icon: Image, path: "/content", label: "Contenido" }
-];
-
-const SECONDARY_CONTEXT = [
-  {
-    start: "/content",
-    items: [
-      { icon: Calendar, path: "/content", label: "Calendario" },
-      { icon: Share2, path: "/content/publish", label: "Publicar" },
-      { icon: Settings, path: "/content/customize", label: "Personalizar" },
-      { icon: BookOpen, path: "/content/library", label: "Biblioteca" },
-      { icon: BarChart, path: "/content/reports", label: "Reportes" }
-    ]
-  },
-  {
-    start: "/conversations",
-    items: [
-      { icon: BarChart, path: "/conversations/dashboard", label: "Dashboard" },
-      { icon: Inbox, path: "/conversations", label: "Bandeja" },
-      { icon: ZapIcon, path: "/conversations/workflows", label: "Flujos" },
-      { icon: Settings, path: "/conversations/settings", label: "Config" }
-    ]
-  },
-  {
-    start: "/crm",
-    items: [
-      { icon: Users, path: "/crm/contacts", label: "Contactos" },
-      { icon: Users, path: "/crm/companies", label: "Empresas" },
-      { icon: FileText, path: "/crm/tasks", label: "Tareas" },
-      { icon: ZapIcon, path: "/crm/opportunities", label: "Oportunid." },
-      { icon: BarChart, path: "/crm/reports", label: "Reportes" }
-    ]
-  },
-  {
-    start: "/marketing",
-    items: [
-      { icon: TrendingUp, path: "/marketing/campaigns", label: "Campañas" },
-      { icon: Zap, path: "/marketing/automation", label: "Auto." },
-      { icon: FileText, path: "/marketing/ads", label: "Anuncios" },
-      { icon: BarChart, path: "/marketing/reports", label: "Reportes" }
-    ]
-  },
-  {
-    start: "/ads",
-    items: [
-      { icon: TrendingUp, path: "/ads/campaigns", label: "Campañas" },
-      { icon: Share2, path: "/ads/publish", label: "Publicar" },
-      { icon: BarChart, path: "/ads/optimization", label: "Optimizar" },
-      { icon: BarChart, path: "/ads/reports", label: "Reportes" }
-    ]
-  },
-  {
-    start: "/emails",
-    items: [
-      { icon: Mail, path: "/emails", label: "Bandeja" }
-    ]
-  }
-];
-
-function getSecondaryItems(pathname: string) {
-  const match = SECONDARY_CONTEXT.find((ctx) => pathname.startsWith(ctx.start));
-  return match ? match.items : [];
-}
-
 export function MobileBottomBar() {
   const location = useLocation();
   const navigate = useNavigate();
   const pathname = location.pathname;
+  const { t } = useTranslation();
+
+  const PRIMARY_ICONS = [
+    { icon: LayoutDashboard, path: "/", label: t('navigation.dashboard') },
+    { icon: MessageSquare, path: "/conversations", label: t('navigation.conversations') },
+    { icon: Mail, path: "/emails", label: t('navigation.emails') },
+    { icon: Users, path: "/crm", label: t('navigation.crm') },
+    { icon: TrendingUp, path: "/marketing", label: t('navigation.marketing') },
+    { icon: Zap, path: "/ads", label: t('navigation.ads') },
+    { icon: Image, path: "/content", label: t('navigation.content') }
+  ];
+
+  const SECONDARY_CONTEXT = [
+    {
+      start: "/content",
+      items: [
+        { icon: Calendar, path: "/content", label: t('sidebar.content.calendar') },
+        { icon: Share2, path: "/content/publish", label: t('sidebar.content.publish') },
+        { icon: Settings, path: "/content/customize", label: t('sidebar.content.customize') },
+        { icon: BookOpen, path: "/content/library", label: t('sidebar.content.library') },
+        { icon: BarChart, path: "/content/reports", label: t('sidebar.content.reports') }
+      ]
+    },
+    {
+      start: "/conversations",
+      items: [
+        { icon: BarChart, path: "/conversations/dashboard", label: t('sidebar.conversations.dashboard') },
+        { icon: Inbox, path: "/conversations", label: t('sidebar.conversations.inbox') },
+        { icon: ZapIcon, path: "/conversations/workflows", label: t('sidebar.conversations.workflows') },
+        { icon: Settings, path: "/conversations/settings", label: t('sidebar.conversations.settings') }
+      ]
+    },
+    {
+      start: "/crm",
+      items: [
+        { icon: Users, path: "/crm/contacts", label: t('sidebar.crm.contacts') },
+        { icon: Users, path: "/crm/companies", label: t('sidebar.crm.companies') },
+        { icon: FileText, path: "/crm/tasks", label: t('sidebar.crm.tasks') },
+        { icon: ZapIcon, path: "/crm/opportunities", label: t('sidebar.crm.opportunities') },
+        { icon: BarChart, path: "/crm/reports", label: t('sidebar.crm.reports') }
+      ]
+    },
+    {
+      start: "/marketing",
+      items: [
+        { icon: TrendingUp, path: "/marketing/campaigns", label: t('sidebar.marketing.campaigns') },
+        { icon: Zap, path: "/marketing/automation", label: t('sidebar.marketing.automation') },
+        { icon: FileText, path: "/marketing/ads", label: t('sidebar.marketing.ads') },
+        { icon: BarChart, path: "/marketing/reports", label: t('sidebar.marketing.reports') }
+      ]
+    },
+    {
+      start: "/ads",
+      items: [
+        { icon: TrendingUp, path: "/ads/campaigns", label: t('sidebar.marketing.campaigns') },
+        { icon: Share2, path: "/ads/publish", label: "Publicar" },
+        { icon: BarChart, path: "/ads/optimization", label: "Optimizar" },
+        { icon: BarChart, path: "/ads/reports", label: "Reportes" }
+      ]
+    },
+    {
+      start: "/emails",
+      items: [
+        { icon: Mail, path: "/emails", label: "Bandeja" }
+      ]
+    }
+  ];
 
   // Items contextuales (secundario)
   const secondary = getSecondaryItems(pathname);
@@ -136,6 +133,11 @@ export function MobileBottomBar() {
 
   // Estado para el Drawer
   const [open, setOpen] = React.useState(false);
+
+  function getSecondaryItems(pathname: string) {
+    const match = SECONDARY_CONTEXT.find((ctx) => pathname.startsWith(ctx.start));
+    return match ? match.items : [];
+  }
 
   return (
     <>

@@ -1,0 +1,57 @@
+
+{
+  "navigation": {
+    "dashboard": "Dashboard",
+    "conversations": "Conversations",
+    "emails": "Emails",
+    "crm": "CRM",
+    "marketing": "Marketing",
+    "ads": "Ads",
+    "content": "Content Management"
+  },
+  "sidebar": {
+    "dashboard": {
+      "summary": "General Summary",
+      "analytics": "Module Analytics"
+    },
+    "conversations": {
+      "dashboard": "Dashboard",
+      "inbox": "Inbox",
+      "workflows": "Workflows",
+      "settings": "Settings"
+    },
+    "crm": {
+      "dashboard": "CRM Dashboard",
+      "contacts": "Contacts",
+      "companies": "Companies",
+      "tasks": "Tasks",
+      "opportunities": "Opportunities",
+      "leads": "Leads Management",
+      "leadsSources": "Leads Sources",
+      "leadsTracking": "Tracking",
+      "leadsAutomation": "Automation",
+      "reports": "Reports"
+    },
+    "marketing": {
+      "campaigns": "Ad Campaigns",
+      "automation": "Automation",
+      "ads": "Ads",
+      "reports": "Reports"
+    },
+    "content": {
+      "calendar": "Calendar",
+      "publish": "Publish",
+      "customize": "Customize by Social Network",
+      "library": "Content Library",
+      "reports": "Engagement Reports"
+    }
+  },
+  "header": {
+    "profile": "User Profile",
+    "logout": "Logout"
+  },
+  "language": {
+    "en": "English",
+    "es": "Spanish"
+  }
+}

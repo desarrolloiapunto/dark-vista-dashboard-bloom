@@ -1,0 +1,57 @@
+
+{
+  "navigation": {
+    "dashboard": "Dashboard",
+    "conversations": "Conversaciones",
+    "emails": "Correos",
+    "crm": "CRM",
+    "marketing": "Marketing",
+    "ads": "Anuncios",
+    "content": "Manejo de Contenido"
+  },
+  "sidebar": {
+    "dashboard": {
+      "summary": "Resumen General",
+      "analytics": "Análisis por Módulos"
+    },
+    "conversations": {
+      "dashboard": "Dashboard",
+      "inbox": "Bandeja de Entrada",
+      "workflows": "Flujos de Trabajo",
+      "settings": "Configuración"
+    },
+    "crm": {
+      "dashboard": "Dashboard CRM",
+      "contacts": "Contactos",
+      "companies": "Empresas",
+      "tasks": "Tareas",
+      "opportunities": "Oportunidades",
+      "leads": "Gestión de Leads",
+      "leadsSources": "Origen de Leads",
+      "leadsTracking": "Seguimiento",
+      "leadsAutomation": "Automatización",
+      "reports": "Reportes"
+    },
+    "marketing": {
+      "campaigns": "Campañas Publicitarias",
+      "automation": "Automatización",
+      "ads": "Anuncios",
+      "reports": "Reportes"
+    },
+    "content": {
+      "calendar": "Calendario",
+      "publish": "Publicar",
+      "customize": "Personalización por Red Social",
+      "library": "Biblioteca de Contenido",
+      "reports": "Reportes de Engagement"
+    }
+  },
+  "header": {
+    "profile": "Perfil de Usuario",
+    "logout": "Cerrar Sesión"
+  },
+  "language": {
+    "en": "Inglés",
+    "es": "Español"
+  }
+}

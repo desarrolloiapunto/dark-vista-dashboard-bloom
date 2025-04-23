@@ -10,45 +10,47 @@ import {
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 export function PrimarySidebar() {
   const location = useLocation();
+  const { t } = useTranslation();
   
   const modules = [
     {
       icon: LayoutDashboard,
       path: "/",
-      title: "Dashboard"
+      title: t('navigation.dashboard')
     },
     {
       icon: MessageSquare,
       path: "/conversations",
-      title: "Conversaciones"
+      title: t('navigation.conversations')
     },
     {
       icon: Mail,
       path: "/emails",
-      title: "Correos"
+      title: t('navigation.emails')
     },
     {
       icon: Users,
       path: "/crm",
-      title: "CRM"
+      title: t('navigation.crm')
     },
     {
       icon: TrendingUp,
       path: "/marketing",
-      title: "Marketing"
+      title: t('navigation.marketing')
     },
     {
       icon: Zap,
       path: "/ads",
-      title: "Ads"
+      title: t('navigation.ads')
     },
     {
       icon: Image,
       path: "/content",
-      title: "Manejo de Contenido"
+      title: t('navigation.content')
     }
   ];
 

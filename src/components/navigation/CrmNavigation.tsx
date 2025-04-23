@@ -3,20 +3,23 @@ import { Home, UsersIcon, Building2, CheckSquare, LineChart, UserCheck, MapPin, 
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 export const CrmNavigation = () => {
   const location = useLocation();
+  const { t } = useTranslation();
+  
   const crmActions = [
-    { icon: Home, label: "Dashboard CRM", path: "/crm" },
-    { icon: UsersIcon, label: "Contactos", path: "/crm/contacts" },
-    { icon: Building2, label: "Empresas", path: "/crm/companies" },
-    { icon: CheckSquare, label: "Tareas", path: "/crm/tasks" },
-    { icon: LineChart, label: "Oportunidades", path: "/crm/opportunities" },
-    { icon: UserCheck, label: "Gestión de Leads", path: "/crm/leads" },
-    { icon: MapPin, label: "Origen de Leads", path: "/crm/leads/sources" },
-    { icon: History, label: "Seguimiento", path: "/crm/leads/tracking" },
-    { icon: ZapIcon, label: "Automatización", path: "/crm/leads/automation" },
-    { icon: PieChart, label: "Reportes", path: "/crm/reports" },
+    { icon: Home, label: t('sidebar.crm.dashboard'), path: "/crm" },
+    { icon: UsersIcon, label: t('sidebar.crm.contacts'), path: "/crm/contacts" },
+    { icon: Building2, label: t('sidebar.crm.companies'), path: "/crm/companies" },
+    { icon: CheckSquare, label: t('sidebar.crm.tasks'), path: "/crm/tasks" },
+    { icon: LineChart, label: t('sidebar.crm.opportunities'), path: "/crm/opportunities" },
+    { icon: UserCheck, label: t('sidebar.crm.leads'), path: "/crm/leads" },
+    { icon: MapPin, label: t('sidebar.crm.leadsSources'), path: "/crm/leads/sources" },
+    { icon: History, label: t('sidebar.crm.leadsTracking'), path: "/crm/leads/tracking" },
+    { icon: ZapIcon, label: t('sidebar.crm.leadsAutomation'), path: "/crm/leads/automation" },
+    { icon: PieChart, label: t('sidebar.crm.reports'), path: "/crm/reports" },
   ];
 
   return (
