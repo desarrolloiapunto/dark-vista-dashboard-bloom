@@ -17,33 +17,20 @@ export const useSettings = (channel: string) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Storage key for settings in localStorage
+  const storageKey = `channel_settings_${channel}`;
+
   useEffect(() => {
     const fetchSettings = async () => {
       try {
         setLoading(true);
         setError(null);
         
-        const { data: { user } } = await supabase.auth.getUser();
+        // Check if settings exist in localStorage
+        const storedSettings = localStorage.getItem(storageKey);
         
-        if (!user) {
-          setLoading(false);
-          return;
-        }
-
-        const { data, error } = await supabase
-          .from('user_settings')
-          .select('settings')
-          .eq('user_id', user.id)
-          .eq('channel', channel)
-          .single();
-
-        if (error && error.code !== 'PGRST116') { // PGRST116 is "no rows returned" error
-          console.error(`Error fetching ${channel} settings:`, error);
-          setError(error.message);
-        }
-
-        if (data) {
-          setSettings(data.settings);
+        if (storedSettings) {
+          setSettings(JSON.parse(storedSettings));
         }
       } catch (err) {
         console.error(`Error in useSettings:`, err);
@@ -54,42 +41,15 @@ export const useSettings = (channel: string) => {
     };
 
     fetchSettings();
-  }, [channel]);
+  }, [channel, storageKey]);
 
   const saveSettings = async (newSettings: ChannelSettings) => {
     try {
       setError(null);
       
-      const { data: { user } } = await supabase.auth.getUser();
+      // Save settings to localStorage
+      localStorage.setItem(storageKey, JSON.stringify(newSettings));
       
-      if (!user) {
-        toast({
-          title: 'Error',
-          description: 'You must be logged in to save settings',
-          variant: 'destructive'
-        });
-        return;
-      }
-
-      const { error } = await supabase
-        .from('user_settings')
-        .upsert({
-          user_id: user.id,
-          channel,
-          settings: newSettings
-        })
-        .select();
-
-      if (error) {
-        toast({
-          title: 'Error saving settings',
-          description: error.message,
-          variant: 'destructive'
-        });
-        setError(error.message);
-        return;
-      }
-
       setSettings(newSettings);
       toast({
         title: 'Settings Saved',
