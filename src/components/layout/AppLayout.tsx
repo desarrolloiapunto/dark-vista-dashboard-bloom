@@ -12,6 +12,8 @@ import Index from "@/pages/Index";
 import Analytics from "@/pages/Analytics";
 import ConversationsPage from "@/pages/conversations/ConversationsPage";
 import WorkflowsPage from "@/pages/conversations/WorkflowsPage";
+import DashboardPage from "@/pages/conversations/DashboardPage";
+import SettingsPage from "@/pages/conversations/SettingsPage";
 import EmailsPage from "@/pages/emails/EmailsPage";
 import CrmIndex from "@/pages/crm";
 import ContactsPage from "@/pages/crm/ContactsPage";
@@ -42,11 +44,11 @@ export const AppLayout = () => {
           <Routes>
             <Route index element={<Index />} />
             <Route path="analytics" element={<Analytics />} />
-            <Route path="conversations/*" element={<ConversationsPage />} />
+            <Route path="conversations" element={<ConversationsPage />} />
             <Route path="conversations/workflows" element={<WorkflowsPage />} />
             <Route path="conversations/:conversationId" element={<ConversationsPage />} />
-            <Route path="conversations/dashboard" element={<ConversationsPage />} />
-            <Route path="conversations/settings" element={<Placeholder title={t('sidebar.conversations.settings')} />} />
+            <Route path="conversations/dashboard" element={<DashboardPage />} />
+            <Route path="conversations/settings" element={<SettingsPage />} />
             <Route path="emails/*" element={<EmailsPage />} />
             <Route path="crm" element={<CrmIndex />} />
             <Route path="crm/contacts" element={<ContactsPage />} />

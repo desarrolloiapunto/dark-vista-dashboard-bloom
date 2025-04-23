@@ -24,12 +24,7 @@ export const ConversationsNavigation = () => {
           variant="ghost"
           className={cn(
             "w-full justify-start gap-2",
-            (location.pathname === path || 
-             (path === "/conversations" && location.pathname.startsWith("/conversations/") && 
-              !location.pathname.includes("dashboard") && 
-              !location.pathname.includes("workflows") && 
-              !location.pathname.includes("settings"))) && 
-              "bg-accent text-accent-foreground"
+            location.pathname === path && "bg-accent text-accent-foreground"
           )}
           asChild
         >
