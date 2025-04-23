@@ -58,6 +58,8 @@ export const useSettings = (channel: string) => {
         title: 'Settings Saved',
         description: `${channel} settings updated successfully`
       });
+
+      return true;
     } catch (err) {
       console.error(`Error saving ${channel} settings:`, err);
       const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred';
@@ -67,6 +69,8 @@ export const useSettings = (channel: string) => {
         description: errorMessage,
         variant: 'destructive'
       });
+      
+      return false;
     } finally {
       setLoading(false);
     }

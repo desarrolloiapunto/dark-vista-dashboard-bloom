@@ -1,4 +1,5 @@
 
+import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -6,14 +7,14 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/components/ui/use-toast";
 import { useTranslation } from "react-i18next";
-import { useForm, Controller, FormProvider } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSettings } from "@/hooks/useSettings";
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 
 const whatsAppSettingsSchema = z.object({
-  isActive: z.boolean(),
+  isActive: z.boolean().default(false),
   accessToken: z.string().min(10, "Access Token must be at least 10 characters"),
   phoneNumberId: z.string().min(1, "Phone Number ID is required")
 });
@@ -28,11 +29,22 @@ export const WhatsAppSettings = () => {
   const form = useForm<WhatsAppSettingsFormValues>({
     resolver: zodResolver(whatsAppSettingsSchema),
     defaultValues: {
-      isActive: settings?.isActive || false,
-      accessToken: settings?.accessToken || '',
-      phoneNumberId: settings?.phoneNumberId || ''
+      isActive: false,
+      accessToken: '',
+      phoneNumberId: ''
     }
   });
+
+  // Update form when settings are loaded
+  useEffect(() => {
+    if (settings) {
+      form.reset({
+        isActive: settings.isActive || false,
+        accessToken: settings.accessToken || '',
+        phoneNumberId: settings.phoneNumberId || ''
+      });
+    }
+  }, [settings, form]);
 
   const onSubmit = async (data: WhatsAppSettingsFormValues) => {
     await saveSettings(data);

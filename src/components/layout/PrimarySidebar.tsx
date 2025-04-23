@@ -7,6 +7,7 @@ import {
   TrendingUp, 
   Zap, 
   Image,
+  Settings as SettingsIcon
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -51,6 +52,11 @@ export function PrimarySidebar() {
       icon: Image,
       path: "/content",
       title: t('navigation.content')
+    },
+    {
+      icon: SettingsIcon,
+      path: "/settings",
+      title: t('navigation.settings')
     }
   ];
 

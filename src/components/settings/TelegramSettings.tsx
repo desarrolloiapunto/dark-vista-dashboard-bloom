@@ -1,4 +1,5 @@
 
+import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -12,7 +13,7 @@ import { useSettings } from "@/hooks/useSettings";
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 
 const telegramSettingsSchema = z.object({
-  isActive: z.boolean(),
+  isActive: z.boolean().default(false),
   botToken: z.string().min(1, "Bot Token is required"),
   botUsername: z.string().min(1, "Bot Username is required"),
   webhookUrl: z.string().optional()
@@ -28,12 +29,24 @@ export const TelegramSettings = () => {
   const form = useForm<TelegramSettingsFormValues>({
     resolver: zodResolver(telegramSettingsSchema),
     defaultValues: {
-      isActive: settings?.isActive || false,
-      botToken: settings?.botToken || '',
-      botUsername: settings?.botUsername || '',
+      isActive: false,
+      botToken: '',
+      botUsername: '',
       webhookUrl: 'https://app.example.com/api/webhook/telegram'
     }
   });
+
+  // Update form when settings are loaded
+  useEffect(() => {
+    if (settings) {
+      form.reset({
+        isActive: settings.isActive || false,
+        botToken: settings.botToken || '',
+        botUsername: settings.botUsername || '',
+        webhookUrl: settings.webhookUrl || 'https://app.example.com/api/webhook/telegram'
+      });
+    }
+  }, [settings, form]);
 
   const onSubmit = async (data: TelegramSettingsFormValues) => {
     await saveSettings(data);

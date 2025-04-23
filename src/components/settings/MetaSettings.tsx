@@ -1,4 +1,5 @@
 
+import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -12,7 +13,7 @@ import { useSettings } from "@/hooks/useSettings";
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 
 const metaSettingsSchema = z.object({
-  isActive: z.boolean(),
+  isActive: z.boolean().default(false),
   appId: z.string().min(1, "App ID is required"),
   appSecret: z.string().min(1, "App Secret is required"),
   pageId: z.string().min(1, "Page ID is required"),
@@ -30,14 +31,28 @@ export const MetaSettings = () => {
   const form = useForm<MetaSettingsFormValues>({
     resolver: zodResolver(metaSettingsSchema),
     defaultValues: {
-      isActive: settings?.isActive || false,
-      appId: settings?.appId || '',
-      appSecret: settings?.appSecret || '',
-      pageId: settings?.pageId || '',
-      pageToken: settings?.pageToken || '',
-      instagramAccountId: settings?.instagramAccountId || ''
+      isActive: false,
+      appId: '',
+      appSecret: '',
+      pageId: '',
+      pageToken: '',
+      instagramAccountId: ''
     }
   });
+
+  // Update form when settings are loaded
+  useEffect(() => {
+    if (settings) {
+      form.reset({
+        isActive: settings.isActive || false,
+        appId: settings.appId || '',
+        appSecret: settings.appSecret || '',
+        pageId: settings.pageId || '',
+        pageToken: settings.pageToken || '',
+        instagramAccountId: settings.instagramAccountId || ''
+      });
+    }
+  }, [settings, form]);
 
   const onSubmit = async (data: MetaSettingsFormValues) => {
     await saveSettings(data);

@@ -1,4 +1,5 @@
 
+import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
@@ -11,9 +12,9 @@ import { useSettings } from "@/hooks/useSettings";
 import { Form, FormField, FormItem, FormLabel, FormControl, FormDescription } from "@/components/ui/form";
 
 const generalSettingsSchema = z.object({
-  notifications: z.boolean(),
-  autoReplies: z.boolean(),
-  chatbot: z.boolean(),
+  notifications: z.boolean().default(false),
+  autoReplies: z.boolean().default(false),
+  chatbot: z.boolean().default(false),
 });
 
 type GeneralSettingsFormValues = z.infer<typeof generalSettingsSchema>;
@@ -26,18 +27,25 @@ export const GeneralSettings = () => {
   const form = useForm<GeneralSettingsFormValues>({
     resolver: zodResolver(generalSettingsSchema),
     defaultValues: {
-      notifications: settings?.notifications || false,
-      autoReplies: settings?.autoReplies || false,
-      chatbot: settings?.chatbot || false,
+      notifications: false,
+      autoReplies: false,
+      chatbot: false,
     }
   });
 
+  // Update form when settings are loaded
+  useEffect(() => {
+    if (settings) {
+      form.reset({
+        notifications: settings.notifications || false,
+        autoReplies: settings.autoReplies || false,
+        chatbot: settings.chatbot || false,
+      });
+    }
+  }, [settings, form]);
+
   const onSubmit = async (data: GeneralSettingsFormValues) => {
     await saveSettings(data);
-    toast({
-      title: t('settings.saved'),
-      description: t('settings.generalSettingsSaved'),
-    });
   };
 
   return (

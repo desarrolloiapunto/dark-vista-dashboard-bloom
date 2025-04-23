@@ -8,6 +8,7 @@ import { CrmNavigation } from "@/components/navigation/CrmNavigation";
 import { MarketingNavigation } from "@/components/navigation/MarketingNavigation";
 import { AdsNavigation } from "@/components/navigation/AdsNavigation";
 import { ContentNavigation } from "@/components/navigation/ContentNavigation";
+import { SettingsNavigation } from "@/components/navigation/SettingsNavigation";
 
 export function SecondarySidebar() {
   const location = useLocation();
@@ -46,6 +47,9 @@ export function SecondarySidebar() {
   } else if (location.pathname === "/analytics") {
     NavigationComponent = DashboardNavigation;
     title = t('sidebar.dashboard.analytics');
+  } else if (location.pathname.startsWith("/settings")) {
+    NavigationComponent = SettingsNavigation;
+    title = t('navigation.settings');
   }
 
   return (
