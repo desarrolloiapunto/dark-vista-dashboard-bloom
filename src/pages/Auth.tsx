@@ -1,20 +1,16 @@
 
 import { Card } from "@/components/ui/card";
 import { AuthForm } from "@/components/auth/AuthForm";
-import { GalleryVerticalEnd } from "lucide-react";
-import { SocialAuthButtons } from "@/components/auth/SocialAuthButtons";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "@/components/auth/AuthProvider";
 
 export default function Auth() {
   const { user, isLoading } = useAuth();
 
-  // Si ya hay un usuario autenticado, redirigir a la página principal
   if (user && !isLoading) {
     return <Navigate to="/" replace />;
   }
 
-  // Mostrar un estado de carga mientras verificamos la sesión
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -24,34 +20,28 @@ export default function Auth() {
   }
 
   return (
-    <div className="grid min-h-svh lg:grid-cols-2">
+    <div className="grid min-h-screen lg:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex justify-center gap-2 md:justify-start">
-          <a href="#" className="flex items-center gap-2 font-medium">
-            <img
-              src="/img/logo.png"
-              alt="Logo IA Punto"
-              width={180}
-              height="auto"
-            />
-          </a>
+          <img
+            src="/lovable-uploads/785e93c4-3ec8-45b1-9928-7670986177b5.png"
+            alt="Kairos SaaS Logo"
+            className="h-12 w-auto"
+          />
+          <span className="gradient-text text-2xl font-bold">Kairos SaaS</span>
         </div>
         <div className="flex flex-1 items-center justify-center">
           <Card className="w-full max-w-md p-6 space-y-6">
-            <h2 className="text-2xl font-bold text-center">
-              Acceso | qBit CRM
+            <h2 className="text-2xl font-bold text-center gradient-text">
+              Welcome to Kairos SaaS
             </h2>
             <AuthForm />
-            <SocialAuthButtons />
           </Card>
         </div>
       </div>
-      <div className="relative hidden bg-muted lg:block">
-        <img
-          src="/img/crm.jpg"
-          alt="Image"
-          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-        />
+      <div className="relative hidden lg:block">
+        <div className="absolute inset-0 gradient-bg opacity-90"></div>
+        <div className="absolute inset-0 bg-grid-white/[0.2] bg-[size:16px_16px]"></div>
       </div>
     </div>
   );

@@ -1,4 +1,3 @@
-
 import { Bell, Settings, LogOut, User } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -15,14 +14,11 @@ export function Header() {
   const { user } = useAuth();
   const { t } = useTranslation();
 
-  // Function to get the page title based on the current path
   const getPageTitle = () => {
     const pathSegments = location.pathname.split('/').filter(Boolean);
     
-    // Special case for root path
     if (pathSegments.length === 0) return t('navigation.dashboard');
 
-    // Map of known routes to their titles
     const routeTitles: {[key: string]: string} = {
       'conversations': t('navigation.conversations'),
       'emails': t('navigation.emails'),
@@ -35,7 +31,6 @@ export function Header() {
       'analytics': t('sidebar.dashboard.analytics')
     };
 
-    // First segment is the main route
     const mainRoute = pathSegments[0];
     return routeTitles[mainRoute] || mainRoute.charAt(0).toUpperCase() + mainRoute.slice(1);
   };
@@ -57,8 +52,13 @@ export function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-30 border-b border-white/10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex h-14 items-center px-4 gap-4">
-        <div className="flex flex-1">
-          <span className="text-xl font-bold">{getPageTitle()}</span>
+        <div className="flex flex-1 items-center gap-2">
+          <img
+            src="/lovable-uploads/785e93c4-3ec8-45b1-9928-7670986177b5.png"
+            alt="Kairos SaaS Logo"
+            className="h-8 w-auto hidden md:block"
+          />
+          <span className="text-xl font-bold gradient-text">{getPageTitle()}</span>
         </div>
         <div className="flex items-center gap-4">
           <LanguageSelector />

@@ -61,9 +61,13 @@ export function PrimarySidebar() {
   ];
 
   return (
-    <div className="fixed left-0 top-0 z-40 h-screen w-16 border-r border-white/10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="flex h-14 items-center justify-center border-b border-white/10">
-        <span className="font-bold text-2xl">M</span>
+    <div className="fixed left-0 top-0 z-40 h-screen w-16 border-r border-sidebar-border bg-sidebar-background/95 backdrop-blur supports-[backdrop-filter]:bg-sidebar-background/60">
+      <div className="flex h-14 items-center justify-center border-b border-sidebar-border">
+        <img
+          src="/lovable-uploads/785e93c4-3ec8-45b1-9928-7670986177b5.png"
+          alt="K"
+          className="h-8 w-auto"
+        />
       </div>
       <nav className="flex flex-col items-center gap-4 p-4">
         {modules.map(({ icon: Icon, path, title }) => (
@@ -73,8 +77,8 @@ export function PrimarySidebar() {
             className={cn(
               "flex h-10 w-10 items-center justify-center rounded-md text-muted-foreground transition-colors hover:text-foreground",
               location.pathname.startsWith(path === "/" ? "/analytics" : path) ||
-                (path === "/" && location.pathname === "/") 
-                ? "bg-primary text-primary-foreground" 
+                (path === "/" && location.pathname === "/")
+                ? "gradient-bg text-white"
                 : ""
             )}
             title={title}
