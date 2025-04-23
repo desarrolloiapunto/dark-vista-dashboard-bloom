@@ -34,6 +34,10 @@ const SettingsPage = () => {
             <Send size={16} />
             Telegram
           </TabsTrigger>
+          <TabsTrigger value="general" className="flex items-center gap-2">
+            <SettingsIcon size={16} />
+            {t('settings.general')}
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="whatsapp">
@@ -47,9 +51,11 @@ const SettingsPage = () => {
         <TabsContent value="telegram">
           <TelegramSettings />
         </TabsContent>
-      </Tabs>
 
-      <GeneralSettings />
+        <TabsContent value="general">
+          <GeneralSettings />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
