@@ -22,14 +22,20 @@ const SettingsPage = () => {
     const tab = searchParams.get('tab');
     if (tab && ['whatsapp', 'meta', 'telegram', 'general'].includes(tab)) {
       setActiveTab(tab);
+    } else {
+      // Set default tab if none specified
+      setActiveTab('whatsapp');
     }
   }, [location]);
 
   // Update URL when tab changes
-  const handleTabChange = (value) => {
+  const handleTabChange = (value: string) => {
     setActiveTab(value);
     navigate(`/conversations/settings?tab=${value}`, { replace: true });
   };
+
+  // Add console logs for debugging
+  console.log('SettingsPage rendering, active tab:', activeTab);
 
   return (
     <div className="container mx-auto py-6 px-4 md:px-6">

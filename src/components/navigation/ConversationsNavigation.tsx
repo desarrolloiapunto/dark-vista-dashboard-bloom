@@ -9,6 +9,9 @@ export const ConversationsNavigation = () => {
   const location = useLocation();
   const { t } = useTranslation();
   
+  // Add console log to see current location
+  console.log("Current location path:", location.pathname);
+  
   const conversationsActions = [
     { icon: BarChart3, label: t('sidebar.conversations.dashboard'), path: "/conversations/dashboard" },
     { icon: Inbox, label: t('sidebar.conversations.inbox'), path: "/conversations" },
@@ -18,22 +21,27 @@ export const ConversationsNavigation = () => {
 
   return (
     <>
-      {conversationsActions.map(({ icon: Icon, label, path }) => (
-        <Button
-          key={path}
-          variant="ghost"
-          className={cn(
-            "w-full justify-start gap-2",
-            location.pathname === path && "bg-accent text-accent-foreground"
-          )}
-          asChild
-        >
-          <Link to={path}>
-            <Icon size={18} />
-            {label}
-          </Link>
-        </Button>
-      ))}
+      {conversationsActions.map(({ icon: Icon, label, path }) => {
+        const isActive = location.pathname === path;
+        console.log(`Path: ${path}, isActive: ${isActive}`);
+        
+        return (
+          <Button
+            key={path}
+            variant="ghost"
+            className={cn(
+              "w-full justify-start gap-2",
+              isActive && "bg-accent text-accent-foreground"
+            )}
+            asChild
+          >
+            <Link to={path}>
+              <Icon size={18} />
+              {label}
+            </Link>
+          </Button>
+        );
+      })}
     </>
   );
 };
