@@ -1,10 +1,10 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTranslation } from "react-i18next";
 import { BarChart, LineChart, PieChart } from "lucide-react";
 import ConversationDashboard from "@/components/conversations/ConversationDashboard";
+import { mockConversations } from "@/data/mockConversations";
 
 const DashboardPage = () => {
   const { t } = useTranslation();
@@ -98,7 +98,7 @@ const DashboardPage = () => {
         </Card>
       </div>
 
-      <ConversationDashboard />
+      <ConversationDashboard conversations={mockConversations} />
     </div>
   );
 };
