@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { quotes, opportunities, products, companies } from "@/data/crm";
 import { Quote, QuoteItem } from "@/types/crm";
@@ -13,9 +14,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { FilePlus, Search } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
+import { FilePlus, Search, CalendarIcon } from "lucide-react";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { format } from "date-fns";
+import { es } from "date-fns/locale";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { toast } from "@/hooks/use-toast";
@@ -24,6 +27,7 @@ import { QuotesList } from "@/components/crm/quotes/QuotesList";
 import { QuoteItemForm } from "@/components/crm/quotes/QuoteItemForm";
 import { QuoteItemsTable } from "@/components/crm/quotes/QuoteItemsTable";
 import { EditQuoteDialog } from "@/components/crm/quotes/EditQuoteDialog";
+import { formatCurrency } from "@/utils/formatters";
 
 export default function QuotesPage() {
   const [quoteList, setQuoteList] = useState<Quote[]>(quotes);
@@ -67,6 +71,154 @@ export default function QuotesPage() {
 
   const [showPDF, setShowPDF] = useState(false);
   const [selectedQuoteForPDF, setSelectedQuoteForPDF] = useState<Quote | null>(null);
+
+  // Calculate subtotal function
+  const calculateSubtotal = (items: QuoteItem[]) => {
+    return items.reduce((sum, item) => sum + item.totalPrice, 0);
+  };
+
+  // Calculate total amount function
+  const calculateTotalAmount = (
+    items: QuoteItem[], 
+    discount: number, 
+    taxRate: number
+  ) => {
+    const subtotal = calculateSubtotal(items);
+    const afterDiscount = subtotal - discount;
+    const taxAmount = afterDiscount * (taxRate / 100);
+    return afterDiscount + taxAmount;
+  };
+
+  // Handle adding a quote item
+  const handleAddQuoteItem = (item: QuoteItem) => {
+    setQuoteItems([...quoteItems, item]);
+    
+    // Update the quote total amount
+    const newTotalAmount = calculateTotalAmount(
+      [...quoteItems, item], 
+      newQuote.discount || 0, 
+      newQuote.tax || 21
+    );
+    
+    setNewQuote({
+      ...newQuote,
+      amount: calculateSubtotal([...quoteItems, item]),
+      totalAmount: newTotalAmount
+    });
+  };
+
+  // Handle removing a quote item
+  const handleRemoveQuoteItem = (itemId: string) => {
+    const updatedItems = quoteItems.filter(item => item.id !== itemId);
+    setQuoteItems(updatedItems);
+    
+    // Update the quote total amount
+    const newTotalAmount = calculateTotalAmount(
+      updatedItems, 
+      newQuote.discount || 0, 
+      newQuote.tax || 21
+    );
+    
+    setNewQuote({
+      ...newQuote,
+      amount: calculateSubtotal(updatedItems),
+      totalAmount: newTotalAmount
+    });
+  };
+
+  // Handle exporting to PDF
+  const handleExportPDF = (quote: Quote) => {
+    setSelectedQuoteForPDF(quote);
+    setShowPDF(true);
+  };
+
+  // Handle creating a new quote
+  const handleCreateQuote = () => {
+    if (!newQuote.name || !newQuote.clientName || quoteItems.length === 0) return;
+    
+    const quoteId = Math.random().toString(36).substr(2, 9);
+    const currentDate = new Date().toISOString().split('T')[0];
+    
+    const createdQuote: Quote = {
+      id: quoteId,
+      name: newQuote.name || "",
+      opportunityId: newQuote.opportunityId || "",
+      clientId: newQuote.clientId || "",
+      clientName: newQuote.clientName || "",
+      status: "draft",
+      amount: calculateSubtotal(quoteItems),
+      discount: newQuote.discount || 0,
+      tax: newQuote.tax || 21,
+      totalAmount: calculateTotalAmount(
+        quoteItems, 
+        newQuote.discount || 0, 
+        newQuote.tax || 21
+      ),
+      validUntil: selectedDate ? format(selectedDate, "yyyy-MM-dd") : 
+                  format(new Date(Date.now() + 30*24*60*60*1000), "yyyy-MM-dd"),
+      items: quoteItems,
+      notes: newQuote.notes,
+      createdAt: currentDate,
+      lastUpdated: currentDate
+    };
+    
+    setQuoteList([createdQuote, ...quoteList]);
+    setIsCreateDialogOpen(false);
+    
+    // Reset form
+    setNewQuote({
+      name: "",
+      opportunityId: "",
+      clientId: "",
+      clientName: "",
+      status: "draft",
+      amount: 0,
+      discount: 0,
+      tax: 21,
+      totalAmount: 0,
+      validUntil: new Date(Date.now() + 30*24*60*60*1000).toISOString().split('T')[0],
+      items: [],
+      notes: ""
+    });
+    setQuoteItems([]);
+    setSelectedDate(new Date(Date.now() + 30*24*60*60*1000));
+    
+    toast({
+      title: "Cotización creada",
+      description: `La cotización "${createdQuote.name}" ha sido creada correctamente.`
+    });
+  };
+
+  // Handle editing a quote
+  const handleEditQuote = () => {
+    if (!currentQuote) return;
+    
+    const updatedQuoteList = quoteList.map(quote => 
+      quote.id === currentQuote.id ? currentQuote : quote
+    );
+    
+    setQuoteList(updatedQuoteList);
+    setIsEditDialogOpen(false);
+    
+    toast({
+      title: "Cotización actualizada",
+      description: `La cotización "${currentQuote.name}" ha sido actualizada correctamente.`
+    });
+  };
+
+  // Handle deleting a quote
+  const handleDeleteQuote = () => {
+    if (!currentQuote) return;
+    
+    const updatedQuoteList = quoteList.filter(quote => quote.id !== currentQuote.id);
+    setQuoteList(updatedQuoteList);
+    setIsDeleteDialogOpen(false);
+    
+    toast({
+      title: "Cotización eliminada",
+      description: `La cotización "${currentQuote.name}" ha sido eliminada correctamente.`
+    });
+  };
 
   const filteredQuotes = quoteList.filter(quote => {
     const matchesSearch = 
