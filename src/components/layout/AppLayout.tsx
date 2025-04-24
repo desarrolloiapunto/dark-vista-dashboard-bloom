@@ -1,4 +1,3 @@
-
 import { useTranslation } from 'react-i18next';
 import { Routes, Route } from "react-router-dom";
 import { Header } from "./Header";
@@ -28,6 +27,8 @@ import ContentManagement from "@/pages/content/ContentManagement";
 import Profile from "@/pages/Profile";
 import NotFound from "@/pages/NotFound";
 import Placeholder from "@/pages/Placeholder";
+import QuotesPage from "@/pages/crm/QuotesPage";
+import ProductsPage from "@/pages/crm/ProductsPage";
 
 export const AppLayout = () => {
   const { t } = useTranslation();
@@ -53,6 +54,8 @@ export const AppLayout = () => {
             <Route path="crm/companies" element={<CompaniesPage />} />
             <Route path="crm/tasks" element={<TasksPage />} />
             <Route path="crm/opportunities" element={<OpportunitiesPage />} />
+            <Route path="crm/quotes" element={<QuotesPage />} />
+            <Route path="crm/products" element={<ProductsPage />} />
             <Route path="crm/leads" element={<LeadsManagementPage />} />
             <Route path="crm/leads/sources" element={<LeadsSourcesPage />} />
             <Route path="crm/leads/tracking" element={<LeadsTrackingPage />} />

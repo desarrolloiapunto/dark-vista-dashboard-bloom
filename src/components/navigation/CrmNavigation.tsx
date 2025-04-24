@@ -16,7 +16,7 @@ export const CrmNavigation = () => {
     { icon: CheckSquare, label: t('sidebar.crm.tasks'), path: "/crm/tasks" },
     { icon: LineChart, label: t('sidebar.crm.opportunities'), path: "/crm/opportunities" },
     { icon: Tag, label: "Cotizaciones", path: "/crm/quotes" },
-    { icon: Package, label: "Productos", path: "/crm/products" },
+    { icon: Package, label: "Productos y Servicios", path: "/crm/products" },
     { icon: UserCheck, label: t('sidebar.crm.leads'), path: "/crm/leads" },
     { icon: MapPin, label: t('sidebar.crm.leadsSources'), path: "/crm/leads/sources" },
     { icon: History, label: t('sidebar.crm.leadsTracking'), path: "/crm/leads/tracking" },
