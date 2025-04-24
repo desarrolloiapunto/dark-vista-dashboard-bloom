@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/popover";
 import { toast } from "@/hooks/use-toast";
 import { Textarea } from "@/components/ui/textarea";
+import { QuotePDF } from "@/components/crm/quotes/QuotePDF";
 
 export default function QuotesPage() {
   const [quoteList, setQuoteList] = useState<Quote[]>(quotes);
@@ -117,7 +118,6 @@ export default function QuotesPage() {
     
     setQuoteItems([...quoteItems, item]);
     
-    // Actualizar subtotal, impuestos y total
     const newTotalAmount = calculateTotalAmount([...quoteItems, item], newQuote.discount || 0, newQuote.tax || 21);
     setNewQuote({
       ...newQuote,
@@ -125,7 +125,6 @@ export default function QuotesPage() {
       totalAmount: newTotalAmount
     });
     
-    // Limpiar el form de item
     setNewQuoteItem({
       productId: "",
       productName: "",
@@ -141,7 +140,6 @@ export default function QuotesPage() {
     const updatedItems = quoteItems.filter(item => item.id !== itemId);
     setQuoteItems(updatedItems);
     
-    // Actualizar subtotal, impuestos y total
     const newTotalAmount = calculateTotalAmount(updatedItems, newQuote.discount || 0, newQuote.tax || 21);
     setNewQuote({
       ...newQuote,
@@ -164,7 +162,6 @@ export default function QuotesPage() {
   const handleCreateQuote = () => {
     const id = (Math.max(...quoteList.map(q => Number(q.id)), 0) + 1).toString();
     
-    // Calcular montos
     const subtotal = calculateSubtotal(quoteItems);
     const totalAmount = calculateTotalAmount(quoteItems, newQuote.discount || 0, newQuote.tax || 21);
     
@@ -188,7 +185,6 @@ export default function QuotesPage() {
     
     setQuoteList([...quoteList, quote]);
     
-    // Resetear estados
     setNewQuote({
       name: "",
       opportunityId: "",
@@ -399,7 +395,6 @@ export default function QuotesPage() {
         </CardContent>
       </Card>
 
-      {/* Create Quote Dialog */}
       <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
         <DialogContent className="sm:max-w-[700px] max-h-[900px] overflow-y-auto">
           <DialogHeader>
@@ -767,7 +762,6 @@ export default function QuotesPage() {
         </DialogContent>
       </Dialog>
 
-      {/* Edit Quote Dialog */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
@@ -854,7 +848,6 @@ export default function QuotesPage() {
         </DialogContent>
       </Dialog>
 
-      {/* Delete Quote Dialog */}
       <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <DialogContent className="sm:max-w-[400px]">
           <DialogHeader>
@@ -875,7 +868,6 @@ export default function QuotesPage() {
         </DialogContent>
       </Dialog>
 
-      {/* PDF Preview Dialog */}
       <Dialog open={showPDF} onOpenChange={setShowPDF}>
         <DialogContent className="max-w-[900px] h-[800px]">
           <DialogHeader>
