@@ -112,9 +112,9 @@ export const OpportunityPipeline: React.FC<OpportunityPipelineProps> = ({
   
   return (
     <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-3 overflow-x-auto pb-4">
+      <div className="flex overflow-x-auto gap-4 pb-6">
         {columns.map(column => (
-          <div key={column.id} className="flex flex-col min-w-[280px]">
+          <div key={column.id} className="flex-shrink-0 w-[280px]">
             <div className="bg-muted rounded-t-md p-2 flex items-center justify-between">
               <div>
                 <h3 className="font-medium text-sm">{column.title}</h3>
@@ -127,8 +127,8 @@ export const OpportunityPipeline: React.FC<OpportunityPipelineProps> = ({
             </div>
             
             <div 
-              className="flex flex-col bg-muted/30 rounded-b-md p-2 min-h-[400px] gap-2"
-              data-column-id={column.id}
+              className="flex flex-col bg-muted/30 rounded-b-md p-2 min-h-[500px] gap-3"
+              id={column.id}
             >
               <SortableContext items={column.opportunities.map(opp => opp.id)} strategy={verticalListSortingStrategy}>
                 {column.opportunities.map(opportunity => (

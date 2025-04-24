@@ -41,17 +41,17 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({ opportunity })
     <Card 
       ref={setNodeRef} 
       style={style} 
-      className={`cursor-grab ${isDragging ? 'shadow-lg' : 'shadow-sm'}`}
+      className={`mb-2 ${isDragging ? 'shadow-lg' : 'shadow-sm'} cursor-grab`}
     >
       <CardContent className="p-3">
         <div className="flex justify-between items-start text-sm">
-          <div className="font-medium truncate" style={{ maxWidth: '85%' }}>{opportunity.name}</div>
+          <div className="font-medium truncate" style={{ maxWidth: '80%' }}>{opportunity.name}</div>
           <div {...attributes} {...listeners} className="cursor-grab p-1">
             <GripVertical className="h-4 w-4 text-muted-foreground" />
           </div>
         </div>
         
-        <p className="text-sm text-muted-foreground mt-1">{opportunity.company}</p>
+        <p className="text-sm text-muted-foreground mt-1 truncate">{opportunity.company}</p>
         
         <div className="flex justify-between items-center mt-2">
           <div className="font-medium">{formatCurrency(opportunity.amount)}</div>
