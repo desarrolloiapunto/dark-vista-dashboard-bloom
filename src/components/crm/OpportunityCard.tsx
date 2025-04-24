@@ -14,11 +14,17 @@ import { Button } from "../ui/button";
 interface OpportunityCardProps {
   opportunity: Opportunity;
   onOpportunityUpdate?: (opportunity: Opportunity) => void;
+  companies?: any[];
+  onOpenTaskDialog?: () => void;
+  onOpenQuoteDialog?: () => void;
 }
 
 export const OpportunityCard: React.FC<OpportunityCardProps> = ({ 
   opportunity,
-  onOpportunityUpdate
+  onOpportunityUpdate,
+  companies = [],
+  onOpenTaskDialog = () => {},
+  onOpenQuoteDialog = () => {}
 }) => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
@@ -101,7 +107,7 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({
         open={isEditDialogOpen}
         onOpenChange={setIsEditDialogOpen}
         opportunity={opportunity}
-        companies={[]} // We'll need to pass this from the parent
+        companies={companies}
         relatedTasks={[]} // We'll need to pass this from the parent
         relatedQuotes={[]} // We'll need to pass this from the parent
         onOpportunityUpdate={(updatedOpp) => {
@@ -109,10 +115,9 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({
             onOpportunityUpdate(updatedOpp);
           }
         }}
-        onOpenTaskDialog={() => {}} // We'll need to pass this from the parent
-        onOpenQuoteDialog={() => {}} // We'll need to pass this from the parent
+        onOpenTaskDialog={onOpenTaskDialog}
+        onOpenQuoteDialog={onOpenQuoteDialog}
       />
     </>
   );
 };
-

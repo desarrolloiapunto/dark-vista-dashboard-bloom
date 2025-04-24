@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { StageColumn, Opportunity, OpportunityStage } from "@/types/crm";
 import { Card } from "@/components/ui/card";
