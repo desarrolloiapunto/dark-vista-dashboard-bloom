@@ -64,7 +64,7 @@ export function PrimarySidebar() {
     <div className="fixed left-0 top-0 z-40 h-screen w-16 border-r border-sidebar-border bg-sidebar-background/95 backdrop-blur supports-[backdrop-filter]:bg-sidebar-background/60">
       <div className="flex h-14 items-center justify-center border-b border-sidebar-border">
         <img
-          src="/lovable-uploads/785e93c4-3ec8-45b1-9928-7670986177b5.png"
+          src="https://nqdtgjqxgjgtfdtpgvhn.supabase.co/storage/v1/object/public/img//logo-kairos-saas.svg"
           alt="K"
           className="h-8 w-auto"
         />

@@ -54,7 +54,7 @@ export function Header() {
       <div className="flex h-14 items-center px-4 gap-4">
         <div className="flex flex-1 items-center gap-2">
           <img
-            src="/lovable-uploads/785e93c4-3ec8-45b1-9928-7670986177b5.png"
+            src="https://nqdtgjqxgjgtfdtpgvhn.supabase.co/storage/v1/object/public/img//logo-kairos-saas.svg"
             alt="Kairos SaaS Logo"
             className="h-8 w-auto hidden md:block"
           />
