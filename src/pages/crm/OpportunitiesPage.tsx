@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { opportunities, companies, stageColumns, tasks, quotes } from "@/data/crmData";
 import { Opportunity, Task } from "@/types/crm";
@@ -126,6 +125,9 @@ export default function OpportunitiesPage() {
                   opp.id === updatedOpp.id ? updatedOpp : opp
                 ));
               }}
+              companies={companies}
+              onOpenTaskDialog={() => setIsTaskDialogOpen(true)}
+              onOpenQuoteDialog={() => setIsQuoteDialogOpen(true)}
             />
           </CardContent>
         </Card>

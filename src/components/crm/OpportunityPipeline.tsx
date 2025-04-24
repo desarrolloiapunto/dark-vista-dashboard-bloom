@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { StageColumn, Opportunity, OpportunityStage } from "@/types/crm";
 import { Card } from "@/components/ui/card";
@@ -27,14 +26,19 @@ interface OpportunityPipelineProps {
   stageColumns: StageColumn[];
   opportunities: Opportunity[];
   onOpportunityUpdate: (opportunity: Opportunity) => void;
+  companies: any[];
+  onOpenTaskDialog: () => void;
+  onOpenQuoteDialog: () => void;
 }
 
 export const OpportunityPipeline: React.FC<OpportunityPipelineProps> = ({ 
   stageColumns, 
   opportunities, 
-  onOpportunityUpdate 
+  onOpportunityUpdate,
+  companies,
+  onOpenTaskDialog,
+  onOpenQuoteDialog
 }) => {
-  // Procesamos las columnas para distribuir las oportunidades correctamente
   const processedColumns = stageColumns.map(col => ({
     ...col,
     opportunities: opportunities.filter(opp => opp.stage === col.id)
@@ -43,16 +47,13 @@ export const OpportunityPipeline: React.FC<OpportunityPipelineProps> = ({
   const [columns, setColumns] = useState<StageColumn[]>(processedColumns);
   const [activeOpportunity, setActiveOpportunity] = useState<Opportunity | null>(null);
   
-  // Configuramos los sensores para mejorar la detección de arrastrar
   const mouseSensor = useSensor(MouseSensor, {
-    // Reducimos la distancia para activar el arrastre
     activationConstraint: {
       distance: 5,
     },
   });
   
   const touchSensor = useSensor(TouchSensor, {
-    // Hacemos más sensible el arrastre en dispositivos táctiles
     activationConstraint: {
       delay: 200,
       tolerance: 5,
@@ -61,24 +62,19 @@ export const OpportunityPipeline: React.FC<OpportunityPipelineProps> = ({
   
   const sensors = useSensors(mouseSensor, touchSensor);
   
-  // Manejamos el inicio del arrastre
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event;
     const opportunityId = active.id.toString();
     
-    // Encontrar la oportunidad que se está arrastrando
     const opportunity = opportunities.find(opp => opp.id === opportunityId);
     if (opportunity) {
       setActiveOpportunity(opportunity);
     }
   };
   
-  // Identificar la columna donde se está arrastrando el elemento
   const getTargetColumn = (clientOffset: { x: number, y: number }) => {
-    // Obtener todas las columnas del DOM
     const columnElements = stageColumns.map(col => document.getElementById(col.id));
     
-    // Encontrar la columna que contiene las coordenadas
     for (const element of columnElements) {
       if (!element) continue;
       
@@ -104,35 +100,27 @@ export const OpportunityPipeline: React.FC<OpportunityPipelineProps> = ({
     
     const opportunityId = active.id.toString();
     
-    // Using the center point of the dragged item for better accuracy
     const centerX = active.rect.current.translated.left + (active.rect.current.translated.width / 2);
     const centerY = active.rect.current.translated.top + (active.rect.current.translated.height / 2);
     
-    // Usar las coordenadas para determinar la columna de destino
     const targetStageId = getTargetColumn({ x: centerX, y: centerY });
     
-    // Si no se encuentra la columna de destino, no hacemos nada
     if (!targetStageId) return;
     
-    // Verificamos si el targetStageId corresponde a una etapa válida
     const isValidStage = stageColumns.some(col => col.id === targetStageId);
     if (!isValidStage) return;
     
-    // Encontrar la oportunidad que se está arrastrando
     const opportunity = opportunities.find(opp => opp.id === opportunityId);
     if (!opportunity) return;
     
-    // Si ya estaba en esa etapa, no hacemos nada
     if (opportunity.stage === targetStageId) return;
     
-    // Actualizar la etapa de la oportunidad
     const updatedOpportunity: Opportunity = {
       ...opportunity,
       stage: targetStageId,
       lastUpdated: new Date().toISOString().split('T')[0]
     };
     
-    // Actualizar probabilidades basadas en la etapa
     if (targetStageId === "prospecting") updatedOpportunity.probability = 10;
     else if (targetStageId === "qualification") updatedOpportunity.probability = 30;
     else if (targetStageId === "needs_analysis") updatedOpportunity.probability = 40;
@@ -141,19 +129,15 @@ export const OpportunityPipeline: React.FC<OpportunityPipelineProps> = ({
     else if (targetStageId === "closed_won") updatedOpportunity.probability = 100;
     else if (targetStageId === "closed_lost") updatedOpportunity.probability = 0;
     
-    // Notificar al componente padre
     onOpportunityUpdate(updatedOpportunity);
     
-    // Actualizar el estado local
     const newColumns = columns.map(column => {
-      // Remover de la columna antigua
       if (column.id === opportunity.stage) {
         return {
           ...column,
           opportunities: column.opportunities.filter(opp => opp.id !== opportunityId)
         };
       }
-      // Añadir a la nueva columna
       if (column.id === targetStageId) {
         return {
           ...column,
@@ -209,7 +193,11 @@ export const OpportunityPipeline: React.FC<OpportunityPipelineProps> = ({
                 {column.opportunities.map(opportunity => (
                   <OpportunityCard 
                     key={opportunity.id} 
-                    opportunity={opportunity} 
+                    opportunity={opportunity}
+                    onOpportunityUpdate={onOpportunityUpdate}
+                    companies={companies}
+                    onOpenTaskDialog={onOpenTaskDialog}
+                    onOpenQuoteDialog={onOpenQuoteDialog}
                   />
                 ))}
               </SortableContext>
@@ -236,4 +224,3 @@ export const OpportunityPipeline: React.FC<OpportunityPipelineProps> = ({
     </DndContext>
   );
 };
-
