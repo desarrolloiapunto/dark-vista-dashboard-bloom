@@ -1,5 +1,5 @@
 import { Bell, Settings, LogOut, User } from "lucide-react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -7,34 +7,14 @@ import { useAuth } from "../auth/AuthProvider";
 import { useTranslation } from "react-i18next";
 import { LanguageSelector } from "../language/LanguageSelector";
 import { ThemeToggle } from "../theme/ThemeToggle";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 export function Header() {
   const navigate = useNavigate();
-  const location = useLocation();
   const { toast } = useToast();
   const { user } = useAuth();
   const { t } = useTranslation();
-
-  const getPageTitle = () => {
-    const pathSegments = location.pathname.split('/').filter(Boolean);
-    
-    if (pathSegments.length === 0) return t('navigation.dashboard');
-
-    const routeTitles: {[key: string]: string} = {
-      'conversations': t('navigation.conversations'),
-      'emails': t('navigation.emails'),
-      'crm': t('navigation.crm'),
-      'marketing': t('navigation.marketing'),
-      'ads': t('navigation.ads'),
-      'content': t('navigation.content'),
-      'leads': t('sidebar.crm.leads'),
-      'profile': t('header.profile'),
-      'analytics': t('sidebar.dashboard.analytics')
-    };
-
-    const mainRoute = pathSegments[0];
-    return routeTitles[mainRoute] || mainRoute.charAt(0).toUpperCase() + mainRoute.slice(1);
-  };
+  const pageTitle = usePageTitle();
 
   const handleLogout = async () => {
     try {
@@ -59,7 +39,7 @@ export function Header() {
             alt="Kairos SaaS Logo"
             className="h-8 w-auto hidden md:block"
           />
-          <span className="text-xl font-bold gradient-text">{getPageTitle()}</span>
+          <span className="text-xl font-bold gradient-text">{pageTitle.split(' | ')[0]}</span>
         </div>
         <div className="flex items-center gap-4">
           <LanguageSelector />
