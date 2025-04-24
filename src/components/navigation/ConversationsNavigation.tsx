@@ -1,4 +1,5 @@
-import { BarChart3, Inbox, ZapIcon, Settings } from "lucide-react";
+
+import { BarChart3, Inbox, ZapIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
