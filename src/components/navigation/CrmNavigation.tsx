@@ -1,5 +1,5 @@
 
-import { Home, UsersIcon, Building2, CheckSquare, LineChart, UserCheck, MapPin, History, ZapIcon, PieChart } from "lucide-react";
+import { Home, UsersIcon, Building2, CheckSquare, LineChart, UserCheck, MapPin, History, ZapIcon, PieChart, Tag, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -15,6 +15,8 @@ export const CrmNavigation = () => {
     { icon: Building2, label: t('sidebar.crm.companies'), path: "/crm/companies" },
     { icon: CheckSquare, label: t('sidebar.crm.tasks'), path: "/crm/tasks" },
     { icon: LineChart, label: t('sidebar.crm.opportunities'), path: "/crm/opportunities" },
+    { icon: Tag, label: "Cotizaciones", path: "/crm/quotes" },
+    { icon: Package, label: "Productos", path: "/crm/products" },
     { icon: UserCheck, label: t('sidebar.crm.leads'), path: "/crm/leads" },
     { icon: MapPin, label: t('sidebar.crm.leadsSources'), path: "/crm/leads/sources" },
     { icon: History, label: t('sidebar.crm.leadsTracking'), path: "/crm/leads/tracking" },

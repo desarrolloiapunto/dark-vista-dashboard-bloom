@@ -1,5 +1,5 @@
 
-import { Contact, Company, Task, Opportunity, StageColumn, DashboardMetric } from "@/types/crm";
+import { Contact, Company, Task, Opportunity, StageColumn, DashboardMetric, Product, Quote } from "@/types/crm";
 
 export const contacts: Contact[] = [
   {
@@ -207,7 +207,8 @@ export const opportunities: Opportunity[] = [
     owner: "Usuario Actual",
     contacts: ["1"],
     createdAt: "2025-03-20",
-    lastUpdated: "2025-04-15"
+    lastUpdated: "2025-04-15",
+    quotes: ["1"]
   },
   {
     id: "2",
@@ -233,7 +234,8 @@ export const opportunities: Opportunity[] = [
     owner: "Usuario Actual",
     contacts: ["3"],
     createdAt: "2025-03-15",
-    lastUpdated: "2025-04-18"
+    lastUpdated: "2025-04-18",
+    quotes: ["2"]
   },
   {
     id: "4",
@@ -246,7 +248,8 @@ export const opportunities: Opportunity[] = [
     owner: "Usuario Actual",
     contacts: ["4"],
     createdAt: "2025-02-20",
-    lastUpdated: "2025-04-10"
+    lastUpdated: "2025-04-10",
+    quotes: ["3"]
   },
   {
     id: "5",
@@ -353,5 +356,266 @@ export const dashboardMetrics: DashboardMetric[] = [
       .reduce((sum, opp) => sum + opp.amount, 0).toLocaleString('es-ES')}`,
     change: 15.8,
     period: "desde el último mes"
+  }
+];
+
+// Nuevos datos para productos
+export const products: Product[] = [
+  {
+    id: "1",
+    type: "product",
+    name: "Licencia CRM Básico",
+    description: "Licencia básica para 10 usuarios",
+    sku: "CRM-BASIC-10",
+    price: 2500,
+    cost: 500,
+    taxRate: 21,
+    category: "Software",
+    hasVariants: false,
+    active: true,
+    createdAt: "2025-01-15",
+    updatedAt: "2025-01-15"
+  },
+  {
+    id: "2",
+    type: "product",
+    name: "Licencia CRM Premium",
+    description: "Licencia premium con todas las funcionalidades para 25 usuarios",
+    sku: "CRM-PREM-25",
+    price: 6000,
+    cost: 1200,
+    taxRate: 21,
+    category: "Software",
+    hasVariants: true,
+    variants: [
+      {
+        id: "2-1",
+        name: "10 usuarios",
+        sku: "CRM-PREM-10",
+        attributes: { "usuarios": "10" },
+        price: 3000,
+        cost: 600,
+        active: true
+      },
+      {
+        id: "2-2",
+        name: "25 usuarios",
+        sku: "CRM-PREM-25",
+        attributes: { "usuarios": "25" },
+        price: 6000,
+        cost: 1200,
+        active: true
+      },
+      {
+        id: "2-3",
+        name: "50 usuarios",
+        sku: "CRM-PREM-50",
+        attributes: { "usuarios": "50" },
+        price: 10000,
+        cost: 2000,
+        active: true
+      }
+    ],
+    active: true,
+    createdAt: "2025-01-15",
+    updatedAt: "2025-03-20"
+  },
+  {
+    id: "3",
+    type: "service",
+    name: "Implementación CRM",
+    description: "Servicio de implementación y configuración del CRM",
+    price: 5000,
+    cost: 3000,
+    taxRate: 21,
+    category: "Servicios",
+    hasVariants: false,
+    active: true,
+    createdAt: "2025-01-20",
+    updatedAt: "2025-01-20"
+  },
+  {
+    id: "4",
+    type: "service",
+    name: "Formación CRM",
+    description: "Formación para usuarios del CRM (8 horas)",
+    price: 1200,
+    cost: 800,
+    taxRate: 21,
+    category: "Formación",
+    hasVariants: false,
+    active: true,
+    createdAt: "2025-01-20",
+    updatedAt: "2025-01-20"
+  },
+  {
+    id: "5",
+    type: "package",
+    name: "Paquete CRM Completo",
+    description: "Licencia CRM Premium + Implementación + Formación",
+    sku: "CRM-PACK-COMP",
+    price: 10000,
+    cost: 5000,
+    taxRate: 21,
+    category: "Paquetes",
+    hasVariants: false,
+    packageItems: [
+      {
+        productId: "2",
+        productName: "Licencia CRM Premium (25 usuarios)",
+        quantity: 1
+      },
+      {
+        productId: "3",
+        productName: "Implementación CRM",
+        quantity: 1
+      },
+      {
+        productId: "4",
+        productName: "Formación CRM",
+        quantity: 1
+      }
+    ],
+    active: true,
+    createdAt: "2025-02-01",
+    updatedAt: "2025-02-01"
+  }
+];
+
+// Nuevos datos para cotizaciones
+export const quotes: Quote[] = [
+  {
+    id: "1",
+    name: "Propuesta CRM para Tecnología SA",
+    opportunityId: "1",
+    clientId: "1",
+    clientName: "Tecnología SA",
+    status: "sent",
+    amount: 13000,
+    discount: 2000,
+    tax: 21,
+    totalAmount: 15730,
+    validUntil: "2025-06-15",
+    items: [
+      {
+        id: "11",
+        productId: "2",
+        productName: "Licencia CRM Premium (25 usuarios)",
+        quantity: 1,
+        unitPrice: 6000,
+        discount: 1000,
+        tax: 21,
+        totalPrice: 5000
+      },
+      {
+        id: "12",
+        productId: "3",
+        productName: "Implementación CRM",
+        quantity: 1,
+        unitPrice: 5000,
+        discount: 500,
+        tax: 21,
+        totalPrice: 4500
+      },
+      {
+        id: "13",
+        productId: "4",
+        productName: "Formación CRM",
+        quantity: 1,
+        unitPrice: 1200,
+        discount: 500,
+        tax: 21,
+        totalPrice: 700
+      }
+    ],
+    notes: "Incluye soporte durante 3 meses",
+    createdAt: "2025-04-10",
+    lastUpdated: "2025-04-15"
+  },
+  {
+    id: "2",
+    name: "Propuesta de Desarrollo Web",
+    opportunityId: "3",
+    clientId: "3",
+    clientName: "Desarrollos Web",
+    status: "draft",
+    amount: 22000,
+    discount: 0,
+    tax: 21,
+    totalAmount: 26620,
+    validUntil: "2025-06-01",
+    items: [
+      {
+        id: "21",
+        productId: "custom",
+        productName: "Desarrollo de aplicación web empresarial",
+        quantity: 1,
+        unitPrice: 18000,
+        discount: 0,
+        tax: 21,
+        totalPrice: 18000
+      },
+      {
+        id: "22",
+        productId: "custom",
+        productName: "Diseño UX/UI personalizado",
+        quantity: 1,
+        unitPrice: 4000,
+        discount: 0,
+        tax: 21,
+        totalPrice: 4000
+      }
+    ],
+    notes: "Incluye 2 revisiones de diseño y mantenimiento por 1 año",
+    createdAt: "2025-04-12",
+    lastUpdated: "2025-04-12"
+  },
+  {
+    id: "3",
+    name: "Solución BI Corporativa",
+    opportunityId: "4",
+    clientId: "4",
+    clientName: "Consultora Tecnológica",
+    status: "accepted",
+    amount: 18000,
+    discount: 0,
+    tax: 21,
+    totalAmount: 21780,
+    validUntil: "2025-03-30",
+    items: [
+      {
+        id: "31",
+        productId: "custom",
+        productName: "Software BI Corporativo",
+        quantity: 1,
+        unitPrice: 12000,
+        discount: 0,
+        tax: 21,
+        totalPrice: 12000
+      },
+      {
+        id: "32",
+        productId: "custom",
+        productName: "Configuración y personalización",
+        quantity: 1,
+        unitPrice: 4000,
+        discount: 0,
+        tax: 21,
+        totalPrice: 4000
+      },
+      {
+        id: "33",
+        productId: "custom",
+        productName: "Formación para analistas de datos",
+        quantity: 1,
+        unitPrice: 2000,
+        discount: 0,
+        tax: 21,
+        totalPrice: 2000
+      }
+    ],
+    notes: "Implementación en 30 días laborables",
+    createdAt: "2025-03-01",
+    lastUpdated: "2025-03-15"
   }
 ];

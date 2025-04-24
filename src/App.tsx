@@ -36,6 +36,8 @@ import LeadsSourcesPage from "./pages/crm/leads/LeadsSourcesPage";
 import LeadsTrackingPage from "./pages/crm/leads/LeadsTrackingPage";
 import LeadsAutomationPage from "./pages/crm/leads/LeadsAutomationPage";
 import ReportsPage from "./pages/crm/ReportsPage";
+import QuotesPage from "./pages/crm/QuotesPage";
+import ProductsPage from "./pages/crm/ProductsPage";
 import ContentManagement from "./pages/content/ContentManagement";
 import Profile from "./pages/Profile";
 import Placeholder from "./pages/Placeholder";
@@ -97,6 +99,8 @@ const App = () => {
                     <Route path="crm/companies" element={<CompaniesPage />} />
                     <Route path="crm/tasks" element={<TasksPage />} />
                     <Route path="crm/opportunities" element={<OpportunitiesPage />} />
+                    <Route path="crm/quotes" element={<QuotesPage />} />
+                    <Route path="crm/products" element={<ProductsPage />} />
                     <Route path="crm/leads" element={<LeadsManagementPage />} />
                     <Route path="crm/leads/sources" element={<LeadsSourcesPage />} />
                     <Route path="crm/leads/tracking" element={<LeadsTrackingPage />} />

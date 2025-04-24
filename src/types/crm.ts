@@ -37,7 +37,7 @@ export interface Task {
   dueDate: string;
   assignedTo?: string;
   relatedTo?: {
-    type: "contact" | "company" | "opportunity";
+    type: "contact" | "company" | "opportunity" | "quote";
     id: string;
     name: string;
   };
@@ -60,6 +60,7 @@ export interface Opportunity {
   notes?: string;
   createdAt: string;
   lastUpdated: string;
+  quotes?: string[]; // IDs de cotizaciones relacionadas
 }
 
 export type OpportunityStage = 
@@ -82,4 +83,69 @@ export interface DashboardMetric {
   value: string | number;
   change: number;
   period: string;
+}
+
+// Nuevos tipos para cotizaciones y productos
+
+export interface Quote {
+  id: string;
+  name: string;
+  opportunityId: string;
+  clientId: string;
+  clientName: string;
+  status: "draft" | "sent" | "accepted" | "rejected" | "expired";
+  amount: number;
+  discount?: number;
+  tax?: number;
+  totalAmount: number;
+  validUntil: string;
+  items: QuoteItem[];
+  notes?: string;
+  createdAt: string;
+  lastUpdated: string;
+}
+
+export interface QuoteItem {
+  id: string;
+  productId: string;
+  productName: string;
+  quantity: number;
+  unitPrice: number;
+  discount?: number;
+  tax?: number;
+  totalPrice: number;
+}
+
+export interface Product {
+  id: string;
+  type: "product" | "service" | "package";
+  name: string;
+  description?: string;
+  sku?: string;
+  price: number;
+  cost?: number;
+  taxRate?: number;
+  category?: string;
+  hasVariants: boolean;
+  variants?: ProductVariant[];
+  packageItems?: PackageItem[];
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ProductVariant {
+  id: string;
+  name: string;
+  sku?: string;
+  attributes: { [key: string]: string };
+  price: number;
+  cost?: number;
+  active: boolean;
+}
+
+export interface PackageItem {
+  productId: string;
+  productName: string;
+  quantity: number;
 }
