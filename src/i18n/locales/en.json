@@ -1,5 +1,8 @@
-
 {
+  "language": {
+    "en": "English",
+    "es": "Español"
+  },
   "sidebar": {
     "dashboard": {
       "summary": "Summary",
@@ -10,6 +13,18 @@
       "inbox": "Inbox",
       "workflows": "Workflows",
       "settings": "Settings"
+    },
+    "crm": {
+      "dashboard": "Dashboard",
+      "contacts": "Contacts",
+      "companies": "Companies",
+      "tasks": "Tasks",
+      "opportunities": "Opportunities",
+      "leads": "Leads",
+      "leadsSources": "Leads Sources",
+      "leadsTracking": "Leads Tracking",
+      "leadsAutomation": "Leads Automation",
+      "reports": "Reports"
     }
   },
   "navigation": {
