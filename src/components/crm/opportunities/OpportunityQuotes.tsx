@@ -1,4 +1,3 @@
-
 import { Quote } from "@/types/crm";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -11,6 +10,7 @@ import {
 } from "@/components/ui/table";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { formatCurrency } from '@/utils/formatters';
 
 interface OpportunityQuotesProps {
   quotes: Quote[];
@@ -20,13 +20,6 @@ export const OpportunityQuotes = ({ quotes }: OpportunityQuotesProps) => {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return format(date, "d MMM yyyy", { locale: es });
-  };
-
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('es-ES', {
-      style: 'currency',
-      currency: 'EUR'
-    }).format(amount);
   };
 
   return (

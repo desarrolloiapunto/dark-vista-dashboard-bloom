@@ -1,16 +1,13 @@
 
-import { Opportunity } from "@/types/crm";
-import { Card } from "@/components/ui/card";
-import { DragOverlay } from "@dnd-kit/core";
+import { formatCurrency } from '@/utils/formatters';
 
+// Remove the formatCurrency prop from the interface
 interface OpportunityDragOverlayProps {
   activeOpportunity: Opportunity | null;
-  formatCurrency: (amount: number) => string;
 }
 
 export const OpportunityDragOverlay = ({ 
-  activeOpportunity,
-  formatCurrency 
+  activeOpportunity
 }: OpportunityDragOverlayProps) => {
   if (!activeOpportunity) return null;
 

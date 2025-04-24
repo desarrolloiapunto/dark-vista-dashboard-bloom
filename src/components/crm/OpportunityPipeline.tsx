@@ -1,9 +1,9 @@
-
 import { DndContext, MouseSensor, TouchSensor, useSensor, useSensors, closestCorners } from "@dnd-kit/core";
 import { StageColumn, Opportunity } from "@/types/crm";
 import { useOpportunityDragAndDrop } from "@/hooks/useOpportunityDragAndDrop";
 import { PipelineColumn } from "./opportunities/PipelineColumn";
 import { OpportunityDragOverlay } from "./opportunities/OpportunityDragOverlay";
+import { formatCurrency } from '@/utils/formatters';
 
 interface OpportunityPipelineProps {
   stageColumns: StageColumn[];
@@ -43,10 +43,6 @@ export const OpportunityPipeline: React.FC<OpportunityPipelineProps> = ({
     onOpportunityUpdate
   );
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(amount);
-  };
-  
   return (
     <DndContext 
       sensors={sensors} 

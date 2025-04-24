@@ -1,4 +1,3 @@
-
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Opportunity } from "@/types/crm";
@@ -10,6 +9,7 @@ import { CalendarIcon, GripVertical, Pencil } from "lucide-react";
 import { useState } from "react";
 import { EditOpportunityDialog } from "./opportunities/dialogs/EditOpportunityDialog";
 import { Button } from "../ui/button";
+import { formatCurrency } from '@/utils/formatters';
 
 interface OpportunityCardProps {
   opportunity: Opportunity;
@@ -40,10 +40,6 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({
     transition,
     opacity: isDragging ? 0.5 : 1,
     zIndex: isDragging ? 999 : 1,
-  };
-  
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(amount);
   };
   
   const formatDate = (dateString: string) => {

@@ -1,10 +1,10 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   PieChart, Pie, Cell, LineChart, Line
 } from "recharts";
 import { companies, contacts, opportunities } from "@/data/crmData";
+import { formatCurrency } from '@/utils/formatters';
 
 export const DashboardReports = () => {
   // Datos para el gráfico de estado de contactos
@@ -78,13 +78,6 @@ export const DashboardReports = () => {
 
   // Colores para los gráficos
   const COLORS = ['#8884d8', '#83a6ed', '#8dd1e1', '#82ca9d', '#a4de6c', '#d0ed57', '#ffc658'];
-
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('es-ES', {
-      style: 'currency',
-      currency: 'EUR'
-    }).format(value);
-  };
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
@@ -176,7 +169,7 @@ export const DashboardReports = () => {
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
-              <Tooltip formatter={(value, name, props) => [value, props.payload.name]} />
+              <Tooltip formatter={(value) => formatCurrency(value as number)} />
             </PieChart>
           </ResponsiveContainer>
         </CardContent>
