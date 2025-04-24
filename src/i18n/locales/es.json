@@ -1,4 +1,8 @@
 {
+  "language": {
+    "en": "English",
+    "es": "Español"
+  },
   "sidebar": {
     "dashboard": {
       "summary": "Resumen",
