@@ -9,7 +9,6 @@ import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 import { AppLayout } from "./components/layout/AppLayout";
 import { useTranslation } from "react-i18next";
 import { ThemeProvider } from "./components/theme/ThemeProvider";
-import { usePageTitle } from "./hooks/usePageTitle";
 
 // Import i18n configuration
 import "./i18n/config";
@@ -45,7 +44,6 @@ const queryClient = new QueryClient();
 
 const App = () => {
   const { t } = useTranslation();
-  usePageTitle(); // Add this line to manage page title
   
   return (
     <QueryClientProvider client={queryClient}>
