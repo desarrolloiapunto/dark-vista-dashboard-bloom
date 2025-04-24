@@ -1,4 +1,3 @@
-
 {
   "sidebar": {
     "dashboard": {
@@ -8,8 +7,19 @@
     "conversations": {
       "dashboard": "Dashboard",
       "inbox": "Bandeja de Entrada",
-      "workflows": "Flujos de Trabajo",
-      "settings": "Configuración"
+      "workflows": "Flujos de Trabajo"
+    },
+    "crm": {
+      "dashboard": "Dashboard",
+      "contacts": "Contactos",
+      "companies": "Compañías",
+      "task": "Tareas",
+      "oportunidades": "Oportunuidades",
+      "leads": "Leads",
+      "leadsSources": "Origen de Leads",
+      "leadsTracking": "Seguimiento de Leads",
+      "leadsAutomation": "Automatización de Leads",
+      "reports": "Reportes y Métricas"
     }
   },
   "navigation": {
