@@ -12,7 +12,9 @@ import {
   useSensor, 
   useSensors,
   DragOverlay,
-  DragStartEvent
+  DragStartEvent,
+  closestCorners,
+  pointerWithin
 } from "@dnd-kit/core";
 import { 
   SortableContext, 
@@ -71,14 +73,45 @@ export const OpportunityPipeline: React.FC<OpportunityPipelineProps> = ({
     }
   };
   
+  // Identificar la columna donde se está arrastrando el elemento
+  const getTargetColumn = (clientOffset: { x: number, y: number }) => {
+    // Obtener todas las columnas del DOM
+    const columnElements = stageColumns.map(col => document.getElementById(col.id));
+    
+    // Encontrar la columna que contiene las coordenadas
+    for (const element of columnElements) {
+      if (!element) continue;
+      
+      const rect = element.getBoundingClientRect();
+      if (
+        clientOffset.x >= rect.left &&
+        clientOffset.x <= rect.right &&
+        clientOffset.y >= rect.top &&
+        clientOffset.y <= rect.bottom
+      ) {
+        return element.id as OpportunityStage;
+      }
+    }
+    
+    return null;
+  };
+  
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     setActiveOpportunity(null);
     
-    if (!over) return;
+    if (!over || !active.rect.current.translated) return;
     
     const opportunityId = active.id.toString();
-    const targetStageId = over.id.toString();
+    
+    // Usar las coordenadas para determinar la columna de destino
+    const targetStageId = getTargetColumn({
+      x: active.rect.current.translated.left + (active.rect.current.width / 2),
+      y: active.rect.current.translated.top + (active.rect.current.height / 2)
+    });
+    
+    // Si no se encuentra la columna de destino, no hacemos nada
+    if (!targetStageId) return;
     
     // Verificamos si el targetStageId corresponde a una etapa válida
     const isValidStage = stageColumns.some(col => col.id === targetStageId);
@@ -94,7 +127,7 @@ export const OpportunityPipeline: React.FC<OpportunityPipelineProps> = ({
     // Actualizar la etapa de la oportunidad
     const updatedOpportunity: Opportunity = {
       ...opportunity,
-      stage: targetStageId as OpportunityStage,
+      stage: targetStageId,
       lastUpdated: new Date().toISOString().split('T')[0]
     };
     
@@ -152,6 +185,7 @@ export const OpportunityPipeline: React.FC<OpportunityPipelineProps> = ({
       sensors={sensors} 
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
+      collisionDetection={closestCorners}
     >
       <div className="flex overflow-x-auto gap-6 pb-8 pt-2">
         {columns.map(column => (

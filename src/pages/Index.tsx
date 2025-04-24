@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MetricsCards } from "@/components/dashboard/MetricsCards";
 import { OverviewTabContent, AnalyticsTabContent, ReportsTabContent } from "@/components/dashboard/TabContent";
 import { MarketingCampaigns } from "@/components/dashboard/MarketingCampaigns";
+import { DashboardReports } from "@/components/dashboard/DashboardReports";
 
 const Index = () => {
   return (
@@ -32,7 +33,7 @@ const Index = () => {
         </TabsContent>
         
         <TabsContent value="reports">
-          <ReportsTabContent />
+          <DashboardReports />
         </TabsContent>
       </Tabs>
     </div>

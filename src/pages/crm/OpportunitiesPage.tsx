@@ -22,7 +22,6 @@ import { toast } from "@/hooks/use-toast";
 
 export default function OpportunitiesPage() {
   const [opportunityList, setOpportunityList] = useState<Opportunity[]>(opportunities);
-  // Cambiar la vista inicial a "pipeline" en lugar de "list"
   const [viewMode, setViewMode] = useState<"list" | "pipeline">("pipeline");
   const [currentOpportunity, setCurrentOpportunity] = useState<Opportunity | null>(null);
   const [relatedTasks, setRelatedTasks] = useState<Task[]>([]);
