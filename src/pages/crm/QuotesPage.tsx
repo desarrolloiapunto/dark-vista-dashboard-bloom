@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { quotes, opportunities, products, companies } from "@/data/crm";
 import { Quote, QuoteItem } from "@/types/crm";
@@ -72,6 +71,9 @@ export default function QuotesPage() {
     tax: 21,
     totalPrice: 0
   });
+
+  const [showPDF, setShowPDF] = useState(false);
+  const [selectedQuoteForPDF, setSelectedQuoteForPDF] = useState<Quote | null>(null);
 
   const filteredQuotes = quoteList.filter(quote => {
     const matchesSearch = 
@@ -273,6 +275,11 @@ export default function QuotesPage() {
     }).format(amount);
   };
 
+  const handleExportPDF = (quote: Quote) => {
+    setSelectedQuoteForPDF(quote);
+    setShowPDF(true);
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -352,6 +359,13 @@ export default function QuotesPage() {
                       <Button 
                         variant="ghost" 
                         size="icon"
+                        onClick={() => handleExportPDF(quote)}
+                      >
+                        <FileText className="h-4 w-4" />
+                      </Button>
+                      <Button 
+                        variant="ghost" 
+                        size="icon"
                         onClick={() => {
                           setCurrentQuote(quote);
                           setIsEditDialogOpen(true);
@@ -387,7 +401,7 @@ export default function QuotesPage() {
 
       {/* Create Quote Dialog */}
       <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
-        <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto">
+        <DialogContent className="sm:max-w-[700px] max-h-[900px] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Nueva Cotización</DialogTitle>
           </DialogHeader>
@@ -858,6 +872,16 @@ export default function QuotesPage() {
               Eliminar
             </Button>
           </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* PDF Preview Dialog */}
+      <Dialog open={showPDF} onOpenChange={setShowPDF}>
+        <DialogContent className="max-w-[900px] h-[800px]">
+          <DialogHeader>
+            <DialogTitle>Vista previa de PDF</DialogTitle>
+          </DialogHeader>
+          {selectedQuoteForPDF && <QuotePDF quote={selectedQuoteForPDF} />}
         </DialogContent>
       </Dialog>
     </div>
