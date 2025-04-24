@@ -307,7 +307,13 @@ export function EmailInbox({ view }: EmailInboxProps) {
                   <TableCell className="px-2">
                     <Checkbox 
                       checked={selectedEmails.includes(email.id)} 
-                      onCheckedChange={(e) => toggleSelectEmail(e as React.MouseEvent, email.id)}
+                      onCheckedChange={(checked) => {
+                        // Here's the fix: Create a synthetic event
+                        const syntheticEvent = {
+                          stopPropagation: () => {}
+                        } as React.MouseEvent;
+                        toggleSelectEmail(syntheticEvent, email.id);
+                      }}
                       onClick={(e) => e.stopPropagation()}
                     />
                   </TableCell>
