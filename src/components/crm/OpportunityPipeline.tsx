@@ -1,3 +1,4 @@
+
 import { DndContext, MouseSensor, TouchSensor, useSensor, useSensors, closestCorners } from "@dnd-kit/core";
 import { StageColumn, Opportunity } from "@/types/crm";
 import { useOpportunityDragAndDrop } from "@/hooks/useOpportunityDragAndDrop";
@@ -66,7 +67,6 @@ export const OpportunityPipeline: React.FC<OpportunityPipelineProps> = ({
       
       <OpportunityDragOverlay 
         activeOpportunity={activeOpportunity}
-        formatCurrency={formatCurrency}
       />
     </DndContext>
   );
