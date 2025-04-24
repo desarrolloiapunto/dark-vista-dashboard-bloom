@@ -14,6 +14,21 @@
       "workflows": "Workflows",
       "settings": "Settings"
     },
+    "marketing": {
+      "dashboard": "Dashboard",
+      "campaigns": "Campaigns",
+      "automation": "Automation",
+      "ads": "Ads",
+      "reports": "Reports"
+    },
+    "settings": {
+      "general": "General",
+      "chanels": "Conversations Chanels",
+      "users": "Users",
+      "apiKeys": "API Keys",
+      "emails": "Emails"
+    },
+
     "crm": {
       "dashboard": "Dashboard",
       "contacts": "Contacts",

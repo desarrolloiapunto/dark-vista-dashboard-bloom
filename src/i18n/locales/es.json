@@ -13,6 +13,20 @@
       "inbox": "Bandeja de Entrada",
       "workflows": "Flujos de Trabajo"
     },
+    "marketing": {
+      "dashboard": "Dashboard",
+      "campaigns": "Campañas",
+      "automation": "Automatización",
+      "ads": "Ads",
+      "reports": "Reportes"
+    },
+    "settings": {
+      "general": "Configuración General",
+      "chanels": "Canales de Conversación",
+      "users": "Usuarios",
+      "apiKeys": "Apis Keys",
+      "emails": "Correos"
+    },
     "crm": {
       "dashboard": "Dashboard",
       "contacts": "Contactos",
