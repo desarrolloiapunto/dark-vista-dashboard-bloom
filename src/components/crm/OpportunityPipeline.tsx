@@ -104,11 +104,12 @@ export const OpportunityPipeline: React.FC<OpportunityPipelineProps> = ({
     
     const opportunityId = active.id.toString();
     
+    // Using the center point of the dragged item for better accuracy
+    const centerX = active.rect.current.translated.left + (active.rect.current.translated.width / 2);
+    const centerY = active.rect.current.translated.top + (active.rect.current.translated.height / 2);
+    
     // Usar las coordenadas para determinar la columna de destino
-    const targetStageId = getTargetColumn({
-      x: active.rect.current.translated.left + (active.rect.current.width / 2),
-      y: active.rect.current.translated.top + (active.rect.current.height / 2)
-    });
+    const targetStageId = getTargetColumn({ x: centerX, y: centerY });
     
     // Si no se encuentra la columna de destino, no hacemos nada
     if (!targetStageId) return;
@@ -235,3 +236,4 @@ export const OpportunityPipeline: React.FC<OpportunityPipelineProps> = ({
     </DndContext>
   );
 };
+
