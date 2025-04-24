@@ -6,6 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "../auth/AuthProvider";
 import { useTranslation } from "react-i18next";
 import { LanguageSelector } from "../language/LanguageSelector";
+import { ThemeToggle } from "../theme/ThemeToggle";
 
 export function Header() {
   const navigate = useNavigate();
@@ -62,6 +63,7 @@ export function Header() {
         </div>
         <div className="flex items-center gap-4">
           <LanguageSelector />
+          <ThemeToggle />
           <button className="text-muted-foreground hover:text-foreground transition-colors">
             <Bell size={20} />
           </button>
