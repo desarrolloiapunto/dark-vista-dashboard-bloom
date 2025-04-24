@@ -4,7 +4,9 @@ export type EmailView = "inbox" | "sent" | "drafts" | "spam" | "trash" | "market
 export interface Email {
   id: string;
   from: string;
-  to: string;
+  to: string[];
+  cc?: string[];
+  bcc?: string[];
   subject: string;
   preview: string;
   body: string;
@@ -12,8 +14,8 @@ export interface Email {
   isRead: boolean;
   isStarred: boolean;
   labels: string[];
-  attachments?: { name: string; size: string }[];
-  folder?: EmailView;
+  attachments?: { name: string; size: string; type: string }[];
+  folder: EmailView;
 }
 
 export interface EmailLabel {
@@ -28,3 +30,5 @@ export interface EmailFolder {
   icon: React.ComponentType;
   count?: number;
 }
+
+export type EmailAction = "reply" | "replyAll" | "forward" | "delete" | "markAsRead" | "markAsUnread" | "star" | "unstar";

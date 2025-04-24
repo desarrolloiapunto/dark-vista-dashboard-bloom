@@ -1,3 +1,4 @@
+
 {
   "language": {
     "en": "English",
@@ -47,7 +48,8 @@
     "crm": "CRM",
     "marketing": "Marketing",
     "ads": "Anuncios",
-    "content": "Contenido"
+    "content": "Contenido",
+    "settings": "Configuración"
   },
   "conversation": {
     "typeMessage": "Escribe un mensaje...",
@@ -114,7 +116,9 @@
     "enableAutoReplies": "Activar Respuestas Automáticas",
     "autoRepliesDescription": "Respuestas automáticas cuando estés ausente",
     "enableChatbot": "Activar Chatbot IA",
-    "chatbotDescription": "Usa inteligencia artificial para responder preguntas frecuentes"
+    "chatbotDescription": "Usa inteligencia artificial para responder preguntas frecuentes",
+    "channels": "Canales de Comunicación",
+    "permissions": "Permisos y Roles"
   },
   "workflows": {
     "workflowEditor": "Editor de Flujos de Trabajo",
@@ -173,5 +177,48 @@
     "aiPromptDescription": "Genera una respuesta usando IA",
     "conditionDescription": "Ramifica el flujo basado en condiciones",
     "actionDescription": "Ejecuta una acción específica"
+  },
+  "email": {
+    "compose": "Nuevo Correo",
+    "inbox": "Bandeja de Entrada",
+    "sent": "Enviados",
+    "drafts": "Borradores",
+    "spam": "Spam",
+    "trash": "Papelera",
+    "starred": "Destacados",
+    "labels": "Etiquetas",
+    "settings": "Configuración",
+    "to": "Para",
+    "cc": "CC",
+    "bcc": "CCO",
+    "subject": "Asunto",
+    "body": "Mensaje",
+    "reply": "Responder",
+    "replyAll": "Responder a todos",
+    "forward": "Reenviar",
+    "delete": "Eliminar",
+    "markAsRead": "Marcar como leído",
+    "markAsUnread": "Marcar como no leído",
+    "addStar": "Añadir estrella",
+    "removeStar": "Quitar estrella",
+    "addLabel": "Añadir etiqueta",
+    "removeLabel": "Quitar etiqueta",
+    "attachments": "Archivos adjuntos",
+    "addAttachment": "Añadir archivo adjunto",
+    "send": "Enviar",
+    "saveDraft": "Guardar como borrador",
+    "cancel": "Cancelar",
+    "emptySpam": "Vaciar Spam",
+    "emptyTrash": "Vaciar Papelera",
+    "noEmails": "No hay correos en esta carpeta",
+    "from": "De",
+    "date": "Fecha",
+    "createLabel": "Crear etiqueta",
+    "deleteLabel": "Eliminar etiqueta",
+    "manageLabels": "Gestionar etiquetas",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "newestFirst": "Más recientes primero",
+    "oldestFirst": "Más antiguos primero"
   }
 }

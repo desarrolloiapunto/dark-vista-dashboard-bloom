@@ -1,3 +1,4 @@
+
 {
   "language": {
     "en": "English",
@@ -49,7 +50,8 @@
     "crm": "CRM",
     "marketing": "Marketing",
     "ads": "Ads",
-    "content": "Content"
+    "content": "Content",
+    "settings": "Settings"
   },
   "conversation": {
     "typeMessage": "Type a message...",
@@ -116,7 +118,9 @@
     "enableAutoReplies": "Enable Auto-Replies",
     "autoRepliesDescription": "Automatic responses when you're away",
     "enableChatbot": "Enable AI Chatbot",
-    "chatbotDescription": "Use artificial intelligence to answer common questions"
+    "chatbotDescription": "Use artificial intelligence to answer common questions",
+    "channels": "Communication Channels",
+    "permissions": "Permissions & Roles"
   },
   "workflows": {
     "workflowEditor": "Workflow Editor",
@@ -175,5 +179,48 @@
     "aiPromptDescription": "Generate a response using AI",
     "conditionDescription": "Branch the flow based on conditions",
     "actionDescription": "Execute a specific action"
+  },
+  "email": {
+    "compose": "Compose",
+    "inbox": "Inbox",
+    "sent": "Sent",
+    "drafts": "Drafts",
+    "spam": "Spam",
+    "trash": "Trash",
+    "starred": "Starred",
+    "labels": "Labels",
+    "settings": "Settings",
+    "to": "To",
+    "cc": "CC",
+    "bcc": "BCC",
+    "subject": "Subject",
+    "body": "Body",
+    "reply": "Reply",
+    "replyAll": "Reply All",
+    "forward": "Forward",
+    "delete": "Delete",
+    "markAsRead": "Mark as Read",
+    "markAsUnread": "Mark as Unread",
+    "addStar": "Add Star",
+    "removeStar": "Remove Star",
+    "addLabel": "Add Label",
+    "removeLabel": "Remove Label",
+    "attachments": "Attachments",
+    "addAttachment": "Add Attachment",
+    "send": "Send",
+    "saveDraft": "Save Draft",
+    "cancel": "Cancel",
+    "emptySpam": "Empty Spam",
+    "emptyTrash": "Empty Trash",
+    "noEmails": "No emails in this folder",
+    "from": "From",
+    "date": "Date",
+    "createLabel": "Create Label",
+    "deleteLabel": "Delete Label",
+    "manageLabels": "Manage Labels",
+    "filter": "Filter",
+    "sort": "Sort",
+    "newestFirst": "Newest First",
+    "oldestFirst": "Oldest First"
   }
 }

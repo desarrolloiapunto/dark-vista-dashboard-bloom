@@ -22,18 +22,34 @@ export const filterEmails = (emails: Email[], view: EmailView): Email[] => {
   }
 };
 
-export const formatEmailDate = (date: string): string => {
+export const formatEmailDate = (date: string, detailed = false): string => {
   const emailDate = new Date(date);
   const now = new Date();
   
-  if (emailDate.toDateString() === now.toDateString()) {
-    return emailDate.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+  if (!detailed) {
+    // Simple date formatting for lists
+    if (emailDate.toDateString() === now.toDateString()) {
+      return emailDate.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+    }
+    
+    if (emailDate.getFullYear() === now.getFullYear()) {
+      return emailDate.toLocaleDateString('es-ES', { month: 'short', day: 'numeric' });
+    }
+    
+    return emailDate.toLocaleDateString('es-ES', { year: 'numeric', month: 'short', day: 'numeric' });
+  } else {
+    // Detailed date formatting for email view
+    return emailDate.toLocaleDateString('es-ES', { 
+      weekday: 'long',
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
   }
-  
-  if (emailDate.getFullYear() === now.getFullYear()) {
-    return emailDate.toLocaleDateString('es-ES', { month: 'short', day: 'numeric' });
-  }
-  
-  return emailDate.toLocaleDateString('es-ES', { year: 'numeric', month: 'short', day: 'numeric' });
 };
 
+export const getEmailById = (emailId: string, emails: Email[]): Email | undefined => {
+  return emails.find(email => email.id === emailId);
+};

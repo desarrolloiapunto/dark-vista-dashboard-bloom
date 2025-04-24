@@ -8,5 +8,9 @@ export const mockLabels: EmailLabel[] = [
   { id: "reuniones", name: "Reuniones", color: "purple" },
   { id: "promociones", name: "Promociones", color: "yellow" },
   { id: "sistema", name: "Sistema", color: "gray" },
-  { id: "borradores", name: "Borradores", color: "orange" }
+  { id: "borradores", name: "Borradores", color: "orange" },
+  { id: "proveedores", name: "Proveedores", color: "yellow" },
+  { id: "clientes", name: "Clientes", color: "orange" },
+  { id: "tecnologia", name: "Tecnología", color: "cyan" },
+  { id: "soporte", name: "Soporte", color: "pink" }
 ];

@@ -24,7 +24,7 @@ import ChannelsPage from "./pages/settings/ChannelsPage";
 import UsersPage from "./pages/settings/UsersPage";
 import PermissionsPage from "./pages/settings/PermissionsPage";
 import ApiKeysPage from "./pages/settings/ApiKeysPage";
-import EmailsPage from "./pages/settings/EmailsPage";
+import EmailsSettingsPage from "./pages/settings/EmailsPage";
 import EmailsModulePage from "./pages/emails/EmailsPage";
 import CrmIndex from "./pages/crm";
 import ContactsPage from "./pages/crm/ContactsPage";
@@ -49,8 +49,8 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <ThemeProvider defaultTheme="light" storageKey="kairos-ui-theme">
-          <AuthProvider>
-            <BrowserRouter>
+          <BrowserRouter>
+            <AuthProvider>
               <div className="min-h-screen bg-background">
                 <Routes>
                   <Route path="/auth" element={<Auth />} />
@@ -74,9 +74,24 @@ const App = () => {
                     <Route path="settings/users" element={<UsersPage />} />
                     <Route path="settings/permissions" element={<PermissionsPage />} />
                     <Route path="settings/api" element={<ApiKeysPage />} />
-                    <Route path="settings/emails" element={<EmailsPage />} />
+                    <Route path="settings/emails" element={<EmailsSettingsPage />} />
                     
-                    <Route path="emails/*" element={<EmailsModulePage />} />
+                    {/* Email module routes */}
+                    <Route path="emails" element={<EmailsModulePage />}>
+                      <Route path="" element={<Navigate to="/emails/inbox" replace />} />
+                      <Route path="inbox" element={<></>} />
+                      <Route path="sent" element={<></>} />
+                      <Route path="drafts" element={<></>} />
+                      <Route path="spam" element={<></>} />
+                      <Route path="trash" element={<></>} />
+                      <Route path="starred" element={<></>} />
+                      <Route path="labels" element={<></>} />
+                      <Route path="view/:emailId" element={<></>} />
+                      <Route path="compose" element={<></>} />
+                      <Route path="reply/:emailId" element={<></>} />
+                      <Route path="forward/:emailId" element={<></>} />
+                    </Route>
+                    
                     <Route path="crm" element={<CrmIndex />} />
                     <Route path="crm/contacts" element={<ContactsPage />} />
                     <Route path="crm/companies" element={<CompaniesPage />} />
@@ -106,10 +121,10 @@ const App = () => {
                   </Route>
                 </Routes>
               </div>
-            </BrowserRouter>
-            <Toaster />
-            <Sonner />
-          </AuthProvider>
+              <Toaster />
+              <Sonner />
+            </AuthProvider>
+          </BrowserRouter>
         </ThemeProvider>
       </TooltipProvider>
     </QueryClientProvider>
