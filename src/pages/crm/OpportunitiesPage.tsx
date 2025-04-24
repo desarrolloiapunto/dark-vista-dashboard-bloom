@@ -1,5 +1,6 @@
+
 import { useState } from "react";
-import { opportunities, companies, stageColumns, tasks, quotes } from "@/data/crmData";
+import { opportunities, companies, stageColumns, tasks, quotes } from "@/data/crm";
 import { Opportunity, Task } from "@/types/crm";
 import {
   Card,

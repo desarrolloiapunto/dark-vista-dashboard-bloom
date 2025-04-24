@@ -1,7 +1,6 @@
-
 import { useState } from "react";
-import { quotes, opportunities, companies, products } from "@/data/crmData";
-import { Quote, QuoteItem } from "@/types/crm";
+import { quotes, opportunities, products } from "@/data/crm";
+import { Quote } from "@/types/crm";
 import {
   Card, CardHeader, CardTitle, CardDescription, CardContent
 } from "@/components/ui/card";

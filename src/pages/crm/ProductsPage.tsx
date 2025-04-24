@@ -1,7 +1,6 @@
-
 import { useState } from "react";
+import { products } from "@/data/crm";
 import { Product } from "@/types/crm";
-import { products } from "@/data/crmData";
 import {
   Card, CardHeader, CardTitle, CardDescription, CardContent
 } from "@/components/ui/card";

@@ -1,9 +1,10 @@
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   PieChart, Pie, Cell, LineChart, Line
 } from "recharts";
-import { companies, contacts, opportunities } from "@/data/crmData";
+import { companies, contacts, opportunities } from "@/data/crm";
 import { formatCurrency } from '@/utils/formatters';
 
 export const DashboardReports = () => {

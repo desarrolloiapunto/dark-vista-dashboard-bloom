@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { contacts } from "@/data/crmData";
+import { contacts } from "@/data/crm";
 import { Contact } from "@/types/crm";
 import { 
   Card, CardHeader, CardTitle, CardDescription, CardContent 

@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { tasks } from "@/data/crmData";
+import { tasks } from "@/data/crm";
 import { Task } from "@/types/crm";
 import {
   Card, CardHeader, CardTitle, CardDescription, CardContent

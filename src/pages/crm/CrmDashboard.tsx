@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { dashboardMetrics, contacts } from "@/data/crmData";
+import { dashboardMetrics, contacts } from "@/data/crm";
 import { ArrowUp, ArrowDown, UserCheck, MapPin, LineChart, Building2 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";

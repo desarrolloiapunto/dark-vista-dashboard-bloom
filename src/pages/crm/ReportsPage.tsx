@@ -1,11 +1,11 @@
-
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState } from "react";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   PieChart, Pie, Cell, LineChart, Line
 } from "recharts";
-import { companies, contacts, opportunities } from "@/data/crmData";
+import { contacts, opportunities, companies } from "@/data/crm";
 
 export default function ReportsPage() {
   // Datos para el gráfico de estado de contactos

@@ -1,7 +1,6 @@
-
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { contacts } from "@/data/crmData";
+import { contacts } from "@/data/crm";
 
 export default function LeadsTrackingPage() {
   const leads = contacts.filter(contact => contact.status === "lead");

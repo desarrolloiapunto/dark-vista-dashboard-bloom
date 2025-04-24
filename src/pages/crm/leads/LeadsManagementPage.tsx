@@ -1,11 +1,10 @@
-
 import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Search, UserCheck } from "lucide-react";
-import { contacts } from "@/data/crmData";
+import { contacts } from "@/data/crm";
 
 export default function LeadsManagementPage() {
   const [searchTerm, setSearchTerm] = useState("");
