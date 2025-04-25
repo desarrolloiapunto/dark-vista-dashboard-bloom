@@ -1,6 +1,7 @@
 
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { EmailNavigation } from "@/components/email/EmailNavigation";
 import { DashboardNavigation } from "@/components/navigation/DashboardNavigation";
 import { ConversationsNavigation } from "@/components/navigation/ConversationsNavigation";
@@ -27,9 +28,11 @@ export function SecondarySidebar() {
         <div className="flex h-14 items-center px-4 border-b border-white/10">
           <h2 className="text-lg font-semibold">{t('navigation.emails')}</h2>
         </div>
-        <div className="p-4 flex flex-col gap-2">
-          <EmailNavigation />
-        </div>
+        <ScrollArea className="h-[calc(100vh-3.5rem)] w-full">
+          <div className="p-4 flex flex-col gap-2">
+            <EmailNavigation />
+          </div>
+        </ScrollArea>
       </div>
     );
   } else if (location.pathname.startsWith("/crm")) {
@@ -57,9 +60,11 @@ export function SecondarySidebar() {
       <div className="flex h-14 items-center px-4 border-b border-white/10">
         <h2 className="text-lg font-semibold">{title}</h2>
       </div>
-      <div className="p-4 flex flex-col gap-2">
-        <NavigationComponent />
-      </div>
+      <ScrollArea className="h-[calc(100vh-3.5rem)] w-full">
+        <div className="p-4 flex flex-col gap-2">
+          <NavigationComponent />
+        </div>
+      </ScrollArea>
     </div>
   );
 }
