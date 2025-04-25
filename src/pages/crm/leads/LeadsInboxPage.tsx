@@ -17,6 +17,7 @@ import { Search, UserCheck, UserPlus, Filter } from "lucide-react";
 import { contacts } from "@/data/crm";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { Link } from "react-router-dom";
 
 export default function LeadsInboxPage() {
   const [searchTerm, setSearchTerm] = useState("");

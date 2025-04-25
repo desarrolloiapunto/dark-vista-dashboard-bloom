@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -30,10 +31,12 @@ import ContactsPage from "./pages/crm/ContactsPage";
 import CompaniesPage from "./pages/crm/CompaniesPage";
 import TasksPage from "./pages/crm/TasksPage";
 import OpportunitiesPage from "./pages/crm/OpportunitiesPage";
-import LeadsManagementPage from "./pages/crm/leads/LeadsManagementPage";
+import LeadsInboxPage from "./pages/crm/leads/LeadsInboxPage";
 import LeadsSourcesPage from "./pages/crm/leads/LeadsSourcesPage";
 import LeadsTrackingPage from "./pages/crm/leads/LeadsTrackingPage";
 import LeadsAutomationPage from "./pages/crm/leads/LeadsAutomationPage";
+import NewLeadPage from "./pages/crm/leads/NewLeadPage";
+import UnassignedLeadsPage from "./pages/crm/leads/UnassignedLeadsPage";
 import ReportsPage from "./pages/crm/ReportsPage";
 import QuotesPage from "./pages/crm/QuotesPage";
 import ProductsPage from "./pages/crm/ProductsPage";
