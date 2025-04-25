@@ -1,5 +1,24 @@
 
-import { Home, UsersIcon, Building2, CheckSquare, LineChart, UserCheck, MapPin, History, ZapIcon, PieChart, Tag, Package } from "lucide-react";
+import { 
+  Home, 
+  UsersIcon, 
+  Building2, 
+  CheckSquare, 
+  LineChart, 
+  UserCheck, 
+  MapPin, 
+  Settings, 
+  PieChart, 
+  Tag, 
+  Package,
+  UserPlus,
+  Inbox,
+  Users,
+  Star,
+  XCircle,
+  Plus,
+  FileText
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -9,39 +28,91 @@ export const CrmNavigation = () => {
   const location = useLocation();
   const { t } = useTranslation();
   
-  const crmActions = [
-    { icon: Home, label: t('sidebar.crm.dashboard'), path: "/crm" },
-    { icon: UsersIcon, label: t('sidebar.crm.contacts'), path: "/crm/contacts" },
-    { icon: Building2, label: t('sidebar.crm.companies'), path: "/crm/companies" },
-    { icon: CheckSquare, label: t('sidebar.crm.tasks'), path: "/crm/tasks" },
-    { icon: LineChart, label: t('sidebar.crm.opportunities'), path: "/crm/opportunities" },
-    { icon: Tag, label: "Cotizaciones", path: "/crm/quotes" },
-    { icon: Package, label: "Productos y Servicios", path: "/crm/products" },
-    { icon: UserCheck, label: t('sidebar.crm.leads'), path: "/crm/leads" },
-    { icon: MapPin, label: t('sidebar.crm.leadsSources'), path: "/crm/leads/sources" },
-    { icon: History, label: t('sidebar.crm.leadsTracking'), path: "/crm/leads/tracking" },
-    { icon: ZapIcon, label: t('sidebar.crm.leadsAutomation'), path: "/crm/leads/automation" },
-    { icon: PieChart, label: t('sidebar.crm.reports'), path: "/crm/reports" },
+  const crmSections = [
+    {
+      title: "General",
+      items: [
+        { icon: Home, label: "Dashboard", path: "/crm" },
+        { icon: CheckSquare, label: "Tareas", path: "/crm/tasks" },
+      ]
+    },
+    {
+      title: "Leads",
+      items: [
+        { icon: UserPlus, label: "Nuevo Lead", path: "/crm/leads/new" },
+        { icon: Inbox, label: "Bandeja de entrada", path: "/crm/leads" },
+        { icon: Users, label: "Leads sin asignar", path: "/crm/leads/unassigned" },
+        { icon: UserCheck, label: "Mis leads asignados", path: "/crm/leads/my-leads" },
+        { icon: Star, label: "Leads calificados", path: "/crm/leads/qualified" },
+        { icon: XCircle, label: "Leads no calificados", path: "/crm/leads/unqualified" },
+      ]
+    },
+    {
+      title: "Oportunidades",
+      items: [
+        { icon: Plus, label: "Nuevas oportunidades", path: "/crm/opportunities/new" },
+        { icon: LineChart, label: "Mis oportunidades", path: "/crm/opportunities" },
+        { icon: LineChart, label: "Por etapa", path: "/crm/opportunities/stages" },
+        { icon: LineChart, label: "Ganadas", path: "/crm/opportunities/won" },
+        { icon: LineChart, label: "Perdidas", path: "/crm/opportunities/lost" },
+      ]
+    },
+    {
+      title: "Contactos",
+      items: [
+        { icon: UsersIcon, label: "Todos los contactos", path: "/crm/contacts" },
+        { icon: Building2, label: "Contactos empresas", path: "/crm/contacts/companies" },
+        { icon: Building2, label: "Empresas", path: "/crm/companies" },
+      ]
+    },
+    {
+      title: "Ventas",
+      items: [
+        { icon: Tag, label: "Cotizaciones", path: "/crm/quotes" },
+        { icon: Package, label: "Productos/Servicios", path: "/crm/products" },
+      ]
+    },
+    {
+      title: "Informes",
+      items: [
+        { icon: PieChart, label: "Informes", path: "/crm/reports" },
+      ]
+    },
+    {
+      title: "Configuración",
+      items: [
+        { icon: MapPin, label: "Fuentes de leads", path: "/crm/leads/sources" },
+        { icon: Settings, label: "Etapas de calificación", path: "/crm/settings/qualification-stages" },
+        { icon: Settings, label: "Etapas de oportunidad", path: "/crm/settings/opportunity-stages" },
+        { icon: Settings, label: "Usuarios y roles", path: "/crm/settings/users" },
+        { icon: Settings, label: "Automatizaciones", path: "/crm/leads/automation" },
+      ]
+    },
   ];
 
   return (
-    <>
-      {crmActions.map(({ icon: Icon, label, path }) => (
-        <Button
-          key={path}
-          variant="ghost"
-          className={cn(
-            "w-full justify-start gap-2",
-            location.pathname === path && "bg-accent text-accent-foreground"
-          )}
-          asChild
-        >
-          <Link to={path}>
-            <Icon size={18} />
-            {label}
-          </Link>
-        </Button>
+    <div className="flex flex-col gap-4">
+      {crmSections.map((section) => (
+        <div key={section.title} className="space-y-2">
+          <div className="pl-2 text-xs font-medium text-muted-foreground">{section.title}</div>
+          {section.items.map(({ icon: Icon, label, path }) => (
+            <Button
+              key={path}
+              variant="ghost"
+              className={cn(
+                "w-full justify-start gap-2",
+                location.pathname === path && "bg-accent text-accent-foreground"
+              )}
+              asChild
+            >
+              <Link to={path}>
+                <Icon size={18} />
+                {label}
+              </Link>
+            </Button>
+          ))}
+        </div>
       ))}
-    </>
+    </div>
   );
 };

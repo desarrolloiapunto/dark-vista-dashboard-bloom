@@ -93,18 +93,42 @@ const App = () => {
                       <Route path="forward/:emailId" element={<></>} />
                     </Route>
                     
+                    {/* CRM routes */}
                     <Route path="crm" element={<CrmIndex />} />
                     <Route path="crm/contacts" element={<ContactsPage />} />
+                    <Route path="crm/contacts/companies" element={<Placeholder title="Contactos de Empresas" />} />
                     <Route path="crm/companies" element={<CompaniesPage />} />
                     <Route path="crm/tasks" element={<TasksPage />} />
-                    <Route path="crm/opportunities" element={<OpportunitiesPage />} />
-                    <Route path="crm/quotes" element={<QuotesPage />} />
-                    <Route path="crm/products" element={<ProductsPage />} />
-                    <Route path="crm/leads" element={<LeadsManagementPage />} />
+                    
+                    {/* Leads section */}
+                    <Route path="crm/leads" element={<LeadsInboxPage />} />
+                    <Route path="crm/leads/new" element={<NewLeadPage />} />
+                    <Route path="crm/leads/unassigned" element={<UnassignedLeadsPage />} />
+                    <Route path="crm/leads/my-leads" element={<Placeholder title="Mis Leads Asignados" />} />
+                    <Route path="crm/leads/qualified" element={<Placeholder title="Leads Calificados" />} />
+                    <Route path="crm/leads/unqualified" element={<Placeholder title="Leads No Calificados" />} />
                     <Route path="crm/leads/sources" element={<LeadsSourcesPage />} />
                     <Route path="crm/leads/tracking" element={<LeadsTrackingPage />} />
                     <Route path="crm/leads/automation" element={<LeadsAutomationPage />} />
+                    
+                    {/* Opportunities section */}
+                    <Route path="crm/opportunities" element={<OpportunitiesPage />} />
+                    <Route path="crm/opportunities/new" element={<Placeholder title="Nuevas Oportunidades" />} />
+                    <Route path="crm/opportunities/stages" element={<Placeholder title="Oportunidades por Etapa" />} />
+                    <Route path="crm/opportunities/won" element={<Placeholder title="Oportunidades Ganadas" />} />
+                    <Route path="crm/opportunities/lost" element={<Placeholder title="Oportunidades Perdidas" />} />
+                    
+                    {/* Settings */}
+                    <Route path="crm/settings/qualification-stages" element={<Placeholder title="Etapas de Calificación" />} />
+                    <Route path="crm/settings/opportunity-stages" element={<Placeholder title="Etapas de Oportunidad" />} />
+                    <Route path="crm/settings/users" element={<Placeholder title="Usuarios y Roles" />} />
+                    
+                    {/* Other CRM pages */}
+                    <Route path="crm/quotes" element={<QuotesPage />} />
+                    <Route path="crm/products" element={<ProductsPage />} />
                     <Route path="crm/reports" element={<ReportsPage />} />
+                    
+                    {/* Other app routes */}
                     <Route path="marketing/campaigns" element={<Placeholder title={t('sidebar.marketing.campaigns')} />} />
                     <Route path="marketing/automation" element={<Placeholder title={t('sidebar.marketing.automation')} />} />
                     <Route path="marketing/ads" element={<Placeholder title={t('sidebar.marketing.ads')} />} />

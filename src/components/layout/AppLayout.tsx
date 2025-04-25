@@ -1,5 +1,6 @@
+
 import { useTranslation } from 'react-i18next';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import { Header } from "./Header";
 import { Breadcrumb } from "./Breadcrumb";
 import { PrimarySidebar } from "./PrimarySidebar";
@@ -18,10 +19,12 @@ import ContactsPage from "@/pages/crm/ContactsPage";
 import CompaniesPage from "@/pages/crm/CompaniesPage";
 import TasksPage from "@/pages/crm/TasksPage";
 import OpportunitiesPage from "@/pages/crm/OpportunitiesPage";
-import LeadsManagementPage from "@/pages/crm/leads/LeadsManagementPage";
+import LeadsInboxPage from "@/pages/crm/leads/LeadsInboxPage";
 import LeadsSourcesPage from "@/pages/crm/leads/LeadsSourcesPage";
 import LeadsTrackingPage from "@/pages/crm/leads/LeadsTrackingPage";
 import LeadsAutomationPage from "@/pages/crm/leads/LeadsAutomationPage";
+import NewLeadPage from "@/pages/crm/leads/NewLeadPage";
+import UnassignedLeadsPage from "@/pages/crm/leads/UnassignedLeadsPage";
 import ReportsPage from "@/pages/crm/ReportsPage";
 import ContentManagement from "@/pages/content/ContentManagement";
 import Profile from "@/pages/Profile";
@@ -51,15 +54,35 @@ export const AppLayout = () => {
             <Route path="emails/*" element={<EmailsPage />} />
             <Route path="crm" element={<CrmIndex />} />
             <Route path="crm/contacts" element={<ContactsPage />} />
+            <Route path="crm/contacts/companies" element={<Placeholder title="Contactos de Empresas" />} />
             <Route path="crm/companies" element={<CompaniesPage />} />
             <Route path="crm/tasks" element={<TasksPage />} />
-            <Route path="crm/opportunities" element={<OpportunitiesPage />} />
-            <Route path="crm/quotes" element={<QuotesPage />} />
-            <Route path="crm/products" element={<ProductsPage />} />
-            <Route path="crm/leads" element={<LeadsManagementPage />} />
+            
+            {/* Leads routes */}
+            <Route path="crm/leads" element={<LeadsInboxPage />} />
+            <Route path="crm/leads/new" element={<NewLeadPage />} />
+            <Route path="crm/leads/unassigned" element={<UnassignedLeadsPage />} />
+            <Route path="crm/leads/my-leads" element={<Placeholder title="Mis Leads Asignados" />} />
+            <Route path="crm/leads/qualified" element={<Placeholder title="Leads Calificados" />} />
+            <Route path="crm/leads/unqualified" element={<Placeholder title="Leads No Calificados" />} />
             <Route path="crm/leads/sources" element={<LeadsSourcesPage />} />
             <Route path="crm/leads/tracking" element={<LeadsTrackingPage />} />
             <Route path="crm/leads/automation" element={<LeadsAutomationPage />} />
+            
+            {/* Opportunities routes */}
+            <Route path="crm/opportunities" element={<OpportunitiesPage />} />
+            <Route path="crm/opportunities/new" element={<Placeholder title="Nuevas Oportunidades" />} />
+            <Route path="crm/opportunities/stages" element={<Placeholder title="Oportunidades por Etapa" />} />
+            <Route path="crm/opportunities/won" element={<Placeholder title="Oportunidades Ganadas" />} />
+            <Route path="crm/opportunities/lost" element={<Placeholder title="Oportunidades Perdidas" />} />
+            
+            {/* Settings routes */}
+            <Route path="crm/settings/qualification-stages" element={<Placeholder title="Etapas de Calificación" />} />
+            <Route path="crm/settings/opportunity-stages" element={<Placeholder title="Etapas de Oportunidad" />} />
+            <Route path="crm/settings/users" element={<Placeholder title="Usuarios y Roles" />} />
+            
+            <Route path="crm/quotes" element={<QuotesPage />} />
+            <Route path="crm/products" element={<ProductsPage />} />
             <Route path="crm/reports" element={<ReportsPage />} />
             <Route path="marketing/campaigns" element={<Placeholder title={t('sidebar.marketing.campaigns')} />} />
             <Route path="marketing/automation" element={<Placeholder title={t('sidebar.marketing.automation')} />} />
