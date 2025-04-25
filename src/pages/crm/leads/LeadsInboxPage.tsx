@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -13,7 +12,7 @@ import {
   TableHeader, 
   TableRow 
 } from "@/components/ui/table";
-import { Search, UserCheck, UserPlus, Filter } from "lucide-react";
+import { Search, UserCheck, UserPlus, Filter, Users, Star, XCircle } from "lucide-react";
 import { contacts } from "@/data/crm";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
@@ -23,7 +22,8 @@ export default function LeadsInboxPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [view, setView] = useState<"table" | "cards">("table");
   const [currentTab, setCurrentTab] = useState("all");
-  
+  const [leadFilter, setLeadFilter] = useState<"all" | "unassigned" | "my_leads" | "qualified" | "unqualified">("all");
+
   // Filter leads based on search term and status
   const leads = contacts.filter(contact => 
     contact.status === "lead" &&
@@ -32,11 +32,25 @@ export default function LeadsInboxPage() {
     ))
   );
   
-  const filteredLeads = leads.filter(lead => 
-    lead.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    lead.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (lead.company && lead.company.toLowerCase().includes(searchTerm.toLowerCase()))
-  );
+  const filteredLeads = leads.filter(lead => {
+    const searchMatch = 
+      lead.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      lead.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (lead.company && lead.company.toLowerCase().includes(searchTerm.toLowerCase()));
+
+    switch (leadFilter) {
+      case "unassigned":
+        return searchMatch && !lead.assignedTo;
+      case "my_leads":
+        return searchMatch && lead.assignedTo === "current_user";
+      case "qualified":
+        return searchMatch && lead.status === "qualified";
+      case "unqualified":
+        return searchMatch && lead.status === "unqualified";
+      default:
+        return searchMatch;
+    }
+  });
 
   const formatDate = (dateString?: string) => {
     if (!dateString) return "N/A";
@@ -86,9 +100,36 @@ export default function LeadsInboxPage() {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-            <Button variant="outline">
-              <Filter className="h-4 w-4 mr-2" /> Filtrar
-            </Button>
+            <div className="flex gap-2">
+              <Button 
+                variant={leadFilter === "unassigned" ? "default" : "outline"} 
+                size="sm" 
+                onClick={() => setLeadFilter(leadFilter === "unassigned" ? "all" : "unassigned")}
+              >
+                <Users className="mr-2 h-4 w-4" /> Sin asignar
+              </Button>
+              <Button 
+                variant={leadFilter === "my_leads" ? "default" : "outline"} 
+                size="sm" 
+                onClick={() => setLeadFilter(leadFilter === "my_leads" ? "all" : "my_leads")}
+              >
+                <UserCheck className="mr-2 h-4 w-4" /> Mis leads
+              </Button>
+              <Button 
+                variant={leadFilter === "qualified" ? "default" : "outline"} 
+                size="sm" 
+                onClick={() => setLeadFilter(leadFilter === "qualified" ? "all" : "qualified")}
+              >
+                <Star className="mr-2 h-4 w-4" /> Calificados
+              </Button>
+              <Button 
+                variant={leadFilter === "unqualified" ? "default" : "outline"} 
+                size="sm" 
+                onClick={() => setLeadFilter(leadFilter === "unqualified" ? "all" : "unqualified")}
+              >
+                <XCircle className="mr-2 h-4 w-4" /> No calificados
+              </Button>
+            </div>
           </div>
           
           <Tabs defaultValue="all" onValueChange={setCurrentTab}>
@@ -171,10 +212,6 @@ export default function LeadsInboxPage() {
                   )}
                 </div>
               )}
-            </TabsContent>
-            
-            <TabsContent value="recent" className="space-y-4">
-              {/* Same structure as above, but filtered for recent leads */}
             </TabsContent>
           </Tabs>
         </CardContent>

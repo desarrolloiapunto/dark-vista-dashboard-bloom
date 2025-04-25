@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { opportunities, companies, stageColumns, tasks, quotes } from "@/data/crm";
 import { Opportunity, Task } from "@/types/crm";
@@ -10,7 +9,7 @@ import {
   CardContent
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ListIcon, KanbanIcon, TrendingUp } from "lucide-react";
+import { ListIcon, KanbanIcon, TrendingUp, LineChart } from "lucide-react";
 import { OpportunityList } from "@/components/crm/opportunities/OpportunityList";
 import { OpportunityPipeline } from "@/components/crm/OpportunityPipeline";
 import { CreateOpportunityDialog } from "@/components/crm/opportunities/dialogs/CreateOpportunityDialog";
@@ -26,6 +25,7 @@ export default function OpportunitiesPage() {
   const [currentOpportunity, setCurrentOpportunity] = useState<Opportunity | null>(null);
   const [relatedTasks, setRelatedTasks] = useState<Task[]>([]);
   const [relatedQuotes, setRelatedQuotes] = useState<any[]>([]);
+  const [opportunityFilter, setOpportunityFilter] = useState<"all" | "by_stage" | "won" | "lost">("all");
 
   // Dialog states
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
@@ -33,6 +33,19 @@ export default function OpportunitiesPage() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isTaskDialogOpen, setIsTaskDialogOpen] = useState(false);
   const [isQuoteDialogOpen, setIsQuoteDialogOpen] = useState(false);
+
+  const filteredOpportunities = opportunityList.filter(opp => {
+    switch (opportunityFilter) {
+      case "won":
+        return opp.stage === "closed_won";
+      case "lost":
+        return opp.stage === "closed_lost";
+      case "by_stage":
+        return !["closed_won", "closed_lost"].includes(opp.stage);
+      default:
+        return true;
+    }
+  });
 
   const handleCreateQuote = () => {
     setIsQuoteDialogOpen(false);
@@ -91,8 +104,31 @@ export default function OpportunitiesPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
+            <div className="flex mb-4 gap-2">
+              <Button 
+                variant={opportunityFilter === "by_stage" ? "default" : "outline"} 
+                size="sm" 
+                onClick={() => setOpportunityFilter(opportunityFilter === "by_stage" ? "all" : "by_stage")}
+              >
+                <LineChart className="mr-2 h-4 w-4" /> Por etapa
+              </Button>
+              <Button 
+                variant={opportunityFilter === "won" ? "default" : "outline"} 
+                size="sm" 
+                onClick={() => setOpportunityFilter(opportunityFilter === "won" ? "all" : "won")}
+              >
+                <LineChart className="mr-2 h-4 w-4" /> Ganadas
+              </Button>
+              <Button 
+                variant={opportunityFilter === "lost" ? "default" : "outline"} 
+                size="sm" 
+                onClick={() => setOpportunityFilter(opportunityFilter === "lost" ? "all" : "lost")}
+              >
+                <LineChart className="mr-2 h-4 w-4" /> Perdidas
+              </Button>
+            </div>
             <OpportunityList 
-              opportunities={opportunityList}
+              opportunities={filteredOpportunities}
               onEdit={(opp) => {
                 setCurrentOpportunity(opp);
                 setRelatedTasks(tasks.filter(task => 
@@ -120,7 +156,7 @@ export default function OpportunitiesPage() {
           <CardContent>
             <OpportunityPipeline 
               stageColumns={stageColumns} 
-              opportunities={opportunityList} 
+              opportunities={filteredOpportunities} 
               onOpportunityUpdate={(updatedOpp) => {
                 setOpportunityList(opportunityList.map(opp => 
                   opp.id === updatedOpp.id ? updatedOpp : opp

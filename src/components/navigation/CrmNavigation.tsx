@@ -41,10 +41,6 @@ export const CrmNavigation = () => {
       items: [
         { icon: UserPlus, label: "Nuevo Lead", path: "/crm/leads/new" },
         { icon: Inbox, label: "Bandeja de entrada", path: "/crm/leads" },
-        { icon: Users, label: "Leads sin asignar", path: "/crm/leads/unassigned" },
-        { icon: UserCheck, label: "Mis leads asignados", path: "/crm/leads/my-leads" },
-        { icon: Star, label: "Leads calificados", path: "/crm/leads/qualified" },
-        { icon: XCircle, label: "Leads no calificados", path: "/crm/leads/unqualified" },
       ]
     },
     {
@@ -52,9 +48,6 @@ export const CrmNavigation = () => {
       items: [
         { icon: Plus, label: "Nuevas oportunidades", path: "/crm/opportunities/new" },
         { icon: LineChart, label: "Mis oportunidades", path: "/crm/opportunities" },
-        { icon: LineChart, label: "Por etapa", path: "/crm/opportunities/stages" },
-        { icon: LineChart, label: "Ganadas", path: "/crm/opportunities/won" },
-        { icon: LineChart, label: "Perdidas", path: "/crm/opportunities/lost" },
       ]
     },
     {
