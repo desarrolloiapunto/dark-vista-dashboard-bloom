@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -44,9 +45,9 @@ export default function LeadsInboxPage() {
       case "my_leads":
         return searchMatch && lead.assignedTo === "current_user";
       case "qualified":
-        return searchMatch && lead.status === "qualified";
+        return searchMatch && lead.status === "lead" && lead.tags?.includes("qualified");
       case "unqualified":
-        return searchMatch && lead.status === "unqualified";
+        return searchMatch && lead.status === "lead" && lead.tags?.includes("unqualified");
       default:
         return searchMatch;
     }

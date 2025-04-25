@@ -11,7 +11,8 @@ export const contacts: Contact[] = [
     position: "Director de Marketing",
     status: "customer",
     lastContact: "2025-04-12",
-    avatarUrl: "https://i.pravatar.cc/150?u=carlos"
+    avatarUrl: "https://i.pravatar.cc/150?u=carlos",
+    assignedTo: "current_user"
   },
   {
     id: "2",
@@ -22,7 +23,8 @@ export const contacts: Contact[] = [
     position: "CEO",
     status: "prospect",
     lastContact: "2025-04-05",
-    avatarUrl: "https://i.pravatar.cc/150?u=ana"
+    avatarUrl: "https://i.pravatar.cc/150?u=ana",
+    tags: ["qualified"]
   },
   {
     id: "3",
@@ -44,7 +46,8 @@ export const contacts: Contact[] = [
     position: "Consultora",
     status: "customer",
     lastContact: "2025-04-10",
-    avatarUrl: "https://i.pravatar.cc/150?u=elena"
+    avatarUrl: "https://i.pravatar.cc/150?u=elena",
+    assignedTo: "other_user"
   },
   {
     id: "5",
@@ -55,6 +58,7 @@ export const contacts: Contact[] = [
     position: "Director de Ventas",
     status: "inactive",
     lastContact: "2025-03-20",
-    avatarUrl: "https://i.pravatar.cc/150?u=miguel"
+    avatarUrl: "https://i.pravatar.cc/150?u=miguel",
+    tags: ["unqualified"]
   }
 ];

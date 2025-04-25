@@ -1,4 +1,3 @@
-
 export interface Contact {
   id: string;
   name: string;
@@ -7,10 +6,11 @@ export interface Contact {
   company?: string;
   position?: string;
   lastContact?: string;
-  status: "lead" | "prospect" | "customer" | "inactive";
+  status: "lead" | "prospect" | "customer" | "inactive" | "qualified" | "unqualified";
   notes?: string;
   tags?: string[];
   avatarUrl?: string;
+  assignedTo?: string;
 }
 
 export interface Company {
