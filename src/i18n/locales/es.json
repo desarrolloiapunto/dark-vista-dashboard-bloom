@@ -21,6 +21,13 @@
       "ads": "Ads",
       "reports": "Reportes"
     },
+    "marketingAds": {
+      "campaigns": "Campañas",
+      "automation": "Automatización",
+      "publish": "Publicar",
+      "optimization": "Optimización",
+      "reports": "Informes"
+    },
     "settings": {
       "general": "Configuración General",
       "chanels": "Canales de Conversación",
@@ -39,6 +46,13 @@
       "leadsTracking": "Seguimiento de Leads",
       "leadsAutomation": "Automatización de Leads",
       "reports": "Reportes y Métricas"
+    },
+    "content": {
+      "calendar": "Calendario de Contenido",
+      "publish": "Publicar",
+      "customize": "Personalizar",
+      "library": "Biblioteca de Contenido",
+      "reports": "Informes"
     }
   },
   "navigation": {
@@ -48,6 +62,7 @@
     "crm": "CRM",
     "marketing": "Marketing",
     "ads": "Anuncios",
+    "marketingAds": "Marketing y Anuncios",
     "content": "Contenido",
     "settings": "Configuración"
   },

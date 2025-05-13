@@ -22,6 +22,13 @@
       "ads": "Ads",
       "reports": "Reports"
     },
+    "marketingAds": {
+      "campaigns": "Campaigns",
+      "automation": "Automation",
+      "publish": "Publish",
+      "optimization": "Optimization",
+      "reports": "Reports"
+    },
     "settings": {
       "general": "General",
       "chanels": "Conversations Chanels",
@@ -29,7 +36,6 @@
       "apiKeys": "API Keys",
       "emails": "Emails"
     },
-
     "crm": {
       "dashboard": "Dashboard",
       "contacts": "Contacts",
@@ -41,6 +47,13 @@
       "leadsTracking": "Leads Tracking",
       "leadsAutomation": "Leads Automation",
       "reports": "Reports"
+    },
+    "content": {
+      "calendar": "Content Calendar",
+      "publish": "Publish",
+      "customize": "Customize",
+      "library": "Content Library", 
+      "reports": "Reports"
     }
   },
   "navigation": {
@@ -50,6 +63,7 @@
     "crm": "CRM",
     "marketing": "Marketing",
     "ads": "Ads",
+    "marketingAds": "Marketing & Ads",
     "content": "Content",
     "settings": "Settings"
   },

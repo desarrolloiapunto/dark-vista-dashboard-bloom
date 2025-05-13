@@ -81,13 +81,11 @@ const Profile = () => {
 
       if (error) throw error;
 
+      // Update the user data in the profile table
       const { error: profileError } = await supabase
-        .from('profiles')
+        .from('profile')
         .update({ 
-          username: values.username,
-          display_name: values.display_name,
-          phone: values.phone,
-          address: values.address,
+          full_name: values.display_name || values.username,
           updated_at: new Date().toISOString()
         })
         .eq('id', user?.id);
@@ -161,16 +159,6 @@ const Profile = () => {
       });
 
       if (updateError) throw updateError;
-
-      const { error: profileError } = await supabase
-        .from('profiles')
-        .update({ 
-          avatar_url: publicUrl,
-          updated_at: new Date().toISOString()
-        })
-        .eq('id', user?.id);
-
-      if (profileError) throw profileError;
 
       toast({
         title: "Avatar updated",
