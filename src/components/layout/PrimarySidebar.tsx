@@ -1,11 +1,9 @@
-
 import { 
   LayoutDashboard, 
   MessageSquare, 
   Mail, 
   Users, 
   TrendingUp, 
-  Zap, 
   Image,
   Settings as SettingsIcon
 } from "lucide-react";
@@ -40,13 +38,8 @@ export function PrimarySidebar() {
     },
     {
       icon: TrendingUp,
-      path: "/marketing",
-      title: t('navigation.marketing')
-    },
-    {
-      icon: Zap,
-      path: "/ads",
-      title: t('navigation.ads')
+      path: "/marketing-ads",
+      title: t('navigation.marketingAds')
     },
     {
       icon: Image,

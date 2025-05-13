@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -131,15 +130,14 @@ const App = () => {
                     <Route path="crm/products" element={<ProductsPage />} />
                     <Route path="crm/reports" element={<ReportsPage />} />
                     
-                    {/* Other app routes */}
-                    <Route path="marketing/campaigns" element={<Placeholder title={t('sidebar.marketing.campaigns')} />} />
-                    <Route path="marketing/automation" element={<Placeholder title={t('sidebar.marketing.automation')} />} />
-                    <Route path="marketing/ads" element={<Placeholder title={t('sidebar.marketing.ads')} />} />
-                    <Route path="marketing/reports" element={<Placeholder title={t('sidebar.marketing.reports')} />} />
-                    <Route path="ads/campaigns" element={<Placeholder title={t('sidebar.marketing.campaigns')} />} />
-                    <Route path="ads/publish" element={<Placeholder title="Publicación Unificada de Anuncios" />} />
-                    <Route path="ads/optimization" element={<Placeholder title="Optimización de Campañas" />} />
-                    <Route path="ads/reports" element={<Placeholder title="Reportes y Métricas de Anuncios" />} />
+                    {/* Marketing Ads unified module */}
+                    <Route path="marketing-ads/campaigns" element={<Placeholder title={t('sidebar.marketingAds.campaigns')} />} />
+                    <Route path="marketing-ads/automation" element={<Placeholder title={t('sidebar.marketingAds.automation')} />} />
+                    <Route path="marketing-ads/publish" element={<Placeholder title={t('sidebar.marketingAds.publish')} />} />
+                    <Route path="marketing-ads/optimization" element={<Placeholder title={t('sidebar.marketingAds.optimization')} />} />
+                    <Route path="marketing-ads/reports" element={<Placeholder title={t('sidebar.marketingAds.reports')} />} />
+                    
+                    {/* Content routes */}
                     <Route path="content/" element={<ContentManagement />} />
                     <Route path="content/calendar" element={<ContentManagement />} />
                     <Route path="content/publish" element={<Placeholder title={t('sidebar.content.publish')} />} />

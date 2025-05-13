@@ -6,8 +6,7 @@ import { EmailNavigation } from "@/components/email/EmailNavigation";
 import { DashboardNavigation } from "@/components/navigation/DashboardNavigation";
 import { ConversationsNavigation } from "@/components/navigation/ConversationsNavigation";
 import { CrmNavigation } from "@/components/navigation/CrmNavigation";
-import { MarketingNavigation } from "@/components/navigation/MarketingNavigation";
-import { AdsNavigation } from "@/components/navigation/AdsNavigation";
+import { MarketingAdsNavigation } from "@/components/navigation/MarketingAdsNavigation";
 import { ContentNavigation } from "@/components/navigation/ContentNavigation";
 import { SettingsNavigation } from "@/components/navigation/SettingsNavigation";
 
@@ -38,12 +37,9 @@ export function SecondarySidebar() {
   } else if (location.pathname.startsWith("/crm")) {
     NavigationComponent = CrmNavigation;
     title = t('navigation.crm');
-  } else if (location.pathname.startsWith("/marketing")) {
-    NavigationComponent = MarketingNavigation;
-    title = t('navigation.marketing');
-  } else if (location.pathname.startsWith("/ads")) {
-    NavigationComponent = AdsNavigation;
-    title = t('navigation.ads');
+  } else if (location.pathname.startsWith("/marketing-ads")) {
+    NavigationComponent = MarketingAdsNavigation;
+    title = t('navigation.marketingAds');
   } else if (location.pathname.startsWith("/content")) {
     NavigationComponent = ContentNavigation;
     title = t('navigation.content');

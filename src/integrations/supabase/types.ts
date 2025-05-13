@@ -9,41 +9,227 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      profiles: {
+      license: {
         Row: {
-          address: string | null
-          avatar_url: string | null
-          created_at: string
-          display_name: string | null
-          email: string | null
+          end_date: string | null
           id: string
-          phone: string | null
-          updated_at: string | null
-          username: string | null
+          license_key: string
+          organization_id: string
+          start_date: string
+          status: string
+          users_allowed: number
         }
         Insert: {
-          address?: string | null
-          avatar_url?: string | null
-          created_at?: string
-          display_name?: string | null
-          email?: string | null
-          id: string
-          phone?: string | null
-          updated_at?: string | null
-          username?: string | null
+          end_date?: string | null
+          id?: string
+          license_key: string
+          organization_id: string
+          start_date?: string
+          status?: string
+          users_allowed: number
         }
         Update: {
-          address?: string | null
-          avatar_url?: string | null
-          created_at?: string
-          display_name?: string | null
-          email?: string | null
+          end_date?: string | null
           id?: string
-          phone?: string | null
-          updated_at?: string | null
-          username?: string | null
+          license_key?: string
+          organization_id?: string
+          start_date?: string
+          status?: string
+          users_allowed?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "license_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organization"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      license_module: {
+        Row: {
+          license_id: string
+          module_id: string
+        }
+        Insert: {
+          license_id: string
+          module_id: string
+        }
+        Update: {
+          license_id?: string
+          module_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "license_module_license_id_fkey"
+            columns: ["license_id"]
+            isOneToOne: false
+            referencedRelation: "license"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "license_module_module_id_fkey"
+            columns: ["module_id"]
+            isOneToOne: false
+            referencedRelation: "module"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      module: {
+        Row: {
+          description: string | null
+          id: string
+          name: string
+        }
+        Insert: {
+          description?: string | null
+          id?: string
+          name: string
+        }
+        Update: {
+          description?: string | null
+          id?: string
+          name?: string
         }
         Relationships: []
+      }
+      organization: {
+        Row: {
+          contact_email: string
+          created_at: string | null
+          id: string
+          name: string
+          status: string
+        }
+        Insert: {
+          contact_email: string
+          created_at?: string | null
+          id?: string
+          name: string
+          status?: string
+        }
+        Update: {
+          contact_email?: string
+          created_at?: string | null
+          id?: string
+          name?: string
+          status?: string
+        }
+        Relationships: []
+      }
+      profile: {
+        Row: {
+          created_at: string | null
+          email: string
+          full_name: string
+          id: string
+          last_login: string | null
+          organization_id: string
+          role_id: string
+          status: string
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          full_name: string
+          id?: string
+          last_login?: string | null
+          organization_id: string
+          role_id: string
+          status?: string
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          full_name?: string
+          id?: string
+          last_login?: string | null
+          organization_id?: string
+          role_id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profile_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organization"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "profile_role_id_fkey"
+            columns: ["role_id"]
+            isOneToOne: false
+            referencedRelation: "role"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      role: {
+        Row: {
+          id: string
+          name: string
+          organization_id: string
+          permissions: Json | null
+        }
+        Insert: {
+          id?: string
+          name: string
+          organization_id: string
+          permissions?: Json | null
+        }
+        Update: {
+          id?: string
+          name?: string
+          organization_id?: string
+          permissions?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "role_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organization"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      session: {
+        Row: {
+          created_at: string | null
+          expires_at: string | null
+          id: string
+          profile_id: string
+          status: string
+          token: string
+        }
+        Insert: {
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          profile_id: string
+          status?: string
+          token: string
+        }
+        Update: {
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          profile_id?: string
+          status?: string
+          token?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "session_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profile"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
