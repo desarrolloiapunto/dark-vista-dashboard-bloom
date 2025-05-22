@@ -1,5 +1,5 @@
 
-import { BarChart, Calendar, FolderLibrary, LayoutDashboard } from "lucide-react";
+import { BarChart, Calendar, Folder, LayoutDashboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -21,7 +21,7 @@ export const ContentNavigation = () => {
       path: "/content/calendar" 
     },
     { 
-      icon: FolderLibrary, 
+      icon: Folder, 
       label: t('sidebar.content.library'), 
       path: "/content/library" 
     },
