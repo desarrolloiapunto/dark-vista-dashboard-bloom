@@ -98,7 +98,7 @@
     "avgResponseTime": "Tiempo Medio de Respuesta"
   },
   "settings": {
-    "general": "General",
+    "general": "Configuración General",
     "users": "Configuración de Usuarios",
     "apiKeys": "Configuración de APIs",
     "channelConfiguration": "Configuración de Canales",
