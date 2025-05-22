@@ -27,6 +27,9 @@ import NewLeadPage from "@/pages/crm/leads/NewLeadPage";
 import UnassignedLeadsPage from "@/pages/crm/leads/UnassignedLeadsPage";
 import ReportsPage from "@/pages/crm/ReportsPage";
 import ContentManagement from "@/pages/content/ContentManagement";
+import ContentCalendar from "@/pages/content/ContentCalendar";
+import ContentLibrary from "@/pages/content/ContentLibrary";
+import ContentMetrics from "@/pages/content/ContentMetrics";
 import Profile from "@/pages/Profile";
 import NotFound from "@/pages/NotFound";
 import Placeholder from "@/pages/Placeholder";
@@ -92,11 +95,14 @@ export const AppLayout = () => {
             <Route path="ads/publish" element={<Placeholder title="Publicación Unificada de Anuncios" />} />
             <Route path="ads/optimization" element={<Placeholder title="Optimización de Campañas" />} />
             <Route path="ads/reports" element={<Placeholder title="Reportes y Métricas de Anuncios" />} />
+            
+            {/* Content routes */}
             <Route path="content/" element={<ContentManagement />} />
-            <Route path="content/calendar" element={<ContentManagement />} />
+            <Route path="content/calendar" element={<ContentCalendar />} />
+            <Route path="content/library" element={<ContentLibrary />} />
+            <Route path="content/metrics" element={<ContentMetrics />} />
             <Route path="content/publish" element={<Placeholder title={t('sidebar.content.publish')} />} />
             <Route path="content/customize" element={<Placeholder title={t('sidebar.content.customize')} />} />
-            <Route path="content/library" element={<Placeholder title={t('sidebar.content.library')} />} />
             <Route path="content/reports" element={<Placeholder title={t('sidebar.content.reports')} />} />
             <Route path="profile" element={<Profile />} />
             <Route path="*" element={<NotFound />} />
@@ -107,4 +113,3 @@ export const AppLayout = () => {
     </>
   );
 };
-

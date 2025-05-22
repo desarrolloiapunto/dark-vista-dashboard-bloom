@@ -49,11 +49,50 @@
       "reports": "Reports"
     },
     "content": {
+      "dashboard": "Dashboard",
       "calendar": "Content Calendar",
       "publish": "Publish",
       "customize": "Customize",
       "library": "Content Library", 
-      "reports": "Reports"
+      "reports": "Reports",
+      "metrics": "Metrics Analysis"
+    }
+  },
+  "content": {
+    "dashboard": {
+      "title": "Content Dashboard",
+      "createContent": "Create Content",
+      "scheduledPosts": "Scheduled Posts",
+      "nextWeek": "For next week",
+      "libraryAssets": "Library Resources",
+      "totalAssets": "Total resources",
+      "engagement": "Engagement",
+      "vsLastWeek": "vs. last week",
+      "weeklyEngagement": "Weekly Engagement",
+      "engagementDescription": "Interactions and reach in the last 7 days",
+      "recentPosts": "Recent Posts",
+      "postTitle": "Post",
+      "publishedOn": "Published on",
+      "upcomingPosts": "Upcoming Posts",
+      "scheduledPostTitle": "Scheduled Post"
+    },
+    "calendar": {
+      "title": "Publication Calendar",
+      "description": "Plan and schedule posts on social networks."
+    },
+    "library": {
+      "title": "Content Library",
+      "description": "Store and reuse multimedia resources."
+    },
+    "metrics": {
+      "title": "Metrics Analysis",
+      "description": "Review engagement and reach metrics.",
+      "engagementByPlatform": "Engagement by Platform",
+      "reachByPlatform": "Reach by Platform",
+      "audienceDistribution": "Audience Distribution",
+      "topPerformingContent": "Top Performing Content",
+      "contentTitle": "Content",
+      "engagement": "Interactions"
     }
   },
   "navigation": {

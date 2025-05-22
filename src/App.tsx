@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -40,6 +41,9 @@ import ReportsPage from "./pages/crm/ReportsPage";
 import QuotesPage from "./pages/crm/QuotesPage";
 import ProductsPage from "./pages/crm/ProductsPage";
 import ContentManagement from "./pages/content/ContentManagement";
+import ContentCalendar from "./pages/content/ContentCalendar";
+import ContentLibrary from "./pages/content/ContentLibrary";
+import ContentMetrics from "./pages/content/ContentMetrics";
 import Profile from "./pages/Profile";
 import Placeholder from "./pages/Placeholder";
 
@@ -139,10 +143,11 @@ const App = () => {
                     
                     {/* Content routes */}
                     <Route path="content/" element={<ContentManagement />} />
-                    <Route path="content/calendar" element={<ContentManagement />} />
+                    <Route path="content/calendar" element={<ContentCalendar />} />
+                    <Route path="content/library" element={<ContentLibrary />} />
+                    <Route path="content/metrics" element={<ContentMetrics />} />
                     <Route path="content/publish" element={<Placeholder title={t('sidebar.content.publish')} />} />
                     <Route path="content/customize" element={<Placeholder title={t('sidebar.content.customize')} />} />
-                    <Route path="content/library" element={<Placeholder title={t('sidebar.content.library')} />} />
                     <Route path="content/reports" element={<Placeholder title={t('sidebar.content.reports')} />} />
                     <Route path="profile" element={<Profile />} />
                     <Route path="*" element={<NotFound />} />

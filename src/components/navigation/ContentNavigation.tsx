@@ -1,27 +1,34 @@
-import { Calendar, Share2, Settings, BookOpen, BarChart } from "lucide-react";
+
+import { BarChart, Calendar, FolderLibrary, LayoutDashboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 export const ContentNavigation = () => {
   const location = useLocation();
+  const { t } = useTranslation();
+  
   const contentActions = [
-    { icon: Calendar, label: "Calendario de Publicaciones", path: "/content" },
-    { icon: Share2, label: "Publicación Unificada", path: "/content/publish" },
-    {
-      icon: Settings,
-      label: "Personalización por Red",
-      path: "/content/customize",
+    { 
+      icon: LayoutDashboard, 
+      label: t('content.dashboard.title'), 
+      path: "/content" 
     },
-    {
-      icon: BookOpen,
-      label: "Biblioteca de Contenido",
-      path: "/content/library",
+    { 
+      icon: Calendar, 
+      label: t('sidebar.content.calendar'), 
+      path: "/content/calendar" 
     },
-    {
-      icon: BarChart,
-      label: "Reportes de Engagement",
-      path: "/content/reports",
+    { 
+      icon: FolderLibrary, 
+      label: t('sidebar.content.library'), 
+      path: "/content/library" 
+    },
+    { 
+      icon: BarChart, 
+      label: t('sidebar.content.metrics'), 
+      path: "/content/metrics" 
     },
   ];
 
