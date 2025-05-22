@@ -94,6 +94,63 @@
       "engagement": "Interacciones"
     }
   },
+  "marketing": {
+    "dashboard": {
+      "title": "Dashboard de Marketing",
+      "description": "Monitorea y gestiona tus campañas de marketing.",
+      "activeCampaigns": "Campañas Activas",
+      "openRate": "Tasa de Apertura",
+      "subscribers": "Suscriptores"
+    },
+    "tabs": {
+      "campaigns": "Campañas",
+      "segments": "Segmentación",
+      "templates": "Plantillas"
+    },
+    "recentCampaigns": "Campañas Recientes",
+    "audienceSegments": "Segmentos de Audiencia",
+    "availableTemplates": "Plantillas Disponibles",
+    "campaigns": {
+      "title": "Campañas de Marketing",
+      "description": "Crea y gestiona tus campañas de marketing en todos los canales.",
+      "create": "Crear Campaña",
+      "monthly": "Newsletter Mensual",
+      "summer": "Promoción de Verano",
+      "product": "Actualización de Producto",
+      "seasonal": "Venta de Temporada",
+      "platform": "Plataforma",
+      "reach": "Alcance",
+      "engagement": "Engagement",
+      "tabs": {
+        "all": "Todas",
+        "active": "Activas",
+        "scheduled": "Programadas",
+        "completed": "Completadas",
+        "drafts": "Borradores"
+      },
+      "status": {
+        "active": "Activa",
+        "scheduled": "Programada",
+        "completed": "Completada",
+        "draft": "Borrador"
+      }
+    },
+    "segments": {
+      "active": "Clientes Activos",
+      "inactive": "Clientes Inactivos",
+      "new": "Nuevos Suscriptores"
+    },
+    "templates": {
+      "welcome": "Bienvenida",
+      "promotion": "Promoción",
+      "newsletter": "Newsletter",
+      "reminder": "Recordatorio"
+    },
+    "timeAgo": "Hace 2 días",
+    "contacts": "2,145 contactos",
+    "edit": "Editar",
+    "filter": "Filtrar"
+  },
   "navigation": {
     "dashboard": "Dashboard",
     "conversations": "Conversaciones",
@@ -135,6 +192,10 @@
     "totalConversations": "Conversaciones Totales",
     "responseRate": "Tasa de Respuesta",
     "avgResponseTime": "Tiempo Medio de Respuesta"
+  },
+  "header": {
+    "logout": "Cerrar Sesión",
+    "profile": "Perfil"
   },
   "settings": {
     "general": "Configuración General",

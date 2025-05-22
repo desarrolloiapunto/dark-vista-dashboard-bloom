@@ -46,6 +46,8 @@ import ContentLibrary from "./pages/content/ContentLibrary";
 import ContentMetrics from "./pages/content/ContentMetrics";
 import Profile from "./pages/Profile";
 import Placeholder from "./pages/Placeholder";
+import MarketingDashboard from "./pages/marketing-ads/MarketingDashboard";
+import CampaignsPage from "./pages/marketing-ads/CampaignsPage";
 
 const queryClient = new QueryClient();
 
@@ -135,7 +137,8 @@ const App = () => {
                     <Route path="crm/reports" element={<ReportsPage />} />
                     
                     {/* Marketing Ads unified module */}
-                    <Route path="marketing-ads/campaigns" element={<Placeholder title={t('sidebar.marketingAds.campaigns')} />} />
+                    <Route path="marketing-ads" element={<MarketingDashboard />} />
+                    <Route path="marketing-ads/campaigns" element={<CampaignsPage />} />
                     <Route path="marketing-ads/automation" element={<Placeholder title={t('sidebar.marketingAds.automation')} />} />
                     <Route path="marketing-ads/publish" element={<Placeholder title={t('sidebar.marketingAds.publish')} />} />
                     <Route path="marketing-ads/optimization" element={<Placeholder title={t('sidebar.marketingAds.optimization')} />} />

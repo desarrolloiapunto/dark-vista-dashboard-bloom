@@ -95,6 +95,63 @@
       "engagement": "Interactions"
     }
   },
+  "marketing": {
+    "dashboard": {
+      "title": "Marketing Dashboard",
+      "description": "Monitor and manage your marketing campaigns.",
+      "activeCampaigns": "Active Campaigns",
+      "openRate": "Open Rate",
+      "subscribers": "Subscribers"
+    },
+    "tabs": {
+      "campaigns": "Campaigns",
+      "segments": "Segmentation",
+      "templates": "Templates"
+    },
+    "recentCampaigns": "Recent Campaigns",
+    "audienceSegments": "Audience Segments",
+    "availableTemplates": "Available Templates",
+    "campaigns": {
+      "title": "Marketing Campaigns",
+      "description": "Create and manage your marketing campaigns across all channels.",
+      "create": "Create Campaign",
+      "monthly": "Monthly Newsletter",
+      "summer": "Summer Promotion",
+      "product": "Product Update",
+      "seasonal": "Seasonal Sale",
+      "platform": "Platform",
+      "reach": "Reach",
+      "engagement": "Engagement",
+      "tabs": {
+        "all": "All",
+        "active": "Active",
+        "scheduled": "Scheduled",
+        "completed": "Completed",
+        "drafts": "Drafts"
+      },
+      "status": {
+        "active": "Active",
+        "scheduled": "Scheduled",
+        "completed": "Completed",
+        "draft": "Draft"
+      }
+    },
+    "segments": {
+      "active": "Active Customers",
+      "inactive": "Inactive Customers",
+      "new": "New Subscribers"
+    },
+    "templates": {
+      "welcome": "Welcome",
+      "promotion": "Promotion",
+      "newsletter": "Newsletter",
+      "reminder": "Reminder"
+    },
+    "timeAgo": "2 days ago",
+    "contacts": "2,145 contacts",
+    "edit": "Edit",
+    "filter": "Filter"
+  },
   "navigation": {
     "dashboard": "Dashboard",
     "conversations": "Conversations",
@@ -136,6 +193,10 @@
     "totalConversations": "Total Conversations",
     "responseRate": "Response Rate",
     "avgResponseTime": "Avg. Response Time"
+  },
+  "header": {
+    "logout": "Logout",
+    "profile": "Profile"
   },
   "settings": {
     "channelConfiguration": "Channel Configuration",
