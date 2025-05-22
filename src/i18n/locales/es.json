@@ -99,6 +99,8 @@
   },
   "settings": {
     "general": "General",
+    "users": "Configuración de Usuarios",
+    "apiKeys": "Configuración de APIs",
     "channelConfiguration": "Configuración de Canales",
     "configureIntegrations": "Configura tus integraciones con diferentes plataformas de mensajería",
     "whatsappBusinessAPI": "WhatsApp Business API",
