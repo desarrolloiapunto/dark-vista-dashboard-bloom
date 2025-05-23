@@ -40,6 +40,7 @@
   "actionSettingsDescription": "Configura opciones adicionales para este nodo de acción",
   "menuItems": "Elementos del Menú",
   "menuItemsDescription": "Añade opciones para que el usuario seleccione",
+  "menuItemsConnectionsDescription": "Cada opción del menú tiene su propio punto de conexión en el lado derecho",
   "addMenuItem": "Añadir Elemento",
   "removeMenuItem": "Eliminar",
   "dashboardConfig": "Configuración del Dashboard",

@@ -14,7 +14,11 @@ const MenuNode = ({ data }: { data: { label: string, menuItems?: string[] } }) =
         {data.menuItems && data.menuItems.length > 0 ? (
           <ul className="list-disc pl-4">
             {data.menuItems.map((item, index) => (
-              <li key={index}>{item}</li>
+              <li key={index} className="flex justify-between items-center py-1">
+                <span>{item}</span>
+                {/* Add a small indicator for each connection point */}
+                <div className="w-2 h-2 bg-indigo-300 rounded-full mr-3" />
+              </li>
             ))}
           </ul>
         ) : (
@@ -23,7 +27,18 @@ const MenuNode = ({ data }: { data: { label: string, menuItems?: string[] } }) =
       </div>
       
       <Handle type="target" position={Position.Top} className="bg-indigo-500" />
-      <Handle type="source" position={Position.Bottom} className="bg-indigo-500" />
+      
+      {/* Create a source handle for each menu item */}
+      {data.menuItems?.map((item, index) => (
+        <Handle 
+          key={index}
+          id={`option-${index}`} 
+          type="source" 
+          position={Position.Right}
+          className="bg-indigo-500" 
+          style={{ top: `${28 + (index * 24)}px` }} // Position each handle next to its menu item
+        />
+      ))}
     </div>
   );
 };

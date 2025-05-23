@@ -549,6 +549,9 @@ const WorkflowsPage = () => {
                 <p className="text-xs text-muted-foreground">
                   {t('workflows.menuItemsDescription')}
                 </p>
+                <p className="text-xs text-muted-foreground mt-2">
+                  {t('workflows.menuItemsConnectionsDescription')}
+                </p>
               </div>
             </TabsContent>
             

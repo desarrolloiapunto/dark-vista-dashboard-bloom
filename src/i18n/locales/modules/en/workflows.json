@@ -40,6 +40,7 @@
   "actionSettingsDescription": "Configure additional options for this action node",
   "menuItems": "Menu Items",
   "menuItemsDescription": "Add options for the user to select from",
+  "menuItemsConnectionsDescription": "Each menu option has its own connection point on the right side",
   "addMenuItem": "Add Menu Item",
   "removeMenuItem": "Remove",
   "dashboardConfig": "Dashboard Configuration",
