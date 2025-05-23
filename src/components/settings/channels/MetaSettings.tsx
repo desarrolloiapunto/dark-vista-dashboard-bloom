@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+
+import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/components/ui/use-toast";
 import { useTranslation } from "react-i18next";
@@ -10,27 +10,33 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSettings } from "@/hooks/useSettings";
-import { Form, FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage } from "@/components/ui/form";
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 
 const metaSettingsSchema = z.object({
   isActive: z.boolean().default(false),
-  accessToken: z.string().optional(),
-  pageId: z.string().optional(),
+  appId: z.string().min(1, "App ID is required"),
+  appSecret: z.string().min(1, "App Secret is required"),
+  pageId: z.string().min(1, "Page ID is required"),
+  pageToken: z.string().min(1, "Page Token is required"),
+  instagramAccountId: z.string().min(1, "Instagram Account ID is required")
 });
 
 type MetaSettingsFormValues = z.infer<typeof metaSettingsSchema>;
 
 export const MetaSettings = () => {
   const { t } = useTranslation();
-  const { settings, saveSettings, loading, error } = useSettings('meta');
+  const { settings, saveSettings, loading } = useSettings('meta');
   const { toast } = useToast();
 
   const form = useForm<MetaSettingsFormValues>({
     resolver: zodResolver(metaSettingsSchema),
     defaultValues: {
       isActive: false,
-      accessToken: '',
+      appId: '',
+      appSecret: '',
       pageId: '',
+      pageToken: '',
+      instagramAccountId: ''
     }
   });
 
@@ -39,48 +45,110 @@ export const MetaSettings = () => {
     if (settings) {
       form.reset({
         isActive: settings.isActive || false,
-        accessToken: settings.accessToken || '',
+        appId: settings.appId || '',
+        appSecret: settings.appSecret || '',
         pageId: settings.pageId || '',
+        pageToken: settings.pageToken || '',
+        instagramAccountId: settings.instagramAccountId || ''
       });
     }
   }, [settings, form]);
 
   const onSubmit = async (data: MetaSettingsFormValues) => {
-    const success = await saveSettings(data);
-    if (success) {
-      toast({
-        title: t('common.success'),
-        description: t('settings.metaSettingsSaved'),
-      });
-    } else if (error) {
-      toast({
-        variant: "destructive",
-        title: t('common.error'),
-        description: error,
-      });
-    }
+    await saveSettings(data);
   };
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{t('settings.metaConfiguration')}</CardTitle>
-        <CardDescription>{t('settings.configureMetaIntegration')}</CardDescription>
+        <CardTitle>Meta Business Platform</CardTitle>
+        <CardDescription>
+          Configure your Meta Business Platform integration for Facebook Messenger and Instagram Direct Messages
+        </CardDescription>
       </CardHeader>
       
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <CardContent className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <FormField
+                control={form.control}
+                name="appId"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('settings.appID')}</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="123456789012345" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="appSecret"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('settings.appSecret')}</FormLabel>
+                    <FormControl>
+                      <Input {...field} type="password" placeholder="••••••••••••••••••••••" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="pageId"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('settings.pageID')}</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="123456789012345" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="pageToken"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('settings.pageToken')}</FormLabel>
+                    <FormControl>
+                      <Input {...field} type="password" placeholder="••••••••••••••••••••••" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="instagramAccountId"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('settings.instagramAccountID')}</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="123456789012345" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
             <FormField
               control={form.control}
               name="isActive"
               render={({ field }) => (
                 <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3">
                   <div className="space-y-0.5">
-                    <FormLabel>{t('settings.enableMetaIntegration')}</FormLabel>
-                    <FormDescription>
-                      {t('settings.enableMetaDescription')}
-                    </FormDescription>
+                    <FormLabel>{t('settings.active')}</FormLabel>
                   </div>
                   <FormControl>
                     <Switch 
@@ -88,48 +156,6 @@ export const MetaSettings = () => {
                       onCheckedChange={field.onChange}
                     />
                   </FormControl>
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="accessToken"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('settings.accessToken')}</FormLabel>
-                  <FormControl>
-                    <Input 
-                      type="text"
-                      placeholder={t('settings.accessTokenPlaceholder')}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    {t('settings.accessTokenDescription')}
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="pageId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('settings.pageId')}</FormLabel>
-                  <FormControl>
-                    <Input 
-                      type="text"
-                      placeholder={t('settings.pageIdPlaceholder')}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    {t('settings.pageIdDescription')}
-                  </FormDescription>
-                  <FormMessage />
                 </FormItem>
               )}
             />

@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,27 +11,27 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSettings } from "@/hooks/useSettings";
-import { Form, FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage } from "@/components/ui/form";
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 
 const whatsAppSettingsSchema = z.object({
   isActive: z.boolean().default(false),
-  phoneNumber: z.string().optional(),
-  accessToken: z.string().optional(),
+  accessToken: z.string().min(10, "Access Token must be at least 10 characters"),
+  phoneNumberId: z.string().min(1, "Phone Number ID is required")
 });
 
 type WhatsAppSettingsFormValues = z.infer<typeof whatsAppSettingsSchema>;
 
 export const WhatsAppSettings = () => {
   const { t } = useTranslation();
-  const { settings, saveSettings, loading, error } = useSettings('whatsapp');
+  const { settings, saveSettings, loading } = useSettings('whatsapp');
   const { toast } = useToast();
 
   const form = useForm<WhatsAppSettingsFormValues>({
     resolver: zodResolver(whatsAppSettingsSchema),
     defaultValues: {
       isActive: false,
-      phoneNumber: '',
       accessToken: '',
+      phoneNumberId: ''
     }
   });
 
@@ -39,8 +40,8 @@ export const WhatsAppSettings = () => {
     if (settings) {
       form.reset({
         isActive: settings.isActive || false,
-        phoneNumber: settings.phoneNumber || '',
         accessToken: settings.accessToken || '',
+        phoneNumberId: settings.phoneNumberId || ''
       });
     }
   }, [settings, form]);
@@ -52,8 +53,10 @@ export const WhatsAppSettings = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>WhatsApp {t('settings.configuration')}</CardTitle>
-        <CardDescription>{t('settings.whatsAppConfigDescription')}</CardDescription>
+        <CardTitle>{t('settings.whatsappBusinessAPI')}</CardTitle>
+        <CardDescription>
+          {t('settings.configureWhatsApp')}
+        </CardDescription>
       </CardHeader>
       
       <Form {...form}>
@@ -61,14 +64,46 @@ export const WhatsAppSettings = () => {
           <CardContent className="space-y-6">
             <FormField
               control={form.control}
+              name="accessToken"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('settings.accessToken')}</FormLabel>
+                  <FormControl>
+                    <Input 
+                      {...field}
+                      type="password" 
+                      placeholder="••••••••••••••••••••••" 
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
+            <FormField
+              control={form.control}
+              name="phoneNumberId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('settings.phoneNumberID')}</FormLabel>
+                  <FormControl>
+                    <Input 
+                      {...field}
+                      placeholder="1234567890" 
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
               name="isActive"
               render={({ field }) => (
                 <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3">
                   <div className="space-y-0.5">
-                    <FormLabel>{t('settings.enableWhatsApp')}</FormLabel>
-                    <FormDescription>
-                      {t('settings.enableWhatsAppDescription')}
-                    </FormDescription>
+                    <FormLabel>{t('settings.active')}</FormLabel>
                   </div>
                   <FormControl>
                     <Switch 
@@ -76,40 +111,6 @@ export const WhatsAppSettings = () => {
                       onCheckedChange={field.onChange}
                     />
                   </FormControl>
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="phoneNumber"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('settings.phoneNumber')}</FormLabel>
-                  <FormControl>
-                    <Input placeholder={t('settings.phoneNumberPlaceholder')} {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    {t('settings.phoneNumberDescription')}
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="accessToken"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('settings.accessToken')}</FormLabel>
-                  <FormControl>
-                    <Input type="password" placeholder={t('settings.accessTokenPlaceholder')} {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    {t('settings.accessTokenDescription')}
-                  </FormDescription>
-                  <FormMessage />
                 </FormItem>
               )}
             />

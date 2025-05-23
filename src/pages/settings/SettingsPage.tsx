@@ -1,5 +1,4 @@
 
-import { useState, useEffect } from 'react';
 import { useTranslation } from "react-i18next";
 import { Outlet, useLocation } from "react-router-dom";
 import { GeneralSettings } from "@/components/settings/GeneralSettings";
@@ -27,6 +26,7 @@ const SettingsPage = () => {
         </div>
         <div className="md:col-span-3">
           {showGeneralSettings && <GeneralSettings />}
+          {!showGeneralSettings && <Outlet />}
         </div>
       </div>
     </div>

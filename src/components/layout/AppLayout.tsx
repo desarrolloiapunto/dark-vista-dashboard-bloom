@@ -1,6 +1,6 @@
 
 import { useTranslation } from 'react-i18next';
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, Outlet } from "react-router-dom";
 import { Header } from "./Header";
 import { Breadcrumb } from "./Breadcrumb";
 import { PrimarySidebar } from "./PrimarySidebar";
@@ -37,6 +37,14 @@ import QuotesPage from "@/pages/crm/QuotesPage";
 import ProductsPage from "@/pages/crm/ProductsPage";
 import MarketingDashboard from "@/pages/marketing-ads/MarketingDashboard";
 import CampaignsPage from "@/pages/marketing-ads/CampaignsPage";
+
+// Settings pages
+import SettingsPage from "@/pages/settings/SettingsPage";
+import ChannelsPage from "@/pages/settings/ChannelsPage";
+import UsersPage from "@/pages/settings/UsersPage";
+import PermissionsPage from "@/pages/settings/PermissionsPage";
+import ApiKeysPage from "@/pages/settings/ApiKeysPage";
+import EmailsSettingsPage from "@/pages/settings/EmailsPage";
 
 export const AppLayout = () => {
   const { t } = useTranslation();
@@ -82,6 +90,13 @@ export const AppLayout = () => {
             <Route path="crm/opportunities/lost" element={<Placeholder title="Oportunidades Perdidas" />} />
             
             {/* Settings routes */}
+            <Route path="settings" element={<SettingsPage />} />
+            <Route path="settings/channels" element={<ChannelsPage />} />
+            <Route path="settings/users" element={<UsersPage />} />
+            <Route path="settings/permissions" element={<PermissionsPage />} />
+            <Route path="settings/api" element={<ApiKeysPage />} />
+            <Route path="settings/emails" element={<EmailsSettingsPage />} />
+            
             <Route path="crm/settings/qualification-stages" element={<Placeholder title="Etapas de Calificación" />} />
             <Route path="crm/settings/opportunity-stages" element={<Placeholder title="Etapas de Oportunidad" />} />
             <Route path="crm/settings/users" element={<Placeholder title="Usuarios y Roles" />} />

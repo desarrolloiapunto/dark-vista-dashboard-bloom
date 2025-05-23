@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/components/ui/use-toast";
 import { useTranslation } from "react-i18next";
@@ -11,36 +10,40 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSettings } from "@/hooks/useSettings";
-import { Form, FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage } from "@/components/ui/form";
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 
 const telegramSettingsSchema = z.object({
   isActive: z.boolean().default(false),
-  accessToken: z.string().min(1, { message: "Access token is required." }),
-  botUsername: z.string().optional(),
+  botToken: z.string().min(1, "Bot Token is required"),
+  botUsername: z.string().min(1, "Bot Username is required"),
+  webhookUrl: z.string().optional()
 });
 
 type TelegramSettingsFormValues = z.infer<typeof telegramSettingsSchema>;
 
 export const TelegramSettings = () => {
   const { t } = useTranslation();
-  const { settings, saveSettings, loading, error } = useSettings('telegram');
+  const { settings, saveSettings, loading } = useSettings('telegram');
   const { toast } = useToast();
 
   const form = useForm<TelegramSettingsFormValues>({
     resolver: zodResolver(telegramSettingsSchema),
     defaultValues: {
       isActive: false,
-      accessToken: "",
-      botUsername: "",
+      botToken: '',
+      botUsername: '',
+      webhookUrl: 'https://app.example.com/api/webhook/telegram'
     }
   });
 
+  // Update form when settings are loaded
   useEffect(() => {
     if (settings) {
       form.reset({
         isActive: settings.isActive || false,
-        accessToken: settings.accessToken || "",
-        botUsername: settings.botUsername || "",
+        botToken: settings.botToken || '',
+        botUsername: settings.botUsername || '',
+        webhookUrl: settings.webhookUrl || 'https://app.example.com/api/webhook/telegram'
       });
     }
   }, [settings, form]);
@@ -49,26 +52,81 @@ export const TelegramSettings = () => {
     await saveSettings(data);
   };
 
+  const copyWebhookUrl = () => {
+    navigator.clipboard.writeText("https://app.example.com/api/webhook/telegram");
+    toast({
+      title: t('settings.copied'),
+      description: t('settings.webhookCopied'),
+    });
+  };
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{t('settings.telegramConfiguration')}</CardTitle>
-        <CardDescription>{t('settings.configureTelegramIntegration')}</CardDescription>
+        <CardTitle>{t('settings.telegramBot')}</CardTitle>
+        <CardDescription>
+          {t('settings.configureTelegram')}
+        </CardDescription>
       </CardHeader>
       
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)}>
           <CardContent className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <FormField
+                control={form.control}
+                name="botToken"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('settings.botToken')}</FormLabel>
+                    <FormControl>
+                      <Input {...field} type="password" placeholder="••••••••••••••••••••••" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="botUsername"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('settings.botUsername')}</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="@yourbotname" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <FormField
+              control={form.control}
+              name="webhookUrl"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('settings.webhookURL')}</FormLabel>
+                  <div className="flex gap-2">
+                    <FormControl>
+                      <Input {...field} readOnly />
+                    </FormControl>
+                    <Button variant="outline" type="button" onClick={copyWebhookUrl}>
+                      {t('settings.copy')}
+                    </Button>
+                  </div>
+                </FormItem>
+              )}
+            />
+
             <FormField
               control={form.control}
               name="isActive"
               render={({ field }) => (
                 <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3">
                   <div className="space-y-0.5">
-                    <FormLabel>{t('settings.enableTelegram')}</FormLabel>
-                    <FormDescription>
-                      {t('settings.enableTelegramIntegration')}
-                    </FormDescription>
+                    <FormLabel>{t('settings.active')}</FormLabel>
                   </div>
                   <FormControl>
                     <Switch 
@@ -76,46 +134,6 @@ export const TelegramSettings = () => {
                       onCheckedChange={field.onChange}
                     />
                   </FormControl>
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="accessToken"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('settings.accessToken')}</FormLabel>
-                  <FormControl>
-                    <Input 
-                      placeholder={t('settings.enterAccessToken')}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    {t('settings.telegramAccessTokenDescription')}
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="botUsername"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('settings.botUsername')}</FormLabel>
-                  <FormControl>
-                    <Input 
-                      placeholder={t('settings.enterBotUsername')}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    {t('settings.telegramBotUsernameDescription')}
-                  </FormDescription>
-                  <FormMessage />
                 </FormItem>
               )}
             />
