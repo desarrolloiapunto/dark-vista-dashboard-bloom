@@ -1,10 +1,13 @@
 
 import { memo } from 'react';
 import { Handle, Position } from '@xyflow/react';
-import { Image, Video, Link } from 'lucide-react';
+import { Image, Video, FileText, Link, Database, FileJson, Copy } from 'lucide-react';
 
 // Define the different multimedia types
 export type MultimediaType = "productCard" | "video" | "pdf" | "imageGallery";
+
+// Define product source types
+export type ProductSourceType = "crmProducts" | "jsonFile" | "pdfFile" | "aiGenerated";
 
 // Define the product structure
 export interface Product {
@@ -25,7 +28,9 @@ interface MultimediaNodeData {
     description?: string;
     mediaUrl?: string;
     products?: Product[];
+    productSource?: ProductSourceType;
     dynamicSource?: string; // For database-driven content
+    sourceUrl?: string; // URL to JSON or PDF file
     links?: {
       label: string;
       url: string;
@@ -42,9 +47,28 @@ const MultimediaNode = ({ data }: { data: MultimediaNodeData }) => {
       case "video":
         return <Video className="h-4 w-4" />;
       case "pdf":
+        return <FileText className="h-4 w-4" />;
       case "imageGallery":
       default:
         return <Image className="h-4 w-4" />;
+    }
+  };
+
+  // Helper to render product source icon
+  const renderProductSourceIcon = () => {
+    if (data.multimediaType !== "productCard" || !data.content?.productSource) return null;
+
+    switch (data.content.productSource) {
+      case "crmProducts":
+        return <Database className="h-4 w-4 text-blue-500" />;
+      case "jsonFile":
+        return <FileJson className="h-4 w-4 text-green-500" />;
+      case "pdfFile":
+        return <FileText className="h-4 w-4 text-red-500" />;
+      case "aiGenerated":
+        return <Copy className="h-4 w-4 text-purple-500" />;
+      default:
+        return null;
     }
   };
 
@@ -57,9 +81,15 @@ const MultimediaNode = ({ data }: { data: MultimediaNodeData }) => {
             {data.content?.products && data.content.products.length > 0 ? (
               <div className="flex flex-col gap-2">
                 <strong>{data.content.title || 'Producto'}</strong>
-                <span className="text-xs italic">
-                  {data.content.products.length} producto(s) para mostrar
-                </span>
+                <div className="flex items-center gap-1 text-xs">
+                  {renderProductSourceIcon()}
+                  <span className="italic">
+                    {data.content.products.length} producto(s) para mostrar
+                    {data.content.productSource && data.content.productSource !== "crmProducts" && (
+                      <> • Fuente: {renderSourceLabel(data.content.productSource)}</>
+                    )}
+                  </span>
+                </div>
               </div>
             ) : (
               data.content?.dynamicSource ? 
@@ -106,6 +136,17 @@ const MultimediaNode = ({ data }: { data: MultimediaNodeData }) => {
             Configure el contenido multimedia
           </div>
         );
+    }
+  };
+
+  // Helper to render source label
+  const renderSourceLabel = (source: ProductSourceType): string => {
+    switch (source) {
+      case "crmProducts": return "Productos CRM";
+      case "jsonFile": return "Archivo JSON";
+      case "pdfFile": return "Archivo PDF";
+      case "aiGenerated": return "Generado por IA";
+      default: return "Desconocido";
     }
   };
 

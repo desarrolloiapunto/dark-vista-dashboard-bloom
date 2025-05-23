@@ -57,6 +57,16 @@
   "pdf": "PDF",
   "imageGallery": "Galería de Imágenes",
   "productSource": "Fuente de Datos de Productos",
+  "productSourceType": "Tipo de Fuente",
+  "productSourceDescription": "Selecciona de dónde obtener los datos de productos",
+  "crmProducts": "Productos del CRM",
+  "jsonFile": "Archivo JSON",
+  "pdfFile": "Archivo PDF",
+  "aiGenerated": "Generado por IA",
+  "sourceUrl": "URL de la Fuente",
+  "sourceUrlDescription": "URL del archivo JSON o PDF que contiene datos de productos",
+  "aiPromptForProducts": "Prompt de IA para Extracción de Productos",
+  "aiPromptDescription": "Instrucciones para que la IA extraiga datos de productos del PDF",
   "staticProducts": "Productos Estáticos",
   "dynamicProducts": "Dinámicos (Base de Datos)",
   "addProduct": "Añadir Producto",
@@ -109,5 +119,7 @@
   "widgetPosition": "Posición del Widget",
   "widgetColor": "Color del Widget",
   "widgetIcon": "Ícono del Widget",
-  "widgetWelcomeMessage": "Mensaje de Bienvenida"
+  "widgetWelcomeMessage": "Mensaje de Bienvenida",
+  "documentation": "Documentación",
+  "documentationTooltip": "Ver la documentación del editor de flujos"
 }

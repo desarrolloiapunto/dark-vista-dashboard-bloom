@@ -24,6 +24,9 @@ export const edgeTypes = {
   buttonedge: ButtonEdge,
 };
 
+// Define product source types
+export type ProductSourceType = "crmProducts" | "jsonFile" | "pdfFile" | "aiGenerated";
+
 // Node data interface
 export interface NodeData {
   label?: string;
@@ -46,6 +49,8 @@ export interface NodeData {
       paymentLink?: string;
       infoLink?: string;
     }[];
+    productSource?: ProductSourceType;
+    sourceUrl?: string; // URL to JSON or PDF file
     dynamicSource?: string;
     links?: {
       label: string;

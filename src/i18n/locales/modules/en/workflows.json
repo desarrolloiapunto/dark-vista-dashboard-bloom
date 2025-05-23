@@ -57,6 +57,16 @@
   "pdf": "PDF",
   "imageGallery": "Image Gallery",
   "productSource": "Product Data Source",
+  "productSourceType": "Source Type",
+  "productSourceDescription": "Select where to get product data from",
+  "crmProducts": "CRM Products",
+  "jsonFile": "JSON File",
+  "pdfFile": "PDF File",
+  "aiGenerated": "AI Generated",
+  "sourceUrl": "Source URL",
+  "sourceUrlDescription": "URL to the JSON or PDF file containing product data",
+  "aiPromptForProducts": "AI Prompt for Product Extraction",
+  "aiPromptDescription": "Instructions for the AI to extract product data from PDF",
   "staticProducts": "Static Products",
   "dynamicProducts": "Dynamic (Database)",
   "addProduct": "Add Product",
@@ -108,5 +118,7 @@
   "widgetPosition": "Widget Position",
   "widgetColor": "Widget Color",
   "widgetIcon": "Widget Icon",
-  "widgetWelcomeMessage": "Welcome Message"
+  "widgetWelcomeMessage": "Welcome Message",
+  "documentation": "Documentation",
+  "documentationTooltip": "View the workflow editor documentation"
 }
