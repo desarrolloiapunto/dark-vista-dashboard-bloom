@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
@@ -11,7 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Palette, Monitor, Language } from "lucide-react";
+import { Palette, Monitor, Languages } from "lucide-react";
 
 const displayFormSchema = z.object({
   theme: z.enum(["light", "dark", "system"]),
@@ -197,7 +196,7 @@ export const DisplaySettings = () => {
 
               <div className="space-y-4">
                 <h3 className="text-lg font-medium flex items-center gap-2">
-                  <Language className="h-5 w-5" />
+                  <Languages className="h-5 w-5" />
                   {t('settings.localization')}
                 </h3>
                 
