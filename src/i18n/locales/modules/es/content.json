@@ -1,38 +1,35 @@
 
 {
-  "dashboard": {
-    "title": "Dashboard de Contenido",
-    "createContent": "Crear Contenido",
-    "scheduledPosts": "Publicaciones Programadas",
-    "nextWeek": "Para la próxima semana",
-    "libraryAssets": "Recursos en Biblioteca",
-    "totalAssets": "Recursos totales",
-    "engagement": "Engagement",
-    "vsLastWeek": "vs. semana anterior",
-    "weeklyEngagement": "Engagement Semanal",
-    "engagementDescription": "Interacciones y alcance en los últimos 7 días",
-    "recentPosts": "Publicaciones Recientes",
-    "postTitle": "Publicación",
-    "publishedOn": "Publicado el",
-    "upcomingPosts": "Próximas Publicaciones",
-    "scheduledPostTitle": "Publicación Programada"
+  "management": {
+    "title": "Gestión de Contenido",
+    "description": "Crea y administra tu contenido en múltiples canales"
   },
   "calendar": {
-    "title": "Calendario de Publicaciones",
-    "description": "Planifica y programa publicaciones en redes sociales."
-  },
-  "library": {
-    "title": "Biblioteca de Contenido",
-    "description": "Almacena y reutiliza recursos multimedia."
+    "title": "Calendario de Contenido",
+    "description": "Programa y planifica la publicación de tu contenido"
   },
   "metrics": {
-    "title": "Análisis de Métricas",
-    "description": "Revisa métricas de engagement y alcance.",
-    "engagementByPlatform": "Engagement por Plataforma",
+    "title": "Rendimiento del Contenido",
+    "engagement": "Interacción",
+    "engagementByPlatform": "Interacción por Plataforma",
     "reachByPlatform": "Alcance por Plataforma",
     "audienceDistribution": "Distribución de Audiencia",
     "topPerformingContent": "Contenido con Mejor Rendimiento",
-    "contentTitle": "Contenido",
-    "engagement": "Interacciones"
+    "contentTitle": "Título del Contenido",
+    "description": "Monitorea el rendimiento de tu contenido"
+  },
+  "library": {
+    "title": "Biblioteca de Contenido",
+    "description": "Administra tus archivos multimedia y recursos",
+    "all": "Todos",
+    "images": "Imágenes",
+    "documents": "Documentos",
+    "videos": "Videos",
+    "searchPlaceholder": "Buscar en biblioteca...",
+    "uploadFile": "Subir Archivo",
+    "availableResources": "Recursos Disponibles",
+    "usedIn": "Usado en {{count}} publicaciones",
+    "date": "Fecha",
+    "size": "Tamaño"
   }
 }

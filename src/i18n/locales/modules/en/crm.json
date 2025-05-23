@@ -1,0 +1,48 @@
+
+{
+  "contacts": {
+    "title": "Contacts",
+    "description": "Manage your contacts, edit their information and track their status.",
+    "addContact": "Add Contact",
+    "allContacts": "All Contacts",
+    "searchPlaceholder": "Search contacts...",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "company": "Company",
+    "position": "Position",
+    "status": "Status",
+    "noResults": "No contacts found",
+    "addNewContact": "Add New Contact",
+    "editContact": "Edit Contact",
+    "deleteContact": "Delete Contact",
+    "deleteConfirmation": "Are you sure you want to delete the contact {{name}}?"
+  },
+  "companies": {
+    "title": "Companies",
+    "description": "Manage your companies, their data and classification.",
+    "addCompany": "Add Company",
+    "allCompanies": "All Companies",
+    "searchPlaceholder": "Search companies...",
+    "name": "Name",
+    "industry": "Industry",
+    "employees": "Employees",
+    "revenue": "Revenue",
+    "website": "Website",
+    "country": "Country",
+    "status": "Status",
+    "noResults": "No companies found",
+    "addNewCompany": "Add New Company",
+    "editCompany": "Edit Company",
+    "deleteCompany": "Delete Company",
+    "deleteConfirmation": "Are you sure you want to delete the company {{name}}?"
+  },
+  "status": {
+    "lead": "Lead",
+    "prospect": "Prospect",
+    "customer": "Customer",
+    "inactive": "Inactive",
+    "client": "Client",
+    "partner": "Partner"
+  }
+}

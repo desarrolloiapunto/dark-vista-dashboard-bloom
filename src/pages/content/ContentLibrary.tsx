@@ -1,4 +1,3 @@
-
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -6,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { FolderPlus, Search, Image, FileText, FileVideo, Filter } from "lucide-react";
 
-// Datos de ejemplo para la biblioteca
+// Example library data
 const libraryItems = [
   { id: 1, type: "image", name: "Banner promocional.png", date: "2023-12-10", size: "1.2 MB", uses: 5 },
   { id: 2, type: "image", name: "Logo principal.png", date: "2023-12-05", size: "0.5 MB", uses: 12 },
@@ -19,7 +18,7 @@ const libraryItems = [
 export default function ContentLibrary() {
   const { t } = useTranslation();
   
-  // Función para renderizar el icono según el tipo de archivo
+  // Function to render the icon based on file type
   const getIcon = (type: string) => {
     switch (type) {
       case "image":
@@ -42,23 +41,23 @@ export default function ContentLibrary() {
         </div>
         <Button>
           <FolderPlus size={16} className="mr-2" />
-          Subir archivo
+          {t('content.library.uploadFile')}
         </Button>
       </div>
       
       <Tabs defaultValue="all" className="w-full">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
           <TabsList>
-            <TabsTrigger value="all">Todos</TabsTrigger>
-            <TabsTrigger value="images">Imágenes</TabsTrigger>
-            <TabsTrigger value="documents">Documentos</TabsTrigger>
-            <TabsTrigger value="videos">Videos</TabsTrigger>
+            <TabsTrigger value="all">{t('content.library.all')}</TabsTrigger>
+            <TabsTrigger value="images">{t('content.library.images')}</TabsTrigger>
+            <TabsTrigger value="documents">{t('content.library.documents')}</TabsTrigger>
+            <TabsTrigger value="videos">{t('content.library.videos')}</TabsTrigger>
           </TabsList>
           
           <div className="flex gap-2 w-full sm:w-auto">
             <div className="relative w-full sm:w-64">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input type="search" placeholder="Buscar en biblioteca..." className="pl-8" />
+              <Input type="search" placeholder={t('content.library.searchPlaceholder')} className="pl-8" />
             </div>
             <Button variant="outline" size="icon">
               <Filter className="h-4 w-4" />
@@ -69,7 +68,7 @@ export default function ContentLibrary() {
         <TabsContent value="all" className="mt-0">
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Recursos disponibles</CardTitle>
+              <CardTitle className="text-base">{t('content.library.availableResources')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -85,7 +84,7 @@ export default function ContentLibrary() {
                         <span>{item.size}</span>
                       </div>
                       <div className="text-xs text-muted-foreground mt-1">
-                        Usado en {item.uses} publicaciones
+                        {t('content.library.usedIn', { count: item.uses })}
                       </div>
                     </CardContent>
                   </Card>

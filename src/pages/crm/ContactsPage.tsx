@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { contacts } from "@/data/crm";
 import { Contact } from "@/types/crm";
@@ -15,8 +14,10 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Search, UserPlus, PencilIcon, Trash2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function ContactsPage() {
+  const { t } = useTranslation();
   const [contactList, setContactList] = useState<Contact[]>(contacts);
   const [searchTerm, setSearchTerm] = useState("");
   
@@ -87,13 +88,13 @@ export default function ContactsPage() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "lead":
-        return <Badge variant="outline" className="bg-blue-100 text-blue-800 border-blue-200">Lead</Badge>;
+        return <Badge variant="outline" className="bg-blue-100 text-blue-800 border-blue-200">{t('crm.status.lead')}</Badge>;
       case "prospect":
-        return <Badge variant="outline" className="bg-amber-100 text-amber-800 border-amber-200">Prospecto</Badge>;
+        return <Badge variant="outline" className="bg-amber-100 text-amber-800 border-amber-200">{t('crm.status.prospect')}</Badge>;
       case "customer":
-        return <Badge variant="outline" className="bg-emerald-100 text-emerald-800 border-emerald-200">Cliente</Badge>;
+        return <Badge variant="outline" className="bg-emerald-100 text-emerald-800 border-emerald-200">{t('crm.status.customer')}</Badge>;
       case "inactive":
-        return <Badge variant="outline" className="bg-slate-100 text-slate-800 border-slate-200">Inactivo</Badge>;
+        return <Badge variant="outline" className="bg-slate-100 text-slate-800 border-slate-200">{t('crm.status.inactive')}</Badge>;
       default:
         return <Badge variant="outline">{status}</Badge>;
     }
@@ -102,17 +103,17 @@ export default function ContactsPage() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">Contactos</h1>
+        <h1 className="text-3xl font-bold">{t('crm.contacts.title')}</h1>
         <Button onClick={() => setIsCreateDialogOpen(true)}>
-          <UserPlus className="mr-2 h-4 w-4" /> Añadir Contacto
+          <UserPlus className="mr-2 h-4 w-4" /> {t('crm.contacts.addContact')}
         </Button>
       </div>
       
       <Card>
         <CardHeader>
-          <CardTitle>Todos los Contactos</CardTitle>
+          <CardTitle>{t('crm.contacts.allContacts')}</CardTitle>
           <CardDescription>
-            Gestiona tus contactos, edita su información y realiza un seguimiento de su estado.
+            {t('crm.contacts.description')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -120,7 +121,7 @@ export default function ContactsPage() {
             <div className="relative flex-1">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Buscar contactos..."
+                placeholder={t('crm.contacts.searchPlaceholder')}
                 className="pl-8"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -132,16 +133,20 @@ export default function ContactsPage() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Nombre</TableHead>
-                  <TableHead>Email</TableHead>
-                  <TableHead>Empresa</TableHead>
-                  <TableHead>Posición</TableHead>
-                  <TableHead>Estado</TableHead>
-                  <TableHead className="text-right">Acciones</TableHead>
+                  <TableHead>{t('crm.contacts.name')}</TableHead>
+                  <TableHead>{t('crm.contacts.email')}</TableHead>
+                  <TableHead>{t('crm.contacts.company')}</TableHead>
+                  <TableHead>{t('crm.contacts.position')}</TableHead>
+                  <TableHead>{t('crm.contacts.status')}</TableHead>
+                  <TableHead className="text-right">{t('common.actions')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredContacts.map(contact => (
+                {contactList.filter(contact => 
+                  contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  contact.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  (contact.company && contact.company.toLowerCase().includes(searchTerm.toLowerCase()))
+                ).map(contact => (
                   <TableRow key={contact.id}>
                     <TableCell className="font-medium">{contact.name}</TableCell>
                     <TableCell>{contact.email}</TableCell>
@@ -172,10 +177,14 @@ export default function ContactsPage() {
                     </TableCell>
                   </TableRow>
                 ))}
-                {filteredContacts.length === 0 && (
+                {contactList.filter(contact => 
+                  contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  contact.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  (contact.company && contact.company.toLowerCase().includes(searchTerm.toLowerCase()))
+                ).length === 0 && (
                   <TableRow>
                     <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
-                      No se encontraron contactos
+                      {t('crm.contacts.noResults')}
                     </TableCell>
                   </TableRow>
                 )}
@@ -189,12 +198,12 @@ export default function ContactsPage() {
       <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
-            <DialogTitle>Añadir Nuevo Contacto</DialogTitle>
+            <DialogTitle>{t('crm.contacts.addNewContact')}</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
-                <Label htmlFor="name">Nombre*</Label>
+                <Label htmlFor="name">{t('crm.contacts.name')}*</Label>
                 <Input 
                   id="name" 
                   value={newContact.name} 
@@ -203,7 +212,7 @@ export default function ContactsPage() {
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <Label htmlFor="email">Email*</Label>
+                <Label htmlFor="email">{t('crm.contacts.email')}*</Label>
                 <Input 
                   id="email" 
                   type="email" 
@@ -215,7 +224,7 @@ export default function ContactsPage() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
-                <Label htmlFor="phone">Teléfono</Label>
+                <Label htmlFor="phone">{t('crm.contacts.phone')}</Label>
                 <Input 
                   id="phone" 
                   value={newContact.phone} 
@@ -223,7 +232,7 @@ export default function ContactsPage() {
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <Label htmlFor="company">Empresa</Label>
+                <Label htmlFor="company">{t('crm.contacts.company')}</Label>
                 <Input 
                   id="company" 
                   value={newContact.company} 
@@ -233,7 +242,7 @@ export default function ContactsPage() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
-                <Label htmlFor="position">Posición</Label>
+                <Label htmlFor="position">{t('crm.contacts.position')}</Label>
                 <Input 
                   id="position" 
                   value={newContact.position} 
@@ -241,7 +250,7 @@ export default function ContactsPage() {
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <Label>Estado</Label>
+                <Label>{t('crm.contacts.status')}</Label>
                 <div className="flex gap-4 mt-2">
                   <div className="flex items-center space-x-2">
                     <Checkbox 
@@ -249,7 +258,7 @@ export default function ContactsPage() {
                       checked={newContact.status === "lead"}
                       onCheckedChange={() => setNewContact({...newContact, status: "lead"})} 
                     />
-                    <label htmlFor="status-lead">Lead</label>
+                    <label htmlFor="status-lead">{t('crm.status.lead')}</label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Checkbox 
@@ -257,7 +266,7 @@ export default function ContactsPage() {
                       checked={newContact.status === "prospect"}
                       onCheckedChange={() => setNewContact({...newContact, status: "prospect"})} 
                     />
-                    <label htmlFor="status-prospect">Prospecto</label>
+                    <label htmlFor="status-prospect">{t('crm.status.prospect')}</label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Checkbox 
@@ -265,7 +274,7 @@ export default function ContactsPage() {
                       checked={newContact.status === "customer"}
                       onCheckedChange={() => setNewContact({...newContact, status: "customer"})} 
                     />
-                    <label htmlFor="status-customer">Cliente</label>
+                    <label htmlFor="status-customer">{t('crm.status.customer')}</label>
                   </div>
                 </div>
               </div>
@@ -273,13 +282,36 @@ export default function ContactsPage() {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
-              Cancelar
+              {t('common.cancel')}
             </Button>
             <Button 
-              onClick={handleCreateContact} 
+              onClick={() => {
+                const id = (Math.max(...contactList.map(c => Number(c.id)), 0) + 1).toString();
+                const contact: Contact = {
+                  id,
+                  name: newContact.name || "",
+                  email: newContact.email || "",
+                  phone: newContact.phone,
+                  company: newContact.company,
+                  position: newContact.position,
+                  status: newContact.status as "lead" | "prospect" | "customer" | "inactive",
+                  lastContact: new Date().toISOString().split('T')[0]
+                };
+                
+                setContactList([...contactList, contact]);
+                setNewContact({
+                  name: "",
+                  email: "",
+                  phone: "",
+                  company: "",
+                  position: "",
+                  status: "lead"
+                });
+                setIsCreateDialogOpen(false);
+              }} 
               disabled={!newContact.name || !newContact.email}
             >
-              Guardar
+              {t('common.save')}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -289,13 +321,13 @@ export default function ContactsPage() {
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
-            <DialogTitle>Editar Contacto</DialogTitle>
+            <DialogTitle>{t('crm.contacts.editContact')}</DialogTitle>
           </DialogHeader>
           {currentContact && (
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="edit-name">Nombre*</Label>
+                  <Label htmlFor="edit-name">{t('crm.contacts.name')}*</Label>
                   <Input 
                     id="edit-name" 
                     value={currentContact.name} 
@@ -303,7 +335,7 @@ export default function ContactsPage() {
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="edit-email">Email*</Label>
+                  <Label htmlFor="edit-email">{t('crm.contacts.email')}*</Label>
                   <Input 
                     id="edit-email" 
                     type="email" 
@@ -314,7 +346,7 @@ export default function ContactsPage() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="edit-phone">Teléfono</Label>
+                  <Label htmlFor="edit-phone">{t('crm.contacts.phone')}</Label>
                   <Input 
                     id="edit-phone" 
                     value={currentContact.phone || ""} 
@@ -322,7 +354,7 @@ export default function ContactsPage() {
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="edit-company">Empresa</Label>
+                  <Label htmlFor="edit-company">{t('crm.contacts.company')}</Label>
                   <Input 
                     id="edit-company" 
                     value={currentContact.company || ""} 
@@ -332,7 +364,7 @@ export default function ContactsPage() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="edit-position">Posición</Label>
+                  <Label htmlFor="edit-position">{t('crm.contacts.position')}</Label>
                   <Input 
                     id="edit-position" 
                     value={currentContact.position || ""} 
@@ -340,7 +372,7 @@ export default function ContactsPage() {
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <Label>Estado</Label>
+                  <Label>{t('crm.contacts.status')}</Label>
                   <div className="flex gap-4 mt-2">
                     <div className="flex items-center space-x-2">
                       <Checkbox 
@@ -348,7 +380,7 @@ export default function ContactsPage() {
                         checked={currentContact.status === "lead"}
                         onCheckedChange={() => setCurrentContact({...currentContact, status: "lead"})} 
                       />
-                      <label htmlFor="edit-status-lead">Lead</label>
+                      <label htmlFor="edit-status-lead">{t('crm.status.lead')}</label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Checkbox 
@@ -356,7 +388,7 @@ export default function ContactsPage() {
                         checked={currentContact.status === "prospect"}
                         onCheckedChange={() => setCurrentContact({...currentContact, status: "prospect"})} 
                       />
-                      <label htmlFor="edit-status-prospect">Prospecto</label>
+                      <label htmlFor="edit-status-prospect">{t('crm.status.prospect')}</label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Checkbox 
@@ -364,7 +396,7 @@ export default function ContactsPage() {
                         checked={currentContact.status === "customer"}
                         onCheckedChange={() => setCurrentContact({...currentContact, status: "customer"})} 
                       />
-                      <label htmlFor="edit-status-customer">Cliente</label>
+                      <label htmlFor="edit-status-customer">{t('crm.status.customer')}</label>
                     </div>
                   </div>
                 </div>
@@ -373,13 +405,22 @@ export default function ContactsPage() {
           )}
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
-              Cancelar
+              {t('common.cancel')}
             </Button>
             <Button 
-              onClick={handleEditContact} 
+              onClick={() => {
+                if (!currentContact) return;
+                
+                setContactList(contactList.map(contact => 
+                  contact.id === currentContact.id ? currentContact : contact
+                ));
+                
+                setIsEditDialogOpen(false);
+                setCurrentContact(null);
+              }} 
               disabled={!currentContact?.name || !currentContact?.email}
             >
-              Guardar Cambios
+              {t('common.saveChanges')}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -389,18 +430,24 @@ export default function ContactsPage() {
       <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <DialogContent className="sm:max-w-[400px]">
           <DialogHeader>
-            <DialogTitle>Eliminar Contacto</DialogTitle>
+            <DialogTitle>{t('crm.contacts.deleteContact')}</DialogTitle>
           </DialogHeader>
           <div className="py-4">
-            <p>¿Estás seguro de que quieres eliminar el contacto {currentContact?.name}?</p>
-            <p className="text-sm text-muted-foreground mt-2">Esta acción no se puede deshacer.</p>
+            <p>{t('crm.contacts.deleteConfirmation', { name: currentContact?.name })}</p>
+            <p className="text-sm text-muted-foreground mt-2">{t('common.cannotBeUndone')}</p>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsDeleteDialogOpen(false)}>
-              Cancelar
+              {t('common.cancel')}
             </Button>
-            <Button variant="destructive" onClick={handleDeleteContact}>
-              Eliminar
+            <Button variant="destructive" onClick={() => {
+              if (!currentContact) return;
+              
+              setContactList(contactList.filter(contact => contact.id !== currentContact.id));
+              setIsDeleteDialogOpen(false);
+              setCurrentContact(null);
+            }}>
+              {t('common.delete')}
             </Button>
           </DialogFooter>
         </DialogContent>

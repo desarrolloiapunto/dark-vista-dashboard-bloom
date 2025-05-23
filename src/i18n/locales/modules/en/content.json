@@ -1,38 +1,35 @@
 
 {
-  "dashboard": {
-    "title": "Content Dashboard",
-    "createContent": "Create Content",
-    "scheduledPosts": "Scheduled Posts",
-    "nextWeek": "For next week",
-    "libraryAssets": "Library Resources",
-    "totalAssets": "Total resources",
-    "engagement": "Engagement",
-    "vsLastWeek": "vs. last week",
-    "weeklyEngagement": "Weekly Engagement",
-    "engagementDescription": "Interactions and reach in the last 7 days",
-    "recentPosts": "Recent Posts",
-    "postTitle": "Post",
-    "publishedOn": "Published on",
-    "upcomingPosts": "Upcoming Posts",
-    "scheduledPostTitle": "Scheduled Post"
+  "management": {
+    "title": "Content Management",
+    "description": "Create and manage your content across multiple channels"
   },
   "calendar": {
-    "title": "Publication Calendar",
-    "description": "Plan and schedule posts on social networks."
-  },
-  "library": {
-    "title": "Content Library",
-    "description": "Store and reuse multimedia resources."
+    "title": "Content Calendar",
+    "description": "Schedule and plan your content publication"
   },
   "metrics": {
-    "title": "Metrics Analysis",
-    "description": "Review engagement and reach metrics.",
+    "title": "Content Performance",
+    "engagement": "Engagement",
     "engagementByPlatform": "Engagement by Platform",
     "reachByPlatform": "Reach by Platform",
     "audienceDistribution": "Audience Distribution",
     "topPerformingContent": "Top Performing Content",
-    "contentTitle": "Content",
-    "engagement": "Interactions"
+    "contentTitle": "Content Title",
+    "description": "Track the performance of your content"
+  },
+  "library": {
+    "title": "Content Library",
+    "description": "Manage your media files and assets",
+    "all": "All",
+    "images": "Images",
+    "documents": "Documents",
+    "videos": "Videos",
+    "searchPlaceholder": "Search in library...",
+    "uploadFile": "Upload File",
+    "availableResources": "Available Resources",
+    "usedIn": "Used in {{count}} posts",
+    "date": "Date",
+    "size": "Size"
   }
 }

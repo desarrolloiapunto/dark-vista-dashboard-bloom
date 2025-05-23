@@ -12,6 +12,7 @@ import enDashboard from './locales/modules/en/dashboard.json';
 import enSettings from './locales/modules/en/settings.json';
 import enWorkflows from './locales/modules/en/workflows.json';
 import enEmail from './locales/modules/en/email.json';
+import enCrm from './locales/modules/en/crm.json';
 
 // Import translations - Spanish
 import esCommon from './locales/modules/es/common.json';
@@ -23,6 +24,7 @@ import esDashboard from './locales/modules/es/dashboard.json';
 import esSettings from './locales/modules/es/settings.json';
 import esWorkflows from './locales/modules/es/workflows.json';
 import esEmail from './locales/modules/es/email.json';
+import esCrm from './locales/modules/es/crm.json';
 
 // Get saved language from localStorage or use browser language
 const savedLanguage = localStorage.getItem('language');
@@ -43,7 +45,8 @@ i18n
           dashboard: enDashboard,
           settings: enSettings,
           workflows: enWorkflows,
-          email: enEmail
+          email: enEmail,
+          crm: enCrm
         }
       },
       es: {
@@ -56,7 +59,8 @@ i18n
           dashboard: esDashboard,
           settings: esSettings,
           workflows: esWorkflows,
-          email: esEmail
+          email: esEmail,
+          crm: esCrm
         }
       }
     },

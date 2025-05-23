@@ -1,39 +1,18 @@
 
 {
+  "save": "Save",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "edit": "Edit",
+  "create": "Create",
+  "actions": "Actions",
+  "search": "Search",
+  "filter": "Filter",
+  "comingSoon": "Coming Soon",
+  "saveChanges": "Save Changes",
+  "cannotBeUndone": "This action cannot be undone.",
   "language": {
     "en": "English",
-    "es": "Español"
-  },
-  "navigation": {
-    "dashboard": "Dashboard",
-    "conversations": "Conversations",
-    "emails": "Emails",
-    "crm": "CRM",
-    "marketing": "Marketing",
-    "ads": "Ads",
-    "marketingAds": "Marketing & Ads",
-    "content": "Content",
-    "settings": "Settings"
-  },
-  "header": {
-    "logout": "Logout",
-    "profile": "Profile"
-  },
-  "actions": {
-    "save": "Save",
-    "cancel": "Cancel",
-    "edit": "Edit",
-    "delete": "Delete",
-    "add": "Add",
-    "search": "Search",
-    "filter": "Filter"
-  },
-  "status": {
-    "success": "Success",
-    "error": "Error",
-    "warning": "Warning",
-    "info": "Information"
-  },
-  "comingSoon": "Coming Soon",
-  "saving": "Saving..."
+    "es": "Spanish"
+  }
 }

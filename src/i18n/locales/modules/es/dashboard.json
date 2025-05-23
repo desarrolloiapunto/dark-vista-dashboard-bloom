@@ -1,11 +1,21 @@
 
 {
+  "title": "Panel de Control",
+  "overview": "Vista General",
+  "metrics": "Métricas Principales",
+  "recentActivity": "Actividad Reciente",
+  "performance": "Rendimiento",
   "conversationsAnalytics": "Analíticas de Conversaciones",
-  "analyticsDescription": "Visualiza métricas y tendencias de tus conversaciones",
-  "last7Days": "Últimos 7 días",
-  "last30Days": "Últimos 30 días",
-  "last90Days": "Últimos 90 días",
-  "totalConversations": "Conversaciones Totales",
+  "analyticsDescription": "Monitorea y analiza las métricas de rendimiento de tus conversaciones",
+  "last7Days": "Últimos 7 Días",
+  "last30Days": "Últimos 30 Días", 
+  "last90Days": "Últimos 90 Días",
+  "totalConversations": "Total de Conversaciones",
   "responseRate": "Tasa de Respuesta",
-  "avgResponseTime": "Tiempo Medio de Respuesta"
+  "avgResponseTime": "Tiempo de Respuesta Promedio",
+  "tabs": {
+    "overview": "Vista General",
+    "analytics": "Analíticas",
+    "reports": "Informes"
+  }
 }

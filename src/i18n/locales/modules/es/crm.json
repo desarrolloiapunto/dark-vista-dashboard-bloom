@@ -1,0 +1,48 @@
+
+{
+  "contacts": {
+    "title": "Contactos",
+    "description": "Gestiona tus contactos, edita su información y realiza un seguimiento de su estado.",
+    "addContact": "Añadir Contacto",
+    "allContacts": "Todos los Contactos",
+    "searchPlaceholder": "Buscar contactos...",
+    "name": "Nombre",
+    "email": "Email",
+    "phone": "Teléfono",
+    "company": "Empresa",
+    "position": "Posición",
+    "status": "Estado",
+    "noResults": "No se encontraron contactos",
+    "addNewContact": "Añadir Nuevo Contacto",
+    "editContact": "Editar Contacto",
+    "deleteContact": "Eliminar Contacto",
+    "deleteConfirmation": "¿Estás seguro de que quieres eliminar el contacto {{name}}?"
+  },
+  "companies": {
+    "title": "Empresas",
+    "description": "Gestiona tus empresas, sus datos y clasificación.",
+    "addCompany": "Añadir Empresa",
+    "allCompanies": "Todas las Empresas",
+    "searchPlaceholder": "Buscar empresas...",
+    "name": "Nombre",
+    "industry": "Industria",
+    "employees": "Empleados",
+    "revenue": "Ingresos",
+    "website": "Sitio Web",
+    "country": "País",
+    "status": "Estado",
+    "noResults": "No se encontraron empresas",
+    "addNewCompany": "Añadir Nueva Empresa",
+    "editCompany": "Editar Empresa",
+    "deleteCompany": "Eliminar Empresa",
+    "deleteConfirmation": "¿Estás seguro de que quieres eliminar la empresa {{name}}?"
+  },
+  "status": {
+    "lead": "Lead",
+    "prospect": "Prospecto",
+    "customer": "Cliente",
+    "inactive": "Inactivo",
+    "client": "Cliente",
+    "partner": "Socio"
+  }
+}

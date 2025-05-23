@@ -1,39 +1,18 @@
 
 {
-  "language": {
-    "en": "English",
-    "es": "Español"
-  },
-  "navigation": {
-    "dashboard": "Dashboard",
-    "conversations": "Conversaciones",
-    "emails": "Correos",
-    "crm": "CRM",
-    "marketing": "Marketing",
-    "ads": "Anuncios",
-    "marketingAds": "Marketing y Anuncios",
-    "content": "Contenido",
-    "settings": "Configuración"
-  },
-  "header": {
-    "logout": "Cerrar Sesión",
-    "profile": "Perfil"
-  },
-  "actions": {
-    "save": "Guardar",
-    "cancel": "Cancelar",
-    "edit": "Editar",
-    "delete": "Eliminar",
-    "add": "Añadir",
-    "search": "Buscar",
-    "filter": "Filtrar"
-  },
-  "status": {
-    "success": "Éxito",
-    "error": "Error",
-    "warning": "Advertencia",
-    "info": "Información"
-  },
+  "save": "Guardar",
+  "cancel": "Cancelar",
+  "delete": "Eliminar",
+  "edit": "Editar",
+  "create": "Crear",
+  "actions": "Acciones",
+  "search": "Buscar",
+  "filter": "Filtrar",
   "comingSoon": "Próximamente",
-  "saving": "Guardando..."
+  "saveChanges": "Guardar Cambios",
+  "cannotBeUndone": "Esta acción no se puede deshacer.",
+  "language": {
+    "en": "Inglés",
+    "es": "Español"
+  }
 }
