@@ -1,5 +1,5 @@
 
-import { TrendingUpIcon, ZapIcon, Share2, LineChart, BarChart } from "lucide-react";
+import { TrendingUpIcon, ZapIcon, Share2, LineChart, BarChart, LayoutDashboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -10,6 +10,8 @@ export const MarketingAdsNavigation = () => {
   const { t } = useTranslation();
   
   const marketingAdsActions = [
+    // Dashboard (new addition)
+    { icon: LayoutDashboard, label: t('sidebar.marketingAds.dashboard'), path: "/marketing-ads" },
     // Campaigns (combined from both)
     { icon: TrendingUpIcon, label: t('sidebar.marketingAds.campaigns'), path: "/marketing-ads/campaigns" },
     // Automation (from marketing)
