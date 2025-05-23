@@ -2,7 +2,6 @@
 import { useTranslation } from "react-i18next";
 import { Outlet, useLocation } from "react-router-dom";
 import { GeneralSettings } from "@/components/settings/GeneralSettings";
-import { SettingsNavigation } from "@/components/navigation/SettingsNavigation";
 
 const SettingsPage = () => {
   const { t } = useTranslation();
@@ -18,16 +17,9 @@ const SettingsPage = () => {
         <p className="text-muted-foreground">{t('settings.generalConfigDescription')}</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="md:col-span-1">
-          <div className="sticky top-20">
-            <SettingsNavigation />
-          </div>
-        </div>
-        <div className="md:col-span-3">
-          {showGeneralSettings && <GeneralSettings />}
-          {!showGeneralSettings && <Outlet />}
-        </div>
+      <div>
+        {showGeneralSettings && <GeneralSettings />}
+        {!showGeneralSettings && <Outlet />}
       </div>
     </div>
   );
