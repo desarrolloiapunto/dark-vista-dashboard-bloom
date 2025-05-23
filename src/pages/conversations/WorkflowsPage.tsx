@@ -157,8 +157,12 @@ const WorkflowsPage = () => {
         initialData.menuItems = ['Option 1', 'Option 2', 'Option 3'];
         try {
           const translatedItems = t('workflows.defaultMenuItems', { returnObjects: true });
+          // Ensure translatedItems is an array of strings
           if (Array.isArray(translatedItems)) {
-            initialData.menuItems = translatedItems;
+            // Map each item to ensure they are strings
+            initialData.menuItems = translatedItems.map(item => 
+              typeof item === 'string' ? item : String(item)
+            );
           }
         } catch (error) {
           console.error("Translation error for menu items:", error);
