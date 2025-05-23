@@ -1,0 +1,22 @@
+
+{
+  "typeMessage": "Escribe un mensaje...",
+  "quickReplies": "Respuestas rápidas",
+  "image": "Imagen",
+  "document": "Documento",
+  "online": "En línea",
+  "offline": "Desconectado",
+  "noConversationFound": "Conversación no encontrada",
+  "cancel": "Cancelar",
+  "send": "Enviar",
+  "recording": "Grabando",
+  "audioRecorded": "Audio grabado",
+  "audioReadyToSend": "Audio listo para enviar",
+  "microphoneError": "Error de micrófono",
+  "microphonePermissionDenied": "Permiso de micrófono denegado",
+  "recordingCancelled": "Grabación cancelada",
+  "audioDiscarded": "Audio descartado",
+  "audioSent": "Audio enviado",
+  "audioMessageSent": "Mensaje de audio enviado",
+  "audioMessage": "Mensaje de audio"
+}

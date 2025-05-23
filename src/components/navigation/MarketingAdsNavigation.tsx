@@ -1,5 +1,5 @@
 
-import { TrendingUpIcon, ZapIcon, FileBarChart, BarChart, Share2, LineChart } from "lucide-react";
+import { TrendingUpIcon, ZapIcon, Share2, LineChart, BarChart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -30,13 +30,13 @@ export const MarketingAdsNavigation = () => {
           variant="ghost"
           className={cn(
             "w-full justify-start gap-2",
-            location.pathname === path && "bg-accent text-accent-foreground"
+            location.pathname === path && "bg-accent text-accent-foreground font-medium"
           )}
           asChild
         >
           <Link to={path}>
-            <Icon size={18} />
-            {label}
+            <Icon size={18} className="flex-shrink-0" />
+            <span className="truncate">{label}</span>
           </Link>
         </Button>
       ))}

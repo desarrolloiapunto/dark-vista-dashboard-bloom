@@ -1,0 +1,22 @@
+
+{
+  "typeMessage": "Type a message...",
+  "quickReplies": "Quick replies",
+  "image": "Image",
+  "document": "Document",
+  "online": "Online",
+  "offline": "Offline",
+  "noConversationFound": "Conversation not found",
+  "cancel": "Cancel",
+  "send": "Send",
+  "recording": "Recording",
+  "audioRecorded": "Audio recorded",
+  "audioReadyToSend": "Audio ready to send",
+  "microphoneError": "Microphone error",
+  "microphonePermissionDenied": "Microphone permission denied",
+  "recordingCancelled": "Recording cancelled",
+  "audioDiscarded": "Audio discarded",
+  "audioSent": "Audio sent",
+  "audioMessageSent": "Audio message sent",
+  "audioMessage": "Audio message"
+}

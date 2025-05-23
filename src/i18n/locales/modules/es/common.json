@@ -1,0 +1,22 @@
+
+{
+  "language": {
+    "en": "English",
+    "es": "Español"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "conversations": "Conversaciones",
+    "emails": "Correos",
+    "crm": "CRM",
+    "marketing": "Marketing",
+    "ads": "Anuncios",
+    "marketingAds": "Marketing y Anuncios",
+    "content": "Contenido",
+    "settings": "Configuración"
+  },
+  "header": {
+    "logout": "Cerrar Sesión",
+    "profile": "Perfil"
+  }
+}

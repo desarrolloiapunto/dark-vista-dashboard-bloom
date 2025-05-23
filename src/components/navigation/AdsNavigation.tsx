@@ -24,13 +24,13 @@ export const AdsNavigation = () => {
           variant="ghost"
           className={cn(
             "w-full justify-start gap-2",
-            location.pathname === path && "bg-accent text-accent-foreground"
+            location.pathname === path && "bg-accent text-accent-foreground font-medium"
           )}
           asChild
         >
           <Link to={path}>
-            <Icon size={18} />
-            {label}
+            <Icon size={18} className="flex-shrink-0" />
+            <span className="truncate">{label}</span>
           </Link>
         </Button>
       ))}

@@ -35,6 +35,8 @@ import NotFound from "@/pages/NotFound";
 import Placeholder from "@/pages/Placeholder";
 import QuotesPage from "@/pages/crm/QuotesPage";
 import ProductsPage from "@/pages/crm/ProductsPage";
+import MarketingDashboard from "@/pages/marketing-ads/MarketingDashboard";
+import CampaignsPage from "@/pages/marketing-ads/CampaignsPage";
 
 export const AppLayout = () => {
   const { t } = useTranslation();
@@ -87,14 +89,14 @@ export const AppLayout = () => {
             <Route path="crm/quotes" element={<QuotesPage />} />
             <Route path="crm/products" element={<ProductsPage />} />
             <Route path="crm/reports" element={<ReportsPage />} />
-            <Route path="marketing/campaigns" element={<Placeholder title={t('sidebar.marketing.campaigns')} />} />
-            <Route path="marketing/automation" element={<Placeholder title={t('sidebar.marketing.automation')} />} />
-            <Route path="marketing/ads" element={<Placeholder title={t('sidebar.marketing.ads')} />} />
-            <Route path="marketing/reports" element={<Placeholder title={t('sidebar.marketing.reports')} />} />
-            <Route path="ads/campaigns" element={<Placeholder title={t('sidebar.marketing.campaigns')} />} />
-            <Route path="ads/publish" element={<Placeholder title="Publicación Unificada de Anuncios" />} />
-            <Route path="ads/optimization" element={<Placeholder title="Optimización de Campañas" />} />
-            <Route path="ads/reports" element={<Placeholder title="Reportes y Métricas de Anuncios" />} />
+            
+            {/* Marketing & Ads routes */}
+            <Route path="marketing-ads" element={<MarketingDashboard />} />
+            <Route path="marketing-ads/campaigns" element={<CampaignsPage />} />
+            <Route path="marketing-ads/automation" element={<Placeholder title={t('sidebar.marketingAds.automation')} />} />
+            <Route path="marketing-ads/publish" element={<Placeholder title={t('sidebar.marketingAds.publish')} />} />
+            <Route path="marketing-ads/optimization" element={<Placeholder title={t('sidebar.marketingAds.optimization')} />} />
+            <Route path="marketing-ads/reports" element={<Placeholder title={t('sidebar.marketingAds.reports')} />} />
             
             {/* Content routes */}
             <Route path="content/" element={<ContentManagement />} />

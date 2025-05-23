@@ -1,0 +1,55 @@
+
+{
+  "dashboard": {
+    "summary": "Summary",
+    "analytics": "Analytics"
+  },
+  "conversations": {
+    "dashboard": "Dashboard",
+    "inbox": "Inbox",
+    "workflows": "Workflows",
+    "settings": "Settings"
+  },
+  "marketing": {
+    "dashboard": "Dashboard",
+    "campaigns": "Campaigns",
+    "automation": "Automation",
+    "ads": "Ads",
+    "reports": "Reports"
+  },
+  "marketingAds": {
+    "campaigns": "Campaigns",
+    "automation": "Automation",
+    "publish": "Publish",
+    "optimization": "Optimization",
+    "reports": "Reports"
+  },
+  "settings": {
+    "general": "General",
+    "chanels": "Conversations Chanels",
+    "users": "Users",
+    "apiKeys": "API Keys",
+    "emails": "Emails"
+  },
+  "crm": {
+    "dashboard": "Dashboard",
+    "contacts": "Contacts",
+    "companies": "Companies",
+    "tasks": "Tasks",
+    "opportunities": "Opportunities",
+    "leads": "Leads",
+    "leadsSources": "Leads Sources",
+    "leadsTracking": "Leads Tracking",
+    "leadsAutomation": "Leads Automation",
+    "reports": "Reports"
+  },
+  "content": {
+    "dashboard": "Dashboard",
+    "calendar": "Content Calendar",
+    "publish": "Publish",
+    "customize": "Customize",
+    "library": "Content Library", 
+    "reports": "Reports",
+    "metrics": "Metrics Analysis"
+  }
+}

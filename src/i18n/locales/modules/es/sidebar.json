@@ -1,0 +1,54 @@
+
+{
+  "dashboard": {
+    "summary": "Resumen",
+    "analytics": "Análisis"
+  },
+  "conversations": {
+    "dashboard": "Dashboard",
+    "inbox": "Bandeja de Entrada",
+    "workflows": "Flujos de Trabajo"
+  },
+  "marketing": {
+    "dashboard": "Dashboard",
+    "campaigns": "Campañas",
+    "automation": "Automatización",
+    "ads": "Ads",
+    "reports": "Reportes"
+  },
+  "marketingAds": {
+    "campaigns": "Campañas",
+    "automation": "Automatización",
+    "publish": "Publicar",
+    "optimization": "Optimización",
+    "reports": "Informes"
+  },
+  "settings": {
+    "general": "Configuración General",
+    "chanels": "Canales de Conversación",
+    "users": "Usuarios",
+    "apiKeys": "Apis Keys",
+    "emails": "Correos"
+  },
+  "crm": {
+    "dashboard": "Dashboard",
+    "contacts": "Contactos",
+    "companies": "Compañías",
+    "tasks": "Tareas",
+    "opportunities": "Oportunuidades",
+    "leads": "Leads",
+    "leadsSources": "Origen de Leads",
+    "leadsTracking": "Seguimiento de Leads",
+    "leadsAutomation": "Automatización de Leads",
+    "reports": "Reportes y Métricas"
+  },
+  "content": {
+    "dashboard": "Dashboard",
+    "calendar": "Calendario de Publicaciones",
+    "publish": "Publicar",
+    "customize": "Personalizar",
+    "library": "Biblioteca de Contenido", 
+    "reports": "Informes",
+    "metrics": "Análisis de Métricas"
+  }
+}

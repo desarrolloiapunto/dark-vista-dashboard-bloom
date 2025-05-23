@@ -1,0 +1,38 @@
+
+{
+  "dashboard": {
+    "title": "Dashboard de Contenido",
+    "createContent": "Crear Contenido",
+    "scheduledPosts": "Publicaciones Programadas",
+    "nextWeek": "Para la próxima semana",
+    "libraryAssets": "Recursos en Biblioteca",
+    "totalAssets": "Recursos totales",
+    "engagement": "Engagement",
+    "vsLastWeek": "vs. semana anterior",
+    "weeklyEngagement": "Engagement Semanal",
+    "engagementDescription": "Interacciones y alcance en los últimos 7 días",
+    "recentPosts": "Publicaciones Recientes",
+    "postTitle": "Publicación",
+    "publishedOn": "Publicado el",
+    "upcomingPosts": "Próximas Publicaciones",
+    "scheduledPostTitle": "Publicación Programada"
+  },
+  "calendar": {
+    "title": "Calendario de Publicaciones",
+    "description": "Planifica y programa publicaciones en redes sociales."
+  },
+  "library": {
+    "title": "Biblioteca de Contenido",
+    "description": "Almacena y reutiliza recursos multimedia."
+  },
+  "metrics": {
+    "title": "Análisis de Métricas",
+    "description": "Revisa métricas de engagement y alcance.",
+    "engagementByPlatform": "Engagement por Plataforma",
+    "reachByPlatform": "Alcance por Plataforma",
+    "audienceDistribution": "Distribución de Audiencia",
+    "topPerformingContent": "Contenido con Mejor Rendimiento",
+    "contentTitle": "Contenido",
+    "engagement": "Interacciones"
+  }
+}

@@ -2,9 +2,27 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-// Import translations
-import enTranslation from './locales/en.json';
-import esTranslation from './locales/es.json';
+// Import translations - English
+import enCommon from './locales/modules/en/common.json';
+import enSidebar from './locales/modules/en/sidebar.json';
+import enContent from './locales/modules/en/content.json';
+import enMarketing from './locales/modules/en/marketing.json';
+import enConversation from './locales/modules/en/conversation.json';
+import enDashboard from './locales/modules/en/dashboard.json';
+import enSettings from './locales/modules/en/settings.json';
+import enWorkflows from './locales/modules/en/workflows.json';
+import enEmail from './locales/modules/en/email.json';
+
+// Import translations - Spanish
+import esCommon from './locales/modules/es/common.json';
+import esSidebar from './locales/modules/es/sidebar.json';
+import esContent from './locales/modules/es/content.json';
+import esMarketing from './locales/modules/es/marketing.json';
+import esConversation from './locales/modules/es/conversation.json';
+import esDashboard from './locales/modules/es/dashboard.json';
+import esSettings from './locales/modules/es/settings.json';
+import esWorkflows from './locales/modules/es/workflows.json';
+import esEmail from './locales/modules/es/email.json';
 
 // Get saved language from localStorage or use browser language
 const savedLanguage = localStorage.getItem('language');
@@ -16,10 +34,30 @@ i18n
   .init({
     resources: {
       en: {
-        translation: enTranslation
+        translation: {
+          ...enCommon,
+          sidebar: enSidebar,
+          content: enContent,
+          marketing: enMarketing,
+          conversation: enConversation,
+          dashboard: enDashboard,
+          settings: enSettings,
+          workflows: enWorkflows,
+          email: enEmail
+        }
       },
       es: {
-        translation: esTranslation
+        translation: {
+          ...esCommon,
+          sidebar: esSidebar,
+          content: esContent,
+          marketing: esMarketing,
+          conversation: esConversation,
+          dashboard: esDashboard,
+          settings: esSettings,
+          workflows: esWorkflows,
+          email: esEmail
+        }
       }
     },
     lng: defaultLanguage,

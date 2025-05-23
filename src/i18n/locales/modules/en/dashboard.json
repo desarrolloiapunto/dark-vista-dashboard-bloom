@@ -1,0 +1,11 @@
+
+{
+  "conversationsAnalytics": "Conversations Analytics",
+  "analyticsDescription": "View metrics and trends from your conversations",
+  "last7Days": "Last 7 days",
+  "last30Days": "Last 30 days",
+  "last90Days": "Last 90 days",
+  "totalConversations": "Total Conversations",
+  "responseRate": "Response Rate",
+  "avgResponseTime": "Avg. Response Time"
+}
