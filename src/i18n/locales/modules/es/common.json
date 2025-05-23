@@ -18,5 +18,22 @@
   "header": {
     "logout": "Cerrar Sesión",
     "profile": "Perfil"
-  }
+  },
+  "actions": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "add": "Añadir",
+    "search": "Buscar",
+    "filter": "Filtrar"
+  },
+  "status": {
+    "success": "Éxito",
+    "error": "Error",
+    "warning": "Advertencia",
+    "info": "Información"
+  },
+  "comingSoon": "Próximamente",
+  "saving": "Guardando..."
 }
