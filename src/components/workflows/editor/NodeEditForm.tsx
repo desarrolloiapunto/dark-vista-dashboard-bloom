@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Node } from '@xyflow/react';
 import { useTranslation } from 'react-i18next';
@@ -16,8 +15,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue
-} from "@/components/ui/";
-import { X, Plus } from 'lucide-react';
+} from "@/components/ui";
 
 // Define the type for our node data
 interface NodeData {
