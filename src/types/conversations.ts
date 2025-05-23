@@ -1,5 +1,5 @@
 
-export type Channel = "whatsapp" | "facebook" | "instagram" | "telegram";
+export type Channel = "whatsapp" | "facebook" | "instagram" | "telegram" | "web";
 
 export interface Contact {
   id: string;

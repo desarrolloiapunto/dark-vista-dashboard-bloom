@@ -1,4 +1,3 @@
-
 import { useState, useCallback, useRef } from 'react';
 import {
   ReactFlow,
@@ -48,7 +47,9 @@ import {
   Zap, 
   X, 
   Copy,
-  Trash
+  Trash,
+  List,
+  LayoutDashboard
 } from "lucide-react";
 
 // Node types
@@ -56,6 +57,8 @@ import MessageNode from '@/components/workflows/MessageNode';
 import AIPromptNode from '@/components/workflows/AIPromptNode';
 import ConditionNode from '@/components/workflows/ConditionNode';
 import ActionNode from '@/components/workflows/ActionNode';
+import MenuNode from '@/components/workflows/MenuNode';
+import DashboardNode from '@/components/workflows/DashboardNode';
 
 // Initial elements for the workflow
 const initialNodes: Node[] = [
@@ -77,6 +80,8 @@ const nodeTypes = {
   aiPrompt: AIPromptNode,
   condition: ConditionNode,
   action: ActionNode,
+  menu: MenuNode,
+  dashboard: DashboardNode,
 };
 
 // Define the type for our node data
@@ -86,6 +91,8 @@ interface NodeData {
   prompt?: string;
   condition?: string;
   action?: string;
+  menuItems?: string[];
+  dashboardConfig?: Record<string, any>;
   // Add index signature to satisfy Record<string, unknown>
   [key: string]: unknown;
 }
@@ -121,6 +128,10 @@ const WorkflowsPage = () => {
       setActiveTab('condition');
     } else if (node.type === 'action') {
       setActiveTab('action');
+    } else if (node.type === 'menu') {
+      setActiveTab('menuItems');
+    } else if (node.type === 'dashboard') {
+      setActiveTab('dashboardConfig');
     }
   }, []);
 
@@ -140,6 +151,12 @@ const WorkflowsPage = () => {
         break;
       case 'action':
         initialData.action = t('workflows.defaultAction');
+        break;
+      case 'menu':
+        initialData.menuItems = t('workflows.defaultMenuItems', { returnObjects: true }) || ['Option 1', 'Option 2', 'Option 3'];
+        break;
+      case 'dashboard':
+        initialData.dashboardConfig = JSON.parse(t('workflows.defaultDashboardConfig') || '{"widgets":[]}');
         break;
     }
     
@@ -225,6 +242,60 @@ const WorkflowsPage = () => {
       title: t('workflows.workflowSaved'),
       description: t('workflows.workflowSavedSuccess')
     });
+  };
+
+  // Helper function to add a menu item
+  const addMenuItem = () => {
+    if (!editedNodeData) return;
+    
+    const currentItems = editedNodeData.menuItems || [];
+    const newItem = `Option ${currentItems.length + 1}`;
+    
+    setEditedNodeData({
+      ...editedNodeData,
+      menuItems: [...currentItems, newItem]
+    });
+  };
+
+  // Helper function to remove a menu item
+  const removeMenuItem = (index: number) => {
+    if (!editedNodeData?.menuItems) return;
+    
+    const updatedItems = [...editedNodeData.menuItems];
+    updatedItems.splice(index, 1);
+    
+    setEditedNodeData({
+      ...editedNodeData,
+      menuItems: updatedItems
+    });
+  };
+
+  // Helper function to update a menu item
+  const updateMenuItem = (index: number, value: string) => {
+    if (!editedNodeData?.menuItems) return;
+    
+    const updatedItems = [...editedNodeData.menuItems];
+    updatedItems[index] = value;
+    
+    setEditedNodeData({
+      ...editedNodeData,
+      menuItems: updatedItems
+    });
+  };
+
+  // Helper function to update dashboard config
+  const updateDashboardConfig = (configStr: string) => {
+    if (!editedNodeData) return;
+    
+    try {
+      const config = JSON.parse(configStr);
+      setEditedNodeData({
+        ...editedNodeData,
+        dashboardConfig: config
+      });
+    } catch (error) {
+      console.error("Invalid JSON for dashboard config:", error);
+    }
   };
 
   const getNodeEditForm = () => {
@@ -404,6 +475,119 @@ const WorkflowsPage = () => {
           </Tabs>
         );
         
+      case 'menu':
+        return (
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
+            <TabsList className="mb-4">
+              <TabsTrigger value="menuItems">{t('workflows.menuItems')}</TabsTrigger>
+              <TabsTrigger value="settings">{t('workflows.settings')}</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="menuItems" className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="node-label">{t('workflows.nodeTitle')}</Label>
+                <Input 
+                  id="node-label" 
+                  value={editedNodeData.label || ''} 
+                  onChange={(e) => setEditedNodeData({...editedNodeData, label: e.target.value})}
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <Label>{t('workflows.menuItems')}</Label>
+                  <Button 
+                    size="sm" 
+                    variant="outline" 
+                    onClick={addMenuItem}
+                    className="flex items-center gap-1"
+                  >
+                    <Plus className="h-3 w-3" /> {t('workflows.addMenuItem')}
+                  </Button>
+                </div>
+                <div className="space-y-2 p-2 border rounded">
+                  {editedNodeData.menuItems?.map((item, index) => (
+                    <div key={index} className="flex gap-2">
+                      <Input 
+                        value={item} 
+                        onChange={(e) => updateMenuItem(index, e.target.value)}
+                      />
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        onClick={() => removeMenuItem(index)}
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  ))}
+                  {(!editedNodeData.menuItems || editedNodeData.menuItems.length === 0) && (
+                    <p className="text-sm text-muted-foreground py-2">
+                      No menu items. Add one with the button above.
+                    </p>
+                  )}
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  {t('workflows.menuItemsDescription')}
+                </p>
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="settings" className="space-y-4">
+              <div className="space-y-2">
+                <Label>{t('workflows.actionSettings')}</Label>
+                <p className="text-sm text-muted-foreground">
+                  {t('workflows.actionSettingsDescription')}
+                </p>
+              </div>
+            </TabsContent>
+          </Tabs>
+        );
+        
+      case 'dashboard':
+        return (
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
+            <TabsList className="mb-4">
+              <TabsTrigger value="dashboardConfig">{t('workflows.dashboardConfig')}</TabsTrigger>
+              <TabsTrigger value="settings">{t('workflows.settings')}</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="dashboardConfig" className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="node-label">{t('workflows.nodeTitle')}</Label>
+                <Input 
+                  id="node-label" 
+                  value={editedNodeData.label || ''} 
+                  onChange={(e) => setEditedNodeData({...editedNodeData, label: e.target.value})}
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="dashboard-config">{t('workflows.dashboardConfig')}</Label>
+                <Textarea 
+                  id="dashboard-config" 
+                  value={editedNodeData.dashboardConfig ? JSON.stringify(editedNodeData.dashboardConfig, null, 2) : ''}
+                  onChange={(e) => updateDashboardConfig(e.target.value)}
+                  rows={8}
+                  className="resize-none font-mono text-sm"
+                />
+                <p className="text-xs text-muted-foreground">
+                  {t('workflows.dashboardConfigDescription')}
+                </p>
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="settings" className="space-y-4">
+              <div className="space-y-2">
+                <Label>{t('workflows.actionSettings')}</Label>
+                <p className="text-sm text-muted-foreground">
+                  {t('workflows.actionSettingsDescription')}
+                </p>
+              </div>
+            </TabsContent>
+          </Tabs>
+        );
+        
       default:
         return null;
     }
@@ -491,6 +675,22 @@ const WorkflowsPage = () => {
             >
               <Zap className="h-8 w-8 mb-1" />
               <span className="text-xs">{t('workflows.action')}</span>
+            </Button>
+            <Button 
+              variant="outline" 
+              className="flex flex-col h-24 p-2"
+              onClick={() => addNewNode('menu', t('workflows.menuNode'))}
+            >
+              <List className="h-8 w-8 mb-1" />
+              <span className="text-xs">{t('workflows.menu')}</span>
+            </Button>
+            <Button 
+              variant="outline" 
+              className="flex flex-col h-24 p-2"
+              onClick={() => addNewNode('dashboard', t('workflows.dashboardNode'))}
+            >
+              <LayoutDashboard className="h-8 w-8 mb-1" />
+              <span className="text-xs">{t('workflows.dashboard')}</span>
             </Button>
           </div>
         </div>
