@@ -11,6 +11,7 @@ import {
   Edge,
   Connection,
   Node,
+  Panel,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
@@ -36,6 +37,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useTranslation } from "react-i18next";
 import { 
   PanelRight, 
@@ -49,7 +51,7 @@ import {
   Copy,
   Trash,
   List,
-  LayoutDashboard
+  Image,
 } from "lucide-react";
 
 // Node types
@@ -58,7 +60,8 @@ import AIPromptNode from '@/components/workflows/AIPromptNode';
 import ConditionNode from '@/components/workflows/ConditionNode';
 import ActionNode from '@/components/workflows/ActionNode';
 import MenuNode from '@/components/workflows/MenuNode';
-import DashboardNode from '@/components/workflows/DashboardNode';
+import MultimediaNode from '@/components/workflows/MultimediaNode';
+import ButtonEdge from '@/components/workflows/ButtonEdge';
 
 // Initial elements for the workflow
 const initialNodes: Node[] = [
@@ -81,7 +84,11 @@ const nodeTypes = {
   condition: ConditionNode,
   action: ActionNode,
   menu: MenuNode,
-  dashboard: DashboardNode,
+  multimedia: MultimediaNode,
+};
+
+const edgeTypes = {
+  buttonedge: ButtonEdge,
 };
 
 // Define the type for our node data
@@ -92,7 +99,26 @@ interface NodeData {
   condition?: string;
   action?: string;
   menuItems?: string[];
-  dashboardConfig?: Record<string, any>;
+  multimediaType?: "productCard" | "video" | "pdf" | "imageGallery";
+  multimediaContent?: {
+    title?: string;
+    description?: string;
+    mediaUrl?: string;
+    products?: {
+      id: string;
+      name: string;
+      description: string;
+      price: number;
+      imageUrl: string;
+      paymentLink?: string;
+      infoLink?: string;
+    }[];
+    dynamicSource?: string;
+    links?: {
+      label: string;
+      url: string;
+    }[];
+  };
   // Add index signature to satisfy Record<string, unknown>
   [key: string]: unknown;
 }
@@ -108,8 +134,19 @@ const WorkflowsPage = () => {
   const [activeTab, setActiveTab] = useState("content");
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
   
+  // Connection handling with buttonedge default type
   const onConnect = useCallback(
-    (params: Edge | Connection) => setEdges((eds) => addEdge(params, eds)),
+    (params: Edge | Connection) => {
+      // Set default edge type to buttonedge
+      const updatedParams = {
+        ...params,
+        type: 'buttonedge',
+        markerEnd: {
+          type: MarkerType.ArrowClosed,
+        },
+      };
+      setEdges((eds) => addEdge(updatedParams, eds));
+    },
     [setEdges]
   );
 
@@ -130,8 +167,8 @@ const WorkflowsPage = () => {
       setActiveTab('action');
     } else if (node.type === 'menu') {
       setActiveTab('menuItems');
-    } else if (node.type === 'dashboard') {
-      setActiveTab('dashboardConfig');
+    } else if (node.type === 'multimedia') {
+      setActiveTab('multimediaContent');
     }
   }, []);
 
@@ -168,14 +205,12 @@ const WorkflowsPage = () => {
           console.error("Translation error for menu items:", error);
         }
         break;
-      case 'dashboard':
-        try {
-          const dashboardConfigStr = t('workflows.defaultDashboardConfig');
-          initialData.dashboardConfig = JSON.parse(dashboardConfigStr || '{"widgets":[]}');
-        } catch (error) {
-          console.error("Error parsing dashboard config:", error);
-          initialData.dashboardConfig = { widgets: [] };
-        }
+      case 'multimedia':
+        initialData.multimediaType = "productCard";
+        initialData.multimediaContent = {
+          title: "Producto",
+          products: []
+        };
         break;
     }
     
@@ -302,19 +337,172 @@ const WorkflowsPage = () => {
     });
   };
 
-  // Helper function to update dashboard config
-  const updateDashboardConfig = (configStr: string) => {
+  // Helper functions for multimedia nodes
+  const handleMultimediaTypeChange = (value: string) => {
     if (!editedNodeData) return;
     
-    try {
-      const config = JSON.parse(configStr);
-      setEditedNodeData({
-        ...editedNodeData,
-        dashboardConfig: config
-      });
-    } catch (error) {
-      console.error("Invalid JSON for dashboard config:", error);
+    // Cast value to the correct type
+    const multimediaType = value as "productCard" | "video" | "pdf" | "imageGallery";
+    
+    // Set up default content based on the multimedia type
+    let multimediaContent = editedNodeData.multimediaContent || {};
+    
+    switch (multimediaType) {
+      case "productCard":
+        multimediaContent = {
+          ...multimediaContent,
+          products: multimediaContent.products || [],
+        };
+        break;
+      case "video":
+      case "pdf":
+        multimediaContent = {
+          ...multimediaContent,
+          mediaUrl: multimediaContent.mediaUrl || "",
+        };
+        break;
+      case "imageGallery":
+        multimediaContent = {
+          ...multimediaContent,
+          links: multimediaContent.links || [],
+        };
+        break;
     }
+    
+    setEditedNodeData({
+      ...editedNodeData,
+      multimediaType,
+      multimediaContent
+    });
+  };
+
+  const addProduct = () => {
+    if (!editedNodeData?.multimediaContent) return;
+    
+    const products = editedNodeData.multimediaContent.products || [];
+    const newProduct = {
+      id: `prod_${Date.now()}`,
+      name: "",
+      description: "",
+      price: 0,
+      imageUrl: "",
+    };
+    
+    setEditedNodeData({
+      ...editedNodeData,
+      multimediaContent: {
+        ...editedNodeData.multimediaContent,
+        products: [...products, newProduct]
+      }
+    });
+  };
+
+  const updateProduct = (index: number, field: string, value: any) => {
+    if (!editedNodeData?.multimediaContent?.products) return;
+    
+    const updatedProducts = [...editedNodeData.multimediaContent.products];
+    updatedProducts[index] = {
+      ...updatedProducts[index],
+      [field]: value
+    };
+    
+    setEditedNodeData({
+      ...editedNodeData,
+      multimediaContent: {
+        ...editedNodeData.multimediaContent,
+        products: updatedProducts
+      }
+    });
+  };
+
+  const removeProduct = (index: number) => {
+    if (!editedNodeData?.multimediaContent?.products) return;
+    
+    const updatedProducts = [...editedNodeData.multimediaContent.products];
+    updatedProducts.splice(index, 1);
+    
+    setEditedNodeData({
+      ...editedNodeData,
+      multimediaContent: {
+        ...editedNodeData.multimediaContent,
+        products: updatedProducts
+      }
+    });
+  };
+
+  const addLink = () => {
+    if (!editedNodeData?.multimediaContent) return;
+    
+    const links = editedNodeData.multimediaContent.links || [];
+    const newLink = {
+      label: "",
+      url: "",
+    };
+    
+    setEditedNodeData({
+      ...editedNodeData,
+      multimediaContent: {
+        ...editedNodeData.multimediaContent,
+        links: [...links, newLink]
+      }
+    });
+  };
+
+  const updateLink = (index: number, field: string, value: string) => {
+    if (!editedNodeData?.multimediaContent?.links) return;
+    
+    const updatedLinks = [...editedNodeData.multimediaContent.links];
+    updatedLinks[index] = {
+      ...updatedLinks[index],
+      [field]: value
+    };
+    
+    setEditedNodeData({
+      ...editedNodeData,
+      multimediaContent: {
+        ...editedNodeData.multimediaContent,
+        links: updatedLinks
+      }
+    });
+  };
+
+  const removeLink = (index: number) => {
+    if (!editedNodeData?.multimediaContent?.links) return;
+    
+    const updatedLinks = [...editedNodeData.multimediaContent.links];
+    updatedLinks.splice(index, 1);
+    
+    setEditedNodeData({
+      ...editedNodeData,
+      multimediaContent: {
+        ...editedNodeData.multimediaContent,
+        links: updatedLinks
+      }
+    });
+  };
+
+  const updateDynamicSource = (value: string) => {
+    if (!editedNodeData) return;
+    
+    setEditedNodeData({
+      ...editedNodeData,
+      multimediaContent: {
+        ...editedNodeData.multimediaContent || {},
+        dynamicSource: value
+      }
+    });
+  };
+
+  const updateMediaContent = (field: string, value: string) => {
+    if (!editedNodeData) return;
+    
+    setEditedNodeData({
+      ...editedNodeData,
+      multimediaContent: {
+        ...editedNodeData.multimediaContent || {},
+        [field]: value
+      }
+    });
   };
 
   const getNodeEditForm = () => {
@@ -566,15 +754,15 @@ const WorkflowsPage = () => {
           </Tabs>
         );
         
-      case 'dashboard':
+      case 'multimedia':
         return (
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="mb-4">
-              <TabsTrigger value="dashboardConfig">{t('workflows.dashboardConfig')}</TabsTrigger>
+              <TabsTrigger value="multimediaContent">{t('workflows.content')}</TabsTrigger>
               <TabsTrigger value="settings">{t('workflows.settings')}</TabsTrigger>
             </TabsList>
             
-            <TabsContent value="dashboardConfig" className="space-y-4">
+            <TabsContent value="multimediaContent" className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="node-label">{t('workflows.nodeTitle')}</Label>
                 <Input 
@@ -585,25 +773,281 @@ const WorkflowsPage = () => {
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="dashboard-config">{t('workflows.dashboardConfig')}</Label>
-                <Textarea 
-                  id="dashboard-config" 
-                  value={editedNodeData.dashboardConfig ? JSON.stringify(editedNodeData.dashboardConfig, null, 2) : ''}
-                  onChange={(e) => updateDashboardConfig(e.target.value)}
-                  rows={8}
-                  className="resize-none font-mono text-sm"
-                />
+                <Label htmlFor="multimedia-type">{t('workflows.multimediaType')}</Label>
+                <Select
+                  value={editedNodeData.multimediaType || "productCard"}
+                  onValueChange={handleMultimediaTypeChange}
+                >
+                  <SelectTrigger id="multimedia-type">
+                    <SelectValue placeholder={t('workflows.multimediaType')} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="productCard">{t('workflows.productCard')}</SelectItem>
+                    <SelectItem value="video">{t('workflows.video')}</SelectItem>
+                    <SelectItem value="pdf">{t('workflows.pdf')}</SelectItem>
+                    <SelectItem value="imageGallery">{t('workflows.imageGallery')}</SelectItem>
+                  </SelectContent>
+                </Select>
                 <p className="text-xs text-muted-foreground">
-                  {t('workflows.dashboardConfigDescription')}
+                  {t('workflows.multimediaTypeDescription')}
                 </p>
               </div>
+              
+              {/* Media Title & Description (common for all types) */}
+              <div className="space-y-2">
+                <Label htmlFor="media-title">{t('workflows.mediaTitle')}</Label>
+                <Input 
+                  id="media-title" 
+                  value={editedNodeData.multimediaContent?.title || ''} 
+                  onChange={(e) => updateMediaContent('title', e.target.value)}
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="media-description">{t('workflows.mediaDescription')}</Label>
+                <Textarea 
+                  id="media-description" 
+                  value={editedNodeData.multimediaContent?.description || ''} 
+                  onChange={(e) => updateMediaContent('description', e.target.value)}
+                  rows={2}
+                  className="resize-none"
+                />
+              </div>
+              
+              {/* Content specific to multimedia type */}
+              {editedNodeData.multimediaType === "productCard" && (
+                <div className="space-y-2 border p-3 rounded">
+                  <div className="flex items-center justify-between">
+                    <Label>{t('workflows.productSource')}</Label>
+                    <Select
+                      value={editedNodeData.multimediaContent?.dynamicSource ? "dynamic" : "static"}
+                      onValueChange={(value) => {
+                        if (value === "dynamic") {
+                          updateDynamicSource("products");
+                        } else {
+                          // Clear dynamic source if static is selected
+                          updateDynamicSource("");
+                        }
+                      }}
+                    >
+                      <SelectTrigger className="w-[180px]">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="static">{t('workflows.staticProducts')}</SelectItem>
+                        <SelectItem value="dynamic">{t('workflows.dynamicProducts')}</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  {/* Dynamic source config */}
+                  {editedNodeData.multimediaContent?.dynamicSource && (
+                    <div className="mt-2">
+                      <Label>{t('workflows.productSource')}</Label>
+                      <Input 
+                        value={editedNodeData.multimediaContent.dynamicSource} 
+                        onChange={(e) => updateDynamicSource(e.target.value)}
+                        placeholder="products"
+                      />
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Variable name that contains product data
+                      </p>
+                    </div>
+                  )}
+                  
+                  {/* Static products */}
+                  {!editedNodeData.multimediaContent?.dynamicSource && (
+                    <>
+                      <div className="flex items-center justify-between mt-4">
+                        <Label>{t('workflows.productCard')}</Label>
+                        <Button 
+                          size="sm" 
+                          variant="outline" 
+                          onClick={addProduct}
+                          className="flex items-center gap-1"
+                        >
+                          <Plus className="h-3 w-3" /> {t('workflows.addProduct')}
+                        </Button>
+                      </div>
+                      
+                      {/* Product list */}
+                      <div className="space-y-4 mt-2">
+                        {editedNodeData.multimediaContent?.products?.map((product, index) => (
+                          <div key={index} className="border p-2 rounded space-y-2">
+                            <div className="flex justify-between">
+                              <span className="font-medium">Product {index + 1}</span>
+                              <Button 
+                                size="sm" 
+                                variant="ghost" 
+                                onClick={() => removeProduct(index)}
+                                className="h-6 w-6 p-0"
+                              >
+                                <X className="h-4 w-4" />
+                              </Button>
+                            </div>
+                            
+                            <div className="space-y-2">
+                              <div>
+                                <Label htmlFor={`product-name-${index}`}>{t('workflows.productName')}</Label>
+                                <Input 
+                                  id={`product-name-${index}`}
+                                  value={product.name} 
+                                  onChange={(e) => updateProduct(index, 'name', e.target.value)}
+                                />
+                              </div>
+                              
+                              <div>
+                                <Label htmlFor={`product-desc-${index}`}>{t('workflows.productDescription')}</Label>
+                                <Textarea 
+                                  id={`product-desc-${index}`}
+                                  value={product.description} 
+                                  onChange={(e) => updateProduct(index, 'description', e.target.value)}
+                                  rows={2}
+                                  className="resize-none"
+                                />
+                              </div>
+                              
+                              <div>
+                                <Label htmlFor={`product-price-${index}`}>{t('workflows.productPrice')}</Label>
+                                <Input 
+                                  id={`product-price-${index}`}
+                                  value={product.price} 
+                                  onChange={(e) => updateProduct(index, 'price', parseFloat(e.target.value) || 0)}
+                                  type="number"
+                                />
+                              </div>
+                              
+                              <div>
+                                <Label htmlFor={`product-image-${index}`}>{t('workflows.productImage')}</Label>
+                                <Input 
+                                  id={`product-image-${index}`}
+                                  value={product.imageUrl} 
+                                  onChange={(e) => updateProduct(index, 'imageUrl', e.target.value)}
+                                  placeholder="https://..."
+                                />
+                              </div>
+                              
+                              <div>
+                                <Label htmlFor={`payment-link-${index}`}>{t('workflows.paymentLink')}</Label>
+                                <Input 
+                                  id={`payment-link-${index}`}
+                                  value={product.paymentLink || ''} 
+                                  onChange={(e) => updateProduct(index, 'paymentLink', e.target.value)}
+                                  placeholder="https://..."
+                                />
+                              </div>
+                              
+                              <div>
+                                <Label htmlFor={`info-link-${index}`}>{t('workflows.infoLink')}</Label>
+                                <Input 
+                                  id={`info-link-${index}`}
+                                  value={product.infoLink || ''} 
+                                  onChange={(e) => updateProduct(index, 'infoLink', e.target.value)}
+                                  placeholder="https://..."
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                        
+                        {(!editedNodeData.multimediaContent?.products || editedNodeData.multimediaContent.products.length === 0) && (
+                          <p className="text-sm text-muted-foreground py-2">
+                            No products added. Click 'Add Product' to create product cards.
+                          </p>
+                        )}
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
+              
+              {/* Video Content */}
+              {editedNodeData.multimediaType === "video" && (
+                <div className="space-y-2">
+                  <Label htmlFor="media-url">{t('workflows.mediaUrl')}</Label>
+                  <Input 
+                    id="media-url" 
+                    value={editedNodeData.multimediaContent?.mediaUrl || ''} 
+                    onChange={(e) => updateMediaContent('mediaUrl', e.target.value)}
+                    placeholder="https://..."
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    URL of the video to display
+                  </p>
+                </div>
+              )}
+              
+              {/* PDF Content */}
+              {editedNodeData.multimediaType === "pdf" && (
+                <div className="space-y-2">
+                  <Label htmlFor="media-url">{t('workflows.mediaUrl')}</Label>
+                  <Input 
+                    id="media-url" 
+                    value={editedNodeData.multimediaContent?.mediaUrl || ''} 
+                    onChange={(e) => updateMediaContent('mediaUrl', e.target.value)}
+                    placeholder="https://..."
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    URL of the PDF document to display
+                  </p>
+                </div>
+              )}
+              
+              {/* Image Gallery Content */}
+              {editedNodeData.multimediaType === "imageGallery" && (
+                <div className="space-y-2 border p-3 rounded">
+                  <div className="flex items-center justify-between">
+                    <Label>{t('workflows.addLink')}</Label>
+                    <Button 
+                      size="sm" 
+                      variant="outline" 
+                      onClick={addLink}
+                      className="flex items-center gap-1"
+                    >
+                      <Plus className="h-3 w-3" /> {t('workflows.addLink')}
+                    </Button>
+                  </div>
+                  
+                  <div className="space-y-2 mt-2">
+                    {editedNodeData.multimediaContent?.links?.map((link, index) => (
+                      <div key={index} className="flex gap-2">
+                        <Input 
+                          value={link.label} 
+                          onChange={(e) => updateLink(index, 'label', e.target.value)}
+                          placeholder="Label"
+                          className="w-1/3"
+                        />
+                        <Input 
+                          value={link.url} 
+                          onChange={(e) => updateLink(index, 'url', e.target.value)}
+                          placeholder="https://..."
+                          className="flex-1"
+                        />
+                        <Button 
+                          size="sm" 
+                          variant="outline" 
+                          onClick={() => removeLink(index)}
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    ))}
+                    
+                    {(!editedNodeData.multimediaContent?.links || editedNodeData.multimediaContent.links.length === 0) && (
+                      <p className="text-sm text-muted-foreground py-2">
+                        No links added. Add links to images for the gallery.
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}
             </TabsContent>
             
             <TabsContent value="settings" className="space-y-4">
               <div className="space-y-2">
-                <Label>{t('workflows.actionSettings')}</Label>
+                <Label>{t('workflows.multimediaSettings')}</Label>
                 <p className="text-sm text-muted-foreground">
-                  {t('workflows.actionSettingsDescription')}
+                  {t('workflows.multimediaDescription')}
                 </p>
               </div>
             </TabsContent>
@@ -639,11 +1083,13 @@ const WorkflowsPage = () => {
             onConnect={onConnect}
             onNodeClick={onNodeClick}
             nodeTypes={nodeTypes}
+            edgeTypes={edgeTypes}
             fitView
             snapToGrid
             snapGrid={[15, 15]}
             defaultEdgeOptions={{ 
               animated: true,
+              type: 'buttonedge',
               markerEnd: {
                 type: MarkerType.ArrowClosed,
               },
@@ -652,6 +1098,13 @@ const WorkflowsPage = () => {
             <Controls />
             <MiniMap />
             <Background gap={16} size={1} />
+            <Panel position="top-left">
+              <div className="bg-background p-2 rounded shadow-md border mb-2">
+                <p className="text-xs text-muted-foreground">
+                  Click on connections to delete them
+                </p>
+              </div>
+            </Panel>
           </ReactFlow>
         </div>
       </div>
@@ -709,10 +1162,10 @@ const WorkflowsPage = () => {
             <Button 
               variant="outline" 
               className="flex flex-col h-24 p-2"
-              onClick={() => addNewNode('dashboard', t('workflows.dashboardNode'))}
+              onClick={() => addNewNode('multimedia', t('workflows.multimediaNode'))}
             >
-              <LayoutDashboard className="h-8 w-8 mb-1" />
-              <span className="text-xs">{t('workflows.dashboard')}</span>
+              <Image className="h-8 w-8 mb-1" />
+              <span className="text-xs">{t('workflows.multimedia')}</span>
             </Button>
           </div>
         </div>
@@ -749,7 +1202,7 @@ const WorkflowsPage = () => {
             </DialogDescription>
           </DialogHeader>
           
-          <div className="py-4">
+          <div className="py-4 max-h-[60vh] overflow-y-auto">
             {getNodeEditForm()}
           </div>
           
