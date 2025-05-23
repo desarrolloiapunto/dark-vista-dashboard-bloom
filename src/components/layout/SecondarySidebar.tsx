@@ -37,7 +37,7 @@ export function SecondarySidebar() {
   } else if (location.pathname.startsWith("/crm")) {
     NavigationComponent = CrmNavigation;
     title = t('navigation.crm');
-  } else if (location.pathname.startsWith("/marketing-ads")) {
+  } else if (location.pathname.startsWith("/marketing-ads") || location.pathname.startsWith("/ads")) {
     NavigationComponent = MarketingAdsNavigation;
     title = t('navigation.marketingAds');
   } else if (location.pathname.startsWith("/content")) {

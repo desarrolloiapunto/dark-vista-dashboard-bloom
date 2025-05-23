@@ -144,6 +144,10 @@ const App = () => {
                     <Route path="marketing-ads/optimization" element={<Placeholder title={t('sidebar.marketingAds.optimization')} />} />
                     <Route path="marketing-ads/reports" element={<Placeholder title={t('sidebar.marketingAds.reports')} />} />
                     
+                    {/* Legacy Ads routes - redirect to unified marketing-ads */}
+                    <Route path="ads" element={<Navigate to="/marketing-ads" replace />} />
+                    <Route path="ads/*" element={<Navigate to="/marketing-ads" replace />} />
+                    
                     {/* Content routes */}
                     <Route path="content/" element={<ContentManagement />} />
                     <Route path="content/calendar" element={<ContentCalendar />} />
