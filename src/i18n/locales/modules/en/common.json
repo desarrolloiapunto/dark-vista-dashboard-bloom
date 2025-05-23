@@ -18,5 +18,22 @@
   "header": {
     "logout": "Logout",
     "profile": "Profile"
-  }
+  },
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add",
+    "search": "Search",
+    "filter": "Filter"
+  },
+  "status": {
+    "success": "Success",
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Information"
+  },
+  "comingSoon": "Coming Soon",
+  "saving": "Saving..."
 }

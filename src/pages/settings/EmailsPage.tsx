@@ -1,6 +1,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useTranslation } from "react-i18next";
+import { SettingsNavigation } from "@/components/navigation/SettingsNavigation";
 
 const EmailsPage = () => {
   const { t } = useTranslation();
@@ -12,16 +13,26 @@ const EmailsPage = () => {
         <p className="text-muted-foreground">{t('settings.emailConfigurationDescription')}</p>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>{t('settings.emailSettings')}</CardTitle>
-          <CardDescription>{t('settings.emailSettingsDescription')}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          {/* Email configuration functionality will be implemented later */}
-          <p className="text-muted-foreground">{t('common.comingSoon')}</p>
-        </CardContent>
-      </Card>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="md:col-span-1">
+          <div className="sticky top-20">
+            <SettingsNavigation />
+          </div>
+        </div>
+        
+        <div className="md:col-span-3">
+          <Card>
+            <CardHeader>
+              <CardTitle>{t('settings.emailSettings')}</CardTitle>
+              <CardDescription>{t('settings.emailSettingsDescription')}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {/* Email configuration functionality will be implemented later */}
+              <p className="text-muted-foreground">{t('common.comingSoon')}</p>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
     </div>
   );
 };
