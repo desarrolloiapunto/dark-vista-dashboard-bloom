@@ -153,10 +153,25 @@ const WorkflowsPage = () => {
         initialData.action = t('workflows.defaultAction');
         break;
       case 'menu':
-        initialData.menuItems = t('workflows.defaultMenuItems', { returnObjects: true }) || ['Option 1', 'Option 2', 'Option 3'];
+        // Fix for the translation issue - provide a default array if translation fails
+        initialData.menuItems = ['Option 1', 'Option 2', 'Option 3'];
+        try {
+          const translatedItems = t('workflows.defaultMenuItems', { returnObjects: true });
+          if (Array.isArray(translatedItems)) {
+            initialData.menuItems = translatedItems;
+          }
+        } catch (error) {
+          console.error("Translation error for menu items:", error);
+        }
         break;
       case 'dashboard':
-        initialData.dashboardConfig = JSON.parse(t('workflows.defaultDashboardConfig') || '{"widgets":[]}');
+        try {
+          const dashboardConfigStr = t('workflows.defaultDashboardConfig');
+          initialData.dashboardConfig = JSON.parse(dashboardConfigStr || '{"widgets":[]}');
+        } catch (error) {
+          console.error("Error parsing dashboard config:", error);
+          initialData.dashboardConfig = { widgets: [] };
+        }
         break;
     }
     

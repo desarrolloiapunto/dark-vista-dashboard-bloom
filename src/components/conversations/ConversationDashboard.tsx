@@ -2,6 +2,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BarChart, PieChart, Activity, Users, MessageSquare, CheckCheck } from "lucide-react";
 import { Conversation, Channel } from "@/types/conversations";
+import { getChannelColor } from "@/lib/conversationUtils";
 
 interface ConversationDashboardProps {
   conversations: Conversation[];
@@ -23,7 +24,8 @@ const ConversationDashboard = ({ conversations }: ConversationDashboardProps) =>
     whatsapp: 0,
     facebook: 0,
     instagram: 0,
-    telegram: 0
+    telegram: 0,
+    web: 0 // Added the web channel
   };
   
   conversations.forEach(conv => {
@@ -99,31 +101,38 @@ const ConversationDashboard = ({ conversations }: ConversationDashboardProps) =>
               <PieChart className="h-32 w-32 text-muted-foreground mb-4" />
               <div className="grid grid-cols-2 gap-4 w-full">
                 <div className="flex items-center">
-                  <div className="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+                  <div className={`w-3 h-3 rounded-full bg-green-500 mr-2`}></div>
                   <div className="flex-1">
                     <div className="text-sm">WhatsApp</div>
                     <div className="text-sm font-medium">{channelCounts.whatsapp}</div>
                   </div>
                 </div>
                 <div className="flex items-center">
-                  <div className="w-3 h-3 rounded-full bg-blue-500 mr-2"></div>
+                  <div className={`w-3 h-3 rounded-full bg-blue-500 mr-2`}></div>
                   <div className="flex-1">
                     <div className="text-sm">Facebook</div>
                     <div className="text-sm font-medium">{channelCounts.facebook}</div>
                   </div>
                 </div>
                 <div className="flex items-center">
-                  <div className="w-3 h-3 rounded-full bg-pink-500 mr-2"></div>
+                  <div className={`w-3 h-3 rounded-full bg-pink-500 mr-2`}></div>
                   <div className="flex-1">
                     <div className="text-sm">Instagram</div>
                     <div className="text-sm font-medium">{channelCounts.instagram}</div>
                   </div>
                 </div>
                 <div className="flex items-center">
-                  <div className="w-3 h-3 rounded-full bg-sky-500 mr-2"></div>
+                  <div className={`w-3 h-3 rounded-full bg-sky-500 mr-2`}></div>
                   <div className="flex-1">
                     <div className="text-sm">Telegram</div>
                     <div className="text-sm font-medium">{channelCounts.telegram}</div>
+                  </div>
+                </div>
+                <div className="flex items-center">
+                  <div className={`w-3 h-3 rounded-full bg-violet-500 mr-2`}></div>
+                  <div className="flex-1">
+                    <div className="text-sm">Web</div>
+                    <div className="text-sm font-medium">{channelCounts.web}</div>
                   </div>
                 </div>
               </div>
