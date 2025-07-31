@@ -81,14 +81,14 @@ const Profile = () => {
 
       if (error) throw error;
 
-      // Update the user data in the profile table
+      // Update the user data in the profiles table
       const { error: profileError } = await supabase
-        .from('profile')
+        .from('profiles')
         .update({ 
           full_name: values.display_name || values.username,
           updated_at: new Date().toISOString()
         })
-        .eq('id', user?.id);
+        .eq('user_id', user?.id);
 
       if (profileError) throw profileError;
 
